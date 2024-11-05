@@ -1,10 +1,13 @@
 import './App.css'
-import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import { RouterProvider } from 'react-router-dom'
+import router from '@routers/Index'
 
 function App() {
   return (
     <>
-      
+      <div className="App">
+        <RouterProvider router={router}/>
+      </div>
     </>
   )
 }
