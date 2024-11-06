@@ -8,7 +8,7 @@ export const umkm_catalogue = [
             image2 : "link",
             image3 : "link",
         },
-        image_360 : "/img/foto-360.JPG",
+        image_360 : "/img/foto-360.webp",
     },
     {
         id : 2,
@@ -19,7 +19,7 @@ export const umkm_catalogue = [
             image2 : "link",
             image3 : "link",
         },
-        image_360 : "/img/foto-360-2.JPG",
+        image_360 : "/img/foto-360-2.webp",
     },
     {
         id : 3,
@@ -30,7 +30,7 @@ export const umkm_catalogue = [
             image2 : "link",
             image3 : "link",
         },
-        image_360 : "/img/foto-360-3.JPG",
+        image_360 : "/img/foto-360-3.webp",
     },
     {
         id : 4,
@@ -41,7 +41,7 @@ export const umkm_catalogue = [
             image2 : "link",
             image3 : "link",
         },
-        image_360 : "/img/foto-360-4.jpg",
+        image_360 : "/img/foto-360-4.webp",
     },
     {
         id : 5,
@@ -52,7 +52,7 @@ export const umkm_catalogue = [
             image2 : "link",
             image3 : "link",
         },
-        image_360 : "/img/foto-360.JPG",
+        image_360 : "/img/foto-360.webp",
     },
     {
         id : 6,
@@ -63,7 +63,7 @@ export const umkm_catalogue = [
             image2 : "link",
             image3 : "link",
         },
-        image_360 : "/img/foto-360-2.JPG",
+        image_360 : "/img/foto-360-2.webp",
     },
     {
         id : 7,
@@ -74,7 +74,7 @@ export const umkm_catalogue = [
             image2 : "link",
             image3 : "link",
         },
-        image_360 : "/img/foto-360-3.JPG",
+        image_360 : "/img/foto-360-3.webp",
     },
     {
         id : 8,
@@ -85,7 +85,7 @@ export const umkm_catalogue = [
             image2 : "link",
             image3 : "link",
         },
-        image_360 : "/img/foto-360-4.jpg",
+        image_360 : "/img/foto-360-4.webp",
     },
     {
         id : 9,
@@ -96,7 +96,7 @@ export const umkm_catalogue = [
             image2 : "link",
             image3 : "link",
         },
-        image_360 : "/img/foto-360.JPG",
+        image_360 : "/img/foto-360.webp",
     },
     {
         id : 10,
@@ -107,7 +107,7 @@ export const umkm_catalogue = [
             image2 : "link",
             image3 : "link",
         },
-        image_360 : "/img/foto-360-2.JPG",
+        image_360 : "/img/foto-360-2.webp",
     },
     {
         id : 11,
@@ -118,6 +118,6 @@ export const umkm_catalogue = [
             image2 : "link",
             image3 : "link",
         },
-        image_360 : "/img/foto-360-3.JPG",
+        image_360 : "/img/foto-360-3.webp",
     },
 ]
