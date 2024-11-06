@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Avatar, Typography, Card, CardActionArea, CardContent, Menu, MenuItem, Divider  } from '@mui/material'
+import { Avatar, Typography, Card, CardActionArea, CardContent, Menu, MenuItem, Divider } from '@mui/material'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
@@ -24,26 +24,23 @@ const UserDropdown = () => {
 
     return (
         <div className="user-account flex items-center gap-3">
-
-            <button variant="contained" onClick={handleClick}>
-                <CardActionArea>
-                    <CardContent>
-                        <div className="user-account flex items-center gap-3">
-                            <div className="user-account-wrapper flex items-center gap-3">
-                                <Avatar />
-                                <div className="user-name-email text-start">
-                                    <p className='text-sm font-semibold'>Nama User</p>
-                                    <p className='text-sm font-normal'>user@gmail.com</p>
-                                </div>
+            <CardActionArea>
+                <CardContent onClick={handleClick}>
+                    <div className="user-account flex items-center gap-3">
+                        <div className="user-account-wrapper flex items-center gap-3">
+                            <Avatar />
+                            <div className="user-name-email text-start">
+                                <p className='text-sm font-semibold'>Nama User</p>
+                                <p className='text-sm font-normal'>user@gmail.com</p>
                             </div>
-                            <KeyboardArrowDownIcon sx={{
-                                transform: Boolean(anchorEl) ? 'rotate(180deg)' : 'rotate(0deg)',
-                                transition: 'transform 0.3s ease', // Animasi rotasi
-                            }} />
                         </div>
-                    </CardContent>
-                </CardActionArea>
-            </button>
+                        <KeyboardArrowDownIcon sx={{
+                            transform: Boolean(anchorEl) ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.3s ease', // Animasi rotasi
+                        }} />
+                    </div>
+                </CardContent>
+            </CardActionArea>
 
             <Menu
                 anchorEl={anchorEl}
@@ -51,8 +48,6 @@ const UserDropdown = () => {
                 onClose={handleClose}
 
                 elevation={0}
-
-                variant='outlined'
 
                 anchorOrigin={{
                     vertical: 'bottom',
@@ -70,11 +65,6 @@ const UserDropdown = () => {
                 <Divider sx={{ my: 0.5 }} />
                 <MenuItem onClick={handleClose}> <LogoutOutlinedIcon sx={{ marginRight: "1rem" }} /> Logout</MenuItem>
             </Menu>
-
-
-
-
-
         </div >
     )
 }
