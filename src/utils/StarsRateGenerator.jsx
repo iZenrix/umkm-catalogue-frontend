@@ -4,7 +4,6 @@ import StarHalfRoundedIcon from '@mui/icons-material/StarHalfRounded';
 
 const StarsRateGenerator = ({ number }) => {
     let items = []
-    let count = 0
 
     const isFloat = number % 1 !== 0
 
@@ -12,21 +11,33 @@ const StarsRateGenerator = ({ number }) => {
         number = 5
     }
 
-    if (isFloat) {
-        while (count < Math.floor(number)) {
+    const loopTheStars = (iterate, isFloat = false) => {
+        let count = 0
+        let newConstraint = ( isFloat? 4 : 5) - iterate
+
+        while (count < iterate) {
             items.push(<StarRateRoundedIcon sx={{ color: "#FFB605" }} key={count} />)
-            if (count + 1 === Math.floor(number)) {
-                items.push(<StarHalfRoundedIcon sx={{ color: "#FFB605" }} key={count + 1} />)
+            if (isFloat) {
+                if (count + 1 === iterate) {
+                    items.push(<StarHalfRoundedIcon sx={{ color: "#FFB605" }} key={count + 1} />)
+                }
             }
             count++
         }
-    } else {
-        while (count < number) {
-            items.push(<StarRateRoundedIcon sx={{ color: "#FFB605" }} key={count} />)
+
+        count = 0
+
+        while (count < newConstraint) {
+            items.push(<StarRateRoundedIcon sx={{ color: "#5B5B5B" }} key={count} />)
             count++
         }
     }
 
+    if (isFloat) {
+        loopTheStars(Math.floor(number), true)
+    } else {
+        loopTheStars(number)
+    }
 
     return (
         <div className="stars-rate-wrapper flex items-center gap-2">
