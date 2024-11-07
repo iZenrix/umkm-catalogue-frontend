@@ -8,7 +8,10 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
+import { useAuth } from '@contexts/AuthContext';
+
 const UserDropdown = () => {
+    const {user} = useAuth()
     const [anchorEl, setAnchorEl] = useState(null); // State untuk mengatur anchor
 
     // Fungsi untuk membuka menu
@@ -30,8 +33,8 @@ const UserDropdown = () => {
                         <div className="user-account-wrapper flex items-center gap-3">
                             <Avatar />
                             <div className="user-name-email text-start">
-                                <p className='text-sm font-semibold'>Nama User</p>
-                                <p className='text-sm font-normal'>user@gmail.com</p>
+                                <p className='text-sm font-semibold'>{user?.name}</p>
+                                <p className='text-sm font-normal'>{user?.email}</p>
                             </div>
                         </div>
                         <KeyboardArrowDownIcon sx={{
