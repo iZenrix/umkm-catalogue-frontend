@@ -1,24 +1,18 @@
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
+import StorageIcon from '@mui/icons-material/Storage';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export const menuDasboard = [
     {
-        name : "Dasboard",
-        icon : <HomeOutlinedIcon />
+        name : "Approval",
+        icon : <DoneOutlineIcon />
     },
     {
-        name : "Dasboard",
-        icon : <HomeOutlinedIcon />
+        name : "Database",
+        icon : <StorageIcon />
     },
     {
-        name : "Dasboard",
-        icon : <HomeOutlinedIcon />
-    },
-    {
-        name : "Dasboard",
-        icon : <HomeOutlinedIcon />
-    },
-    {
-        name : "Dasboard",
-        icon : <HomeOutlinedIcon />
+        name : "Logout",
+        icon : <LogoutIcon />
     },
 ]

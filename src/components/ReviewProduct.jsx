@@ -6,7 +6,7 @@ import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 const ReviewProduct = () => {
     return (
         <div className="review-product mt-3">
-            <Card elevation={4}>
+            <Card sx={{boxShadow : '2px 5px 13px 0px rgba(0,0,0,0.15)', borderRadius : "1rem"}}>
                 <CardContent>
                     <h3 className='text-lg font-semibold'>Nama User</h3>
                     <p className='font-light'>07 November 2024</p>

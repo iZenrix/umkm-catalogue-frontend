@@ -19,7 +19,7 @@ const FilterUmkm = () => {
     const [selectedOption, setSelectedOption] = useState([])
 
     return (
-        <div className="category-filter">
+        <div className="category-filter p-3 bg-white rounded-lg">
             <Grid2 container spacing={2}>
                 <Grid2 size={9}>
                     <Autocomplete

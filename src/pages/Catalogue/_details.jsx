@@ -4,8 +4,7 @@ import { useParams } from 'react-router-dom';
 import { umkm_catalogue as data } from '@data/catalogue';
 import { ReactPhotoSphereViewer } from 'react-photo-sphere-viewer';
 
-import { Grid2, Typography } from '@mui/material'
-import { Card, CardContent } from '@mui/material'
+import { Grid2, Card, CardContent } from '@mui/material'
 
 import UmkmDetailsCard from '@components/UmkmDetailsCard';
 import GaleryProducts from '@components/GaleryProducts';
@@ -36,7 +35,7 @@ const DetailCatalogue = () => {
                                 <Grid2 size={8}>
                                     <GaleryProducts />
                                     <div className='product-detail mt-5'>
-                                        <Card elevation={4} sx={{ borderRadius: "1rem" }}>
+                                        <Card sx={{ borderRadius: "1rem", boxShadow : '2px 5px 13px -4px rgba(0,0,0,0.15)' }}>
                                             <CardContent>
                                                 <h1 className='font-semibold text-primary-600'>Product</h1>
                                                 <ProductDetail />

@@ -4,6 +4,7 @@ import { data_umkm } from '@data/umkm'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import SortOutlinedIcon from '@mui/icons-material/SortOutlined';
+import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 
 const Dashboard = () => {
     return (
@@ -47,7 +48,12 @@ const Dashboard = () => {
                                     </td>
                                     <td className='py-5 text-center'>{value.category}</td>
                                     <td className='py-5 text-center'>{value.location}</td>
-                                    <td className='py-5 text-center'>{value.rate}</td>
+                                    <td className='py-5 text-center'>
+                                        <div className="data-rate-wrapper flex justify-center items-center gap-2">
+                                            <p>{value.rate}</p>
+                                            <StarRateRoundedIcon sx={{ color: "#FFB605" }} />
+                                        </div>
+                                    </td>
                                     <td className='py-5'>
                                         <div className="flex justify-center items-center h-full">
                                             <button className='bg-secondary-300 hover:bg-secondary-200 py-2 px-5 rounded-full text-secondary-800'>

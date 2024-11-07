@@ -29,7 +29,7 @@ const Sidebar = () => {
                     <p className='text-base font-semibold text-primary-600'>{value.name}</p>
                   </div>
                 </ListItem>
-                {index === menuDasboard.length - 3 && <Divider sx={{ margin: "1rem 0" }} ></Divider>}
+                {index === menuDasboard.length - 2 && <Divider sx={{ margin: "1rem 0" }} ></Divider>}
               </>
             ))
           }

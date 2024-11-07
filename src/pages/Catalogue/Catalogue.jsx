@@ -10,8 +10,8 @@ import { Grid2 } from '@mui/material'
 const Catalogue = () => {
     return (
         <div className='p-3 pt-10'>
-            <div className="banner bg-light-background p-20 rounded-xl mb-8">
-                banner
+            <div className="banner bg-primary-800 p-24 rounded-xl mb-8">
+                
             </div>
             <div className="catalogue">
                 <Grid2 container spacing={4}>

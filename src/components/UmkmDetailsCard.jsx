@@ -10,29 +10,29 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 const UmkmDetailsCard = () => {
     return (
         <div className="info-umkm">
-            <Card elevation={5} sx={{ borderRadius: "0.7rem" }}>
+            <Card sx={{ borderRadius: "0.7rem", boxShadow : '2px 5px 13px -4px rgba(0,0,0,0.15)' }}>
                 <CardMedia
                     component="img"
                     image='/img/bg-umkm.png'
                 />
                 <CardContent>
                     <div className="stats-umkm flex gap-5">
-                        <div className="stats-item flex gap-2">
-                            <p>4.5</p>
-                            <StarRateRoundedIcon sx={{ color: "#FFB605" }} />
+                        <div className="stats-item flex items-center gap-2">
+                            <p className='text-sm'>4.5</p>
+                            <StarRateRoundedIcon sx={{ color: "#FFB605", fontSize : "1.5rem" }} />
                         </div>
-                        <div className="stats-item flex gap-1">
-                            <p>100k</p>
-                            <VisibilityIcon sx={{ color: "#0081C9" }} />
+                        <div className="stats-item flex items-center gap-2">
+                            <p className='text-sm'>100k</p>
+                            <VisibilityIcon sx={{ color: "#0081C9", fontSize : "1.5rem" }} />
                         </div>
-                        <div className="stats-item flex gap-1">
-                            <p>32k</p>
-                            <FavoriteIcon sx={{ color: "#F04438" }} />
+                        <div className="stats-item flex items-center gap-2">
+                            <p className='text-sm'>32k</p>
+                            <FavoriteIcon sx={{ color: "#F04438", fontSize : "1.5rem" }} />
                         </div>
                     </div>
                     <div className="info-umkm mt-5">
-                        <h1 className='text-2xl font-medium mb-2'>Bakso Kepala Sapi</h1>
-                        <p>Bakso ini sangat enak seperti anda menjadi iron man</p>
+                        <h1 className='text-xl font-medium mb-2'>Bakso Kepala Sapi</h1>
+                        <p className='text-sm'>Bakso ini sangat enak seperti anda menjadi iron man</p>
                     </div>
                     <div className="badges-umkm mt-5 flex gap-3">
                         <Chip label="Inovatif" variant='outlined' icon={<BookmarkIcon sx={{ color: "#51FFC2" }} />} />
@@ -41,9 +41,9 @@ const UmkmDetailsCard = () => {
 
                     <div className="contact-umkm mt-5">
                         <p className='font-semibold text-primary-600'>CONTACT</p>
-                        <p>+62 753221207</p>
-                        <p>@kepalasapi77</p>
-                        <p>kepalasapi77@gmail.com</p>
+                        <p className='text-sm'>+62 753221207</p>
+                        <p className='text-sm'>@kepalasapi77</p>
+                        <p className='text-sm'>kepalasapi77@gmail.com</p>
                     </div>
 
                     <div className="contact-umkm mt-5">
@@ -55,7 +55,7 @@ const UmkmDetailsCard = () => {
                         allowfullscreen="" 
                         loading="lazy" 
                         referrerpolicy="no-referrer-when-downgrade"
-                        className='my-5'
+                        className='mb-3'
                         ></iframe>
                         <p>Jl. Tapal Gajah No 77 Surabaya, Jawa Timur, 73752</p>
                     </div>

@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 const GaleryProducts = () => {
 
     return (
-        <Card elevation={4} sx={{borderRadius : "1rem"}}>
+        <Card sx={{borderRadius : "1rem", boxShadow : '2px 5px 13px -4px rgba(0,0,0,0.15)'}}>
             <CardContent>
                 <p className='font-semibold text-primary-600 mb-4'>Galery Product</p>
                 <Slider
