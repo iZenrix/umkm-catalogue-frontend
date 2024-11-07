@@ -39,6 +39,11 @@ export default {
           background: '#8A8A8E',
           foreground1: '#FFFFFF',
           foreground2: '#F9F9F9',
+        },
+        'tersier' : {
+          yellow : "#FFB605",
+          blue : "#0081C9",
+          red : "#F04438"
         }
       },
     },

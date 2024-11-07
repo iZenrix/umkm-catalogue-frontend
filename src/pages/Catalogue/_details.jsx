@@ -4,41 +4,23 @@ import { useParams } from 'react-router-dom';
 import { umkm_catalogue as data } from '@data/catalogue';
 import { ReactPhotoSphereViewer } from 'react-photo-sphere-viewer';
 
-import { Grid2, Typography, Card, CardMedia, CardContent, CardActionArea, Chip, IconButton, Avatar } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
+import { Card, CardContent } from '@mui/material'
+
+import UmkmDetailsCard from '@components/UmkmDetailsCard';
+import GaleryProducts from '@components/GaleryProducts';
+import ProductDetail from '@components/ProductDetail';
+import ReviewProduct from '@components/ReviewProduct';
 
 const DetailCatalogue = () => {
     const { id } = useParams()
 
     return (
-        <div className="detail-catalogue p-3 pt-10">
+        <div className="detail-catalogue p-3 pt-10 pb-96">
             <div className="details-content-wrapper">
                 <Grid2 container spacing={3}>
                     <Grid2 size={3}>
-                        <div className="info-owner">
-                            <Card variant='outlined'>
-                                <CardContent>
-                                    <div className="owner-pict-wrapper relative flex justify-center mb-20">
-                                        <CardMedia
-                                            component="img"
-                                            image='https://placehold.co/600x250'
-                                        />
-                                        <div className="avatar-container absolute top-20">
-                                            <Avatar sx={{ width: 100, height: 100 }} />
-                                        </div>
-                                    </div>
-                                    <div className="owner-info-wrapper">
-                                        <Typography variant='body1'>Nama Owner : Bijak</Typography>
-                                        <Typography variant='body1'>Usia : 20</Typography>
-                                        <Typography variant='body1' sx={{ marginBottom: 2 }}>Nama Usaha : </Typography>
-                                        <div className="list-umkm flex flex-wrap gap-2 gap-y-2">
-                                            <Chip variant='outlined' label="UMKM 1" />
-                                            <Chip variant='outlined' label="UMKM 2" />
-                                            <Chip variant='outlined' label="UMKM Hebat" />
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </div>
+                        <UmkmDetailsCard />
                     </Grid2>
                     <Grid2 size={9}>
                         <div className="umkm-details">
@@ -50,12 +32,23 @@ const DetailCatalogue = () => {
                                 >
                                 </ReactPhotoSphereViewer>
                             </div>
-                            <Typography variant='h3' fontWeight="bold">
-                                {data[(id - 1)].name}
-                            </Typography>
-                            <Typography variant='h6'>
-                                {data[(id - 1)].description}
-                            </Typography>
+                            <Grid2 container spacing={3}>
+                                <Grid2 size={8}>
+                                    <GaleryProducts />
+                                    <div className='product-detail mt-5'>
+                                        <Card elevation={4} sx={{ borderRadius: "1rem" }}>
+                                            <CardContent>
+                                                <h1 className='font-semibold text-primary-600'>Product</h1>
+                                                <ProductDetail />
+                                            </CardContent>
+                                        </Card>
+                                    </div>
+                                </Grid2>
+                                <Grid2 size={4}>
+                                    <h1 className='font-semibold text-primary-600'>Review Product</h1>
+                                    <ReviewProduct />
+                                </Grid2>
+                            </Grid2>
                         </div>
                     </Grid2>
                 </Grid2>
