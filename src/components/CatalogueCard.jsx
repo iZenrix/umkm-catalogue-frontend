@@ -16,7 +16,7 @@ const CatalogueCard = ({ data }) => {
                         <CardActionArea>
                             <CardMedia
                                 component="img"
-                                image='https://placehold.co/600x400'
+                                image='/img/bg-umkm.png'
                             />
                             <CardContent>
                                 <div className="badges mb-5 flex flex-row gap-2">
@@ -40,7 +40,7 @@ const CatalogueCard = ({ data }) => {
                     </Link>
                     <div className="card-interaction flex flex-row justify-end mx-3 mt-1 mb-3">
                         <IconButton aria-label="add to favorites">
-                            <Favorite />
+                            <Favorite sx={{ color: "#F04438" }} />
                         </IconButton>
                         <IconButton aria-label="share">
                             <Share />
