@@ -1,0 +1,51 @@
+export const data_umkm = [
+    {
+        id : "QES457",
+        umkm : "Djojo Makanan Roemahan",
+        category : "culinary",
+        location : "central java",
+        rate : "✨",
+    },
+    {
+        id : "QES457",
+        umkm : "Djojo Makanan Roemahan",
+        category : "culinary",
+        location : "central java",
+        rate : "✨",
+    },
+    {
+        id : "QES457",
+        umkm : "Djojo Makanan Roemahan",
+        category : "culinary",
+        location : "central java",
+        rate : "✨",
+    },
+    {
+        id : "QES457",
+        umkm : "Djojo Makanan Roemahan",
+        category : "culinary",
+        location : "central java",
+        rate : "✨",
+    },
+    {
+        id : "QES457",
+        umkm : "Djojo Makanan Roemahan",
+        category : "culinary",
+        location : "central java",
+        rate : "✨",
+    },
+    {
+        id : "QES457",
+        umkm : "Djojo Makanan Roemahan",
+        category : "culinary",
+        location : "central java",
+        rate : "✨",
+    },
+    {
+        id : "QES457",
+        umkm : "Djojo Makanan Roemahan",
+        category : "culinary",
+        location : "central java",
+        rate : "✨",
+    },
+]

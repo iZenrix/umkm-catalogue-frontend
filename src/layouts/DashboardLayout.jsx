@@ -7,9 +7,9 @@ import Sidebar from '@components/Sidebar'
 
 const DashboardLayout = () => {
     return (
-        <div className='flex '>
+        <div className='flex'>
             <Sidebar />
-            <div className="w-screen h-screen">
+            <div className="w-screen h-screen overflow-y-scroll">
                 <Navbar isDashboard={true}/>
                 <Outlet />
             </div>

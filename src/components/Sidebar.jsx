@@ -2,7 +2,6 @@ import React from 'react'
 
 import { Link } from 'react-router-dom'
 
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { Divider, List, ListItem } from '@mui/material';
 
 import { menuDasboard } from '@data/menu'
@@ -10,7 +9,7 @@ import { menuDasboard } from '@data/menu'
 
 const Sidebar = () => {
   return (
-    <aside className="sidebar p-10 flex flex-col items-center shadow-2xl">
+    <aside className="sidebar p-10 flex flex-col items-center shadow-xl z-50 h-screen">
       <div className="logo-wrapper mb-5">
         <Link to={'/'}>
           <img src="/img/logo.svg" alt="" className='w-48' />

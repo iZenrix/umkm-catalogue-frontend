@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "@layouts/AppLayout";
 import DashboardLayout from "@layouts/DashboardLayout";
 
-import Dashboard from "@pages/Dashboard";
+import Dashboard from "@pages/Dashboard/Dashboard";
 import Catalogue from "@pages/Catalogue";
 import DetailCatalogue from "@pages/Catalogue/_details";
 

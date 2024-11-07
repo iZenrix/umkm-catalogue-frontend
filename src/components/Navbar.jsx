@@ -6,7 +6,7 @@ import UserDropdown from '@components/UserDropdown'
 
 const Navbar = ({isDashboard}) => {
     return (
-        <div className='bg-white px-24 sticky top-0 shadow-md z-50'>
+        <div className={`bg-white px-24 sticky top-0 z-50 shadow-md`}>
             <div className="navbar-content-wrapper flex justify-between items-center">
                 {
                     isDashboard ?
