@@ -52,9 +52,9 @@ const UmkmDetailsCard = () => {
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.6348667760003!2d112.77377377400167!3d-7.28231999272494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fa39b647f08f%3A0x862bc80b617de7a9!2sBakso%20Kepala%20Sapi!5e0!3m2!1sid!2sid!4v1730959078517!5m2!1sid!2sid" 
                         width="100%" 
                         height="250"  
-                        allowfullscreen="" 
+                        allowFullScreen="" 
                         loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade"
+                        referrerPolicy="no-referrer-when-downgrade"
                         className='mb-3'
                         ></iframe>
                         <p>Jl. Tapal Gajah No 77 Surabaya, Jawa Timur, 73752</p>
