@@ -11,7 +11,12 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import { useAuth } from '@contexts/AuthContext';
 
 const UserDropdown = () => {
-    const {user} = useAuth()
+    const {
+        user,
+        setUser, 
+        isLogged,
+        setIsLogged
+    } = useAuth()
     const [anchorEl, setAnchorEl] = useState(null); // State untuk mengatur anchor
 
     // Fungsi untuk membuka menu
@@ -24,6 +29,11 @@ const UserDropdown = () => {
         setAnchorEl(null);
     };
 
+    const loggingOut = () => {
+        setUser(null);
+        setIsLogged(false);
+        handleClose();
+    };
 
     return (
         <div className="user-account flex items-center gap-3">
@@ -66,7 +76,7 @@ const UserDropdown = () => {
                 <MenuItem onClick={handleClose}> <SettingsOutlinedIcon sx={{ marginRight: "1rem" }} /> Settings</MenuItem>
                 <MenuItem onClick={handleClose}> <InfoOutlinedIcon sx={{ marginRight: "1rem" }} /> Supports</MenuItem>
                 <Divider sx={{ my: 0.5 }} />
-                <MenuItem onClick={handleClose}> <LogoutOutlinedIcon sx={{ marginRight: "1rem" }} /> Logout</MenuItem>
+                <MenuItem onClick={loggingOut}> <LogoutOutlinedIcon sx={{ marginRight: "1rem" }} /> Logout</MenuItem>
             </Menu>
         </div >
     )
