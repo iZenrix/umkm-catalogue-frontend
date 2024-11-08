@@ -6,7 +6,7 @@ import DashboardLayout from "@layouts/DashboardLayout";
 import Catalogue from "@pages/Catalogue/Catalogue";
 import DetailCatalogue from "@pages/Catalogue/_details";
 
-import Dashboard from "@pages/Dashboard/Dashboard";
+import Approval from "@pages/Dashboard/Approval";
 import Database from "@pages/Dashboard/Database";
 
 import Login from "@pages/Login";
@@ -33,11 +33,15 @@ const router = createBrowserRouter([
         children : [
             {
                 path: "/dashboard/approval",
-                element : <Dashboard />
+                element : <Approval />,
             },
             {
                 path: "/dashboard/database",
                 element : <Database />
+            },
+            {
+                path: "/dashboard/approval/details/:id",
+                element : <DetailCatalogue />
             },
         ]
     },

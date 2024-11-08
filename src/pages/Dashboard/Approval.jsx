@@ -2,11 +2,13 @@ import React from 'react'
 
 import { data_umkm } from '@data/umkm'
 
+import { Link } from 'react-router-dom';
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import SortOutlinedIcon from '@mui/icons-material/SortOutlined';
 import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 
-const Dashboard = () => {
+const Approval = () => {
     return (
         <div className='dashboard-pages p-20 bg-blue-50'>
             <div className="button-container w-full flex justify-end">
@@ -56,9 +58,9 @@ const Dashboard = () => {
                                     </td>
                                     <td className='py-5'>
                                         <div className="flex justify-center items-center h-full">
-                                            <button className='bg-secondary-300 hover:bg-secondary-200 py-2 px-5 rounded-full text-secondary-800'>
+                                            <Link to={`/dashboard/approval/details/${index + 1}`} className='bg-secondary-300 hover:bg-secondary-200 py-2 px-5 rounded-full text-secondary-800'>
                                                 Lihat Detail
-                                            </button>
+                                            </Link>
                                         </div>
                                     </td>
                                 </tr>
@@ -83,4 +85,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default Approval

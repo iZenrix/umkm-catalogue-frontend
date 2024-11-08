@@ -16,10 +16,10 @@ const StarsRateGenerator = ({ number }) => {
         let newConstraint = ( isFloat? 4 : 5) - iterate
 
         while (count < iterate) {
-            items.push(<StarRateRoundedIcon sx={{ color: "#FFB605" }} key={count} />)
+            items.push(<StarRateRoundedIcon sx={{ color: "#FFB605" }} key={`activeStar-${count}`} />)
             if (isFloat) {
                 if (count + 1 === iterate) {
-                    items.push(<StarHalfRoundedIcon sx={{ color: "#FFB605" }} key={count + 1} />)
+                    items.push(<StarHalfRoundedIcon sx={{ color: "#FFB605" }} key={`halfStar-${count}`} />)
                 }
             }
             count++
@@ -28,7 +28,7 @@ const StarsRateGenerator = ({ number }) => {
         count = 0
 
         while (count < newConstraint) {
-            items.push(<StarRateRoundedIcon sx={{ color: "#5B5B5B" }} key={count} />)
+            items.push(<StarRateRoundedIcon sx={{ color: "#5B5B5B" }} key={`deadStar-${count}`} />)
             count++
         }
     }

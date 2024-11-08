@@ -41,6 +41,7 @@ export default {
           foreground2: '#F9F9F9',
         },
         'tersier' : {
+          green : "#16B364",
           yellow : "#FFB605",
           blue : "#0081C9",
           red : "#F04438"

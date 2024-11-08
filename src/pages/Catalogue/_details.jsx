@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { useParams } from 'react-router-dom';
-import { umkm_catalogue as data } from '@data/catalogue';
+import { useParams, useLocation } from 'react-router-dom';
 import { ReactPhotoSphereViewer } from 'react-photo-sphere-viewer';
+
+import { umkm_catalogue as data } from '@data/catalogue';
 
 import { Grid2, Card, CardContent } from '@mui/material'
 
@@ -13,9 +14,25 @@ import ReviewProduct from '@components/ReviewProduct';
 
 const DetailCatalogue = () => {
     const { id } = useParams()
+    const { pathname } = useLocation()
+    const isDashboard = pathname.includes("dashboard")
 
     return (
-        <div className="detail-catalogue p-3 pt-10 pb-96">
+        <div className={`detail-catalogue ${isDashboard ? 'p-20 pt-10 bg-blue-50' : 'p-3 pt-10 pb-96'}`}>
+
+            {
+                isDashboard && (
+                    <div className="approval-box p-3 mb-5 flex items-center justify-end gap-3">
+                        <button className='bg-tersier-red hover:bg-red-900 py-2 px-5 rounded-md text-white'>
+                            Reject
+                        </button>
+                        <button className='bg-tersier-green hover:bg-green-800 py-2 px-5 rounded-md text-white'>
+                            Approve
+                        </button>
+                    </div>
+                )
+            }
+
             <div className="details-content-wrapper">
                 <Grid2 container spacing={3}>
                     <Grid2 size={3}>
@@ -35,7 +52,7 @@ const DetailCatalogue = () => {
                                 <Grid2 size={8}>
                                     <GaleryProducts />
                                     <div className='product-detail mt-5'>
-                                        <Card sx={{ borderRadius: "1rem", boxShadow : '2px 5px 13px -4px rgba(0,0,0,0.15)' }}>
+                                        <Card sx={{ borderRadius: "1rem", boxShadow: '2px 5px 13px -4px rgba(0,0,0,0.15)' }}>
                                             <CardContent>
                                                 <h1 className='font-semibold text-primary-600'>Product</h1>
                                                 <ProductDetail />
