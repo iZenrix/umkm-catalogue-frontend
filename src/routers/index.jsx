@@ -3,6 +3,8 @@ import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "@layouts/AppLayout";
 import DashboardLayout from "@layouts/DashboardLayout";
 
+import ErrorPage from "@pages/ErrorPage";
+
 import Catalogue from "@pages/Catalogue/Catalogue";
 import DetailCatalogue from "@pages/Catalogue/_details";
 
@@ -16,6 +18,7 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <AppLayout />,
+        errorElement : <ErrorPage redirectLink={"/"}/>,
         children : [
             {
                 path: "/",
