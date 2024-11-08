@@ -1,12 +1,13 @@
 import React from 'react'
 
-import { data_umkm } from '@data/umkm'
+import { data_umkm, status_chip } from '@data/umkm'
 
 import { Link } from 'react-router-dom';
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import SortOutlinedIcon from '@mui/icons-material/SortOutlined';
 import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
+import { Chip } from '@mui/material';
 
 const Approval = () => {
     return (
@@ -42,6 +43,11 @@ const Approval = () => {
                             data_umkm.map((value, index) => (
                                 <tr key={index}>
                                     <td className='py-5'>{value.id}</td>
+                                    <td className='py-5'>
+                                        <div className="status-wrapper flex justify-center">
+                                            <Chip color={status_chip[value.status]} label={value.status} />
+                                        </div>
+                                    </td>
                                     <td className='py-5'>
                                         <div className="data-wrapper flex justify-center items-center gap-5">
                                             <img src="/img/bg-umkm.png" alt="" className='w-20 h-20 object-cover rounded-md' />
