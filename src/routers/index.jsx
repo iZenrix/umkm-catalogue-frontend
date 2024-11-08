@@ -3,9 +3,12 @@ import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "@layouts/AppLayout";
 import DashboardLayout from "@layouts/DashboardLayout";
 
-import Dashboard from "@pages/Dashboard/Dashboard";
 import Catalogue from "@pages/Catalogue/Catalogue";
 import DetailCatalogue from "@pages/Catalogue/_details";
+
+import Dashboard from "@pages/Dashboard/Dashboard";
+import Database from "@pages/Dashboard/Database";
+
 import Login from "@pages/Login";
 import Register from "@pages/Register";
 
@@ -29,9 +32,13 @@ const router = createBrowserRouter([
         element: <DashboardLayout />,
         children : [
             {
-                path: "/dashboard",
+                path: "/dashboard/approval",
                 element : <Dashboard />
-            }
+            },
+            {
+                path: "/dashboard/database",
+                element : <Database />
+            },
         ]
     },
     {

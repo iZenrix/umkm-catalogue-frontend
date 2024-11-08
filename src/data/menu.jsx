@@ -5,14 +5,17 @@ import LogoutIcon from '@mui/icons-material/Logout';
 export const menuDasboard = [
     {
         name : "Approval",
-        icon : <DoneOutlineIcon />
+        icon : <DoneOutlineIcon />,
+        link : "/dashboard/approval"
     },
     {
         name : "Database",
-        icon : <StorageIcon />
+        icon : <StorageIcon />,
+        link : "/dashboard/database"
     },
     {
         name : "Logout",
-        icon : <LogoutIcon />
+        icon : <LogoutIcon />,
+        link : ""
     },
 ]

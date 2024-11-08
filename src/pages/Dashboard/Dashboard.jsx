@@ -28,8 +28,8 @@ const Dashboard = () => {
                     <thead>
                         <tr >
                             {
-                                Object.keys(data_umkm[0]).map((value) => (
-                                    <th className={`font-semibold text-left ${value !== "id" && 'text-center'}`}>{value.toUpperCase()}</th>
+                                Object.keys(data_umkm[0]).map((value, index) => (
+                                    <th className={`font-semibold text-left ${value !== "id" && 'text-center'}`} key={index}>{value.toUpperCase()}</th>
                                 ))
                             }
                             <th className='font-semibold text-center'>ACTIONS</th>
@@ -37,8 +37,8 @@ const Dashboard = () => {
                     </thead>
                     <tbody>
                         {
-                            data_umkm.map((value) => (
-                                <tr>
+                            data_umkm.map((value, index) => (
+                                <tr key={index}>
                                     <td className='py-5'>{value.id}</td>
                                     <td className='py-5'>
                                         <div className="data-wrapper flex justify-center items-center gap-5">
