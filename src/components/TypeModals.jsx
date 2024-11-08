@@ -40,7 +40,7 @@ const TypeModals = ({ open, handleClose, savedData }) => {
                         <h1 className='text-xl font-semibold text-slate-800 text-center'>Types</h1>
                         <p className='text-base font-normal text-slate-800 text-center'>Masukkan types baru dan kategorinya</p>
                     </div>
-                    <TextField id="category-input" label="Input Category" variant="outlined" fullWidth onChange={(e) => setTypes(e.target.value)} />
+                    <TextField id="category-input" label="Input Type" variant="outlined" fullWidth onChange={(e) => setTypes(e.target.value)} />
                     <Autocomplete
                         fullWidth
                         options={formatedOption}
@@ -48,7 +48,7 @@ const TypeModals = ({ open, handleClose, savedData }) => {
 
                         onChange={(event, newValue) => setSelectedCategory(newValue)}
 
-                        renderInput={(params) => <TextField {...params} label="Category" />}
+                        renderInput={(params) => <TextField {...params} label="Select Category" />}
                     />
                     <div className="delete-confirmation-buttons flex justify-center items-center gap-8">
                         <button className='bg-tersier-green py-2 px-4 rounded-md text-white' type='submit'>Submit</button>
