@@ -12,7 +12,7 @@ const DashboardLayout = () => {
     const {pathname} = useLocation()
 
     useEffect(()=>{
-        if (pathname === "/dashboard/") {
+        if (pathname === "/dashboard/" || pathname === "/dashboard") {
             navigate("/dashboard/approval")
         }
     },[])
