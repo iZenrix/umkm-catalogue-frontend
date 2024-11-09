@@ -9,9 +9,14 @@ export const menuDasboard = [
         link : "/dashboard/approval"
     },
     {
-        name : "Database",
+        name : "Categories",
         icon : <StorageIcon />,
-        link : "/dashboard/database"
+        link : "/dashboard/categories"
+    },
+    {
+        name : "Types",
+        icon : <StorageIcon />,
+        link : "/dashboard/types"
     },
     {
         name : "Logout",

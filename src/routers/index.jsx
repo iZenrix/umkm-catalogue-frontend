@@ -9,7 +9,8 @@ import Catalogue from "@pages/Catalogue/Catalogue";
 import DetailCatalogue from "@pages/Catalogue/_details";
 
 import Approval from "@pages/Dashboard/Approval";
-import Database from "@pages/Dashboard/Database";
+import Categories from "@pages/Dashboard/Categories";
+import Types from "@pages/Dashboard/Types";
 
 import Login from "@pages/Login";
 import Register from "@pages/Register";
@@ -39,12 +40,16 @@ const router = createBrowserRouter([
                 element : <Approval />,
             },
             {
-                path: "/dashboard/database",
-                element : <Database />
-            },
-            {
                 path: "/dashboard/approval/details/:id",
                 element : <DetailCatalogue />
+            },
+            {
+                path: "/dashboard/categories",
+                element : <Categories />
+            },
+            {
+                path: "/dashboard/types",
+                element : <Types />
             },
         ]
     },
