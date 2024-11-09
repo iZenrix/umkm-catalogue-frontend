@@ -9,11 +9,14 @@ export const useAuth = () => {
 
 export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null)
+    const [token, setToken] = useState(null)
     const [isLogged, setIsLogged] = useState(false)
 
     const value = {
         user,
-        setUser, 
+        setUser,
+        token,
+        setToken, 
         isLogged,
         setIsLogged
     }

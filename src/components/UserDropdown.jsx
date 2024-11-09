@@ -14,7 +14,6 @@ const UserDropdown = () => {
     const {
         user,
         setUser, 
-        isLogged,
         setIsLogged
     } = useAuth()
     const [anchorEl, setAnchorEl] = useState(null); // State untuk mengatur anchor

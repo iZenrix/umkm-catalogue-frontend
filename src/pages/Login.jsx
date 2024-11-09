@@ -1,32 +1,81 @@
-import React, { useState } from 'react';
-import { TextField, Button, Typography, Container, Box } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { TextField, Typography, Container, Box } from '@mui/material';
 
 import { useAuth } from '@contexts/AuthContext';
+import { useAxios } from '@hooks/useAxios';
+
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-
     const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [localError, setLocalError] = useState("")
 
-    const {user, setUser, isLogged, setIsLogged} = useAuth()
-    
+    const { setUser, setIsLogged, token, setToken } = useAuth()
+
+    const {
+        response: responseLogin,
+        loading: loadingLogin,
+        error: errorLogin,
+        fetchData: fetchLogin
+    } = useAxios({
+        method: 'POST',
+        url: '/login',
+    });
+
+    const {
+        response: responseProfile,
+        loading: loadingProfile,
+        error: errorProfile,
+        fetchData: fetchProfile
+    } = useAxios({
+        method: 'GET',
+        url: '/users/profile',
+        headers: {
+            accept: '*/*'
+        },
+    });
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!email || !password) {
-            setError('Email and password are required');
+            setLocalError('Email and password are required');
         } else {
-            setError('');
-            setUser({
-                email : email,
+            console.log(email)
+            console.log(password)
+            fetchLogin({
+                email: email,
+                password: password,
             })
-            setIsLogged(true);
-            navigate("/")
         }
     };
+
+    useEffect(() => {
+        if (responseLogin?.data) {
+            setUser(responseLogin.data)
+            setIsLogged(true)
+            setToken(responseLogin.token)
+        }
+    }, [responseLogin])
+
+    useEffect(() => {
+        if (token) {
+            fetchProfile()
+        }
+    }, [token])
+
+    useEffect(() => {
+        if (responseProfile?.data) {
+            if (responseProfile?.data?.user?.role?.name == "admin") {
+                navigate("/dashboard/approval")
+            }else{
+                navigate("/")
+            }
+        }
+        console.log(responseProfile?.data?.user?.role?.name)
+        console.log(errorProfile)
+    }, [responseProfile, errorProfile])
 
     return (
         <div className="form-login w-screen h-screen flex justify-center items-center">
@@ -41,7 +90,7 @@ const Login = () => {
                         boxShadow: 3,
                     }}
                 >
-                    <img src="/img/logo.svg" alt="" className='mb-10 w-40'/>
+                    <img src="/img/logo.svg" alt="" className='mb-10 w-40' />
                     <form onSubmit={handleSubmit} style={{ width: '100%' }}>
                         <TextField
                             label="Email"
@@ -62,13 +111,13 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        {error && (
+                        {errorLogin || localError ? (
                             <Typography color="error" variant="body2" align="center">
-                                {error}
+                                {errorLogin.error}
                             </Typography>
-                        )}
+                        ) : ""}
                         <div className="button-wrapper w-full flex justify-center mt-5">
-                        <button className='bg-secondary-500 py-2 px-10 rounded-md text-white font-medium text-lg' type='submit'>Login</button>
+                            <button className='bg-secondary-500 py-2 px-10 rounded-md text-white font-medium text-lg' type='submit'>{loadingLogin || loadingProfile ? "Logging in..." : "Login"}</button>
                         </div>
                     </form>
                 </Box>

@@ -1,69 +1,43 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useAuth } from '@contexts/AuthContext';
 
-axios.defaults.baseURL = 'https://umkm-catalogue-backend.vercel.app/';
+// axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+axios.defaults.baseURL = 'https://umkm-catalogue-backend.vercel.app';
 
 export const useAxios = (axiosParams) => {
     const [response, setResponse] = useState(undefined);
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
+    const { token, isLogged } = useAuth()
+
+    const fixHeader = token && isLogged ? {
+        accept: '*/*',
+        Authorization: 'Bearer ' + token,
+    } : {
+            accept: '*/*'
+    }
+
+    useEffect(()=>{
+        console.log(token)
+    }, [isLogged, token])
+    
     const fetchData = async (params) => {
+        setLoading(true);
         try {
-            const result = await axios.request(params);
+            const result = await axios.request({
+                ...axiosParams,
+                headers: fixHeader,
+                data : params
+            });
             setResponse(result.data);
         } catch (error) {
-            setError(error);
+            setError(error.response.data);
         } finally {
             setLoading(false);
         }
     };
 
-    useEffect(() => {
-        fetchData(axiosParams);
-    }, []); // execute once only
-
-    return { response, error, loading };
+    return { response, error, loading, fetchData };
 };
-
-// import { useAxios } from 'axioshook';
-
-// const App = () => {
-//     const { response, loading, error } = useAxios({
-//         method: 'POST',
-//         url: '/posts',
-//         headers: { // no need to stringify
-//           accept: '*/*'
-//         },
-//         data: {  // no need to stringify
-//             userId: 1,
-//             id: 19392,
-//             title: 'title',
-//             body: 'Sample text',
-//         },
-//     });
-
-//     return (
-//         <div className='App'>
-//             <h1>Posts</h1>
-
-//             {loading ? (
-//                 <p>loading...</p>
-//             ) : (
-//                 <div>
-//                     {error && (
-//                         <div>
-//                             <p>{error.message}</p>
-//                         </div>
-//                     )}
-//                     <div> {
-//                       // no need to use another state to store data, response is sufficient
-//                       response && <p>{response.id}</p>
-//                     }
-//                     </div>
-//                 </div>
-//             )}
-//         </div>
-//     );
-// };
-
