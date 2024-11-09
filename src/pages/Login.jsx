@@ -5,7 +5,6 @@ import { useAuth } from '@contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -17,13 +16,11 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Validasi form (misalnya: email dan password tidak boleh kosong)
         if (!email || !password) {
             setError('Email and password are required');
         } else {
             setError('');
             setUser({
-                name : username,
                 email : email,
             })
             setIsLogged(true);
@@ -46,15 +43,6 @@ const Login = () => {
                 >
                     <img src="/img/logo.svg" alt="" className='mb-10 w-40'/>
                     <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                        <TextField
-                            label="Username"
-                            variant="outlined"
-                            fullWidth
-                            margin="normal"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
                         <TextField
                             label="Email"
                             variant="outlined"
