@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { TextField, Button, Typography, Container, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { TextField, Button, Typography, Container, Box, FormControl, InputLabel, Select, MenuItem, Grid2 } from '@mui/material';
+
+import { Link } from 'react-router-dom';
 
 const Register = () => {
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordConfirm, setPasswordConfirm] = useState('');
     const [role, setRole] = useState('User');
     const [error, setError] = useState('');
 
@@ -20,66 +24,97 @@ const Register = () => {
     };
 
     return (
-        <div className="form-login w-screen h-screen flex justify-center items-center">
-            <Container component="main" maxWidth="xs">
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        padding: 3,
-                        borderRadius: 3,
-                        boxShadow: 3,
-                    }}
-                >
-                    <img src="/img/logo.svg" alt="" className='mb-10 w-40' />
-                    <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                        <TextField
-                            label="Email"
-                            variant="outlined"
-                            fullWidth
-                            margin="normal"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                        <TextField
-                            label="Password"
-                            type="password"
-                            variant="outlined"
-                            fullWidth
-                            margin="normal"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                        <div className="register-select mt-5">
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={role}
-                                    label="Role"
-                                    disabled
-                                >
-                                    <MenuItem value="User">User</MenuItem>
-                                </Select>
-                            </FormControl>
+        <div className="form-login w-screen h-screen">
+            <Grid2 container sx={{ height: "100%" }}>
+                <Grid2 size={6}>
+                    <div className="bg-image-login flex justify-center items-center size-full bg-secondary-100">
+                        <img src="/img/logo.svg" alt="" className='w-96' />
+                    </div>
+                </Grid2>
+                <Grid2 size={6}>
+                    <div className="bg-image-login flex justify-center items-center size-full px-52">
+                        <div className="login-content-wrapper">
+                            <div className="login-title">
+                                <h1 className='text-4xl font-bold text-start mb-3 text-primary-900'>Welcome to</h1>
+                                <h1 className='text-4xl font-bold text-start mb-5 text-primary-900'>UMKM Catalogue</h1>
+                            </div>
+                            <form onSubmit={handleSubmit}>
+                                <TextField
+                                    label="Username"
+                                    variant="outlined"
+                                    fullWidth
+                                    margin="normal"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required
+                                />
+                                <TextField
+                                    label="Email"
+                                    variant="outlined"
+                                    fullWidth
+                                    margin="normal"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                                <Grid2 container spacing={2}>
+                                    <Grid2 size={6}>
+                                        <TextField
+                                            label="Password"
+                                            type="password"
+                                            variant="outlined"
+                                            fullWidth
+                                            margin="normal"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            required
+                                        />
+                                    </Grid2>
+                                    <Grid2 size={6}>
+                                        <TextField
+                                            label="Password Confirmation"
+                                            type="password"
+                                            variant="outlined"
+                                            fullWidth
+                                            margin="normal"
+                                            value={passwordConfirm}
+                                            onChange={(e) => setPasswordConfirm(e.target.value)}
+                                            required
+                                        />
+                                    </Grid2>
+                                </Grid2>
+                                <div className="register-select mt-5">
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={role}
+                                            label="Role"
+                                            disabled
+                                        >
+                                            <MenuItem value="User">User</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </div>
+                                {error && (
+                                    <Typography color="error" variant="body2" align="center">
+                                        {error}
+                                    </Typography>
+                                )}
+                                <div className="button-wrapper w-full flex justify-center mt-5 px-10">
+                                    <button className='bg-secondary-500 py-4 flex-1 rounded-lg text-white font-medium text-lg' type='submit'>Register</button>
+                                </div>
+                            </form>
+                            <p className='text-center mt-5 text-primary-600'>Have an account? <Link to={"/login"} className='text-secondary-500'> Login here </Link></p>
                         </div>
-                        {error && (
-                            <Typography color="error" variant="body2" align="center">
-                                {error}
-                            </Typography>
-                        )}
-                        <div className="button-wrapper w-full flex justify-center mt-5">
-                            <button className='bg-secondary-500 py-2 px-10 rounded-md text-white font-medium text-lg' type='submit'>Register</button>
-                        </div>
-                    </form>
-                </Box>
-            </Container>
+                    </div>
+                </Grid2>
+            </Grid2>
         </div>
     );
 };
 
 export default Register;
+
+
