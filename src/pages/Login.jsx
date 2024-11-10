@@ -32,9 +32,6 @@ const Login = () => {
     } = useAxios({
         method: 'GET',
         url: '/users/profile',
-        headers: {
-            accept: '*/*'
-        },
     });
 
     const handleSubmit = (e) => {
@@ -69,7 +66,7 @@ const Login = () => {
         if (responseProfile?.data) {
             if (responseProfile?.data?.user?.role?.name == "admin") {
                 navigate("/dashboard/approval")
-            }else{
+            } else {
                 navigate("/")
             }
         }
@@ -91,7 +88,7 @@ const Login = () => {
                     }}
                 >
                     <img src="/img/logo.svg" alt="" className='mb-10 w-40' />
-                    <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+                    <form onSubmit={(e) => handleSubmit(e)} style={{ width: '100%' }}>
                         <TextField
                             label="Email"
                             variant="outlined"
@@ -117,7 +114,12 @@ const Login = () => {
                             </Typography>
                         ) : ""}
                         <div className="button-wrapper w-full flex justify-center mt-5">
-                            <button className='bg-secondary-500 py-2 px-10 rounded-md text-white font-medium text-lg' type='submit'>{loadingLogin || loadingProfile ? "Logging in..." : "Login"}</button>
+                            {
+                                loadingLogin || loadingProfile ?
+                                    <div className='bg-secondary-500 py-2 px-10 rounded-md text-white font-medium text-lg'>Logging in...</div>
+                                    :
+                                    <button className='bg-secondary-500 py-2 px-10 rounded-md text-white font-medium text-lg' type='submit'>Login</button>
+                            }
                         </div>
                     </form>
                 </Box>

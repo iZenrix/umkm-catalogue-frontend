@@ -18,10 +18,6 @@ export const useAxios = (axiosParams) => {
     } : {
             accept: '*/*'
     }
-
-    useEffect(()=>{
-        console.log(token)
-    }, [isLogged, token])
     
     const fetchData = async (params) => {
         setLoading(true);
