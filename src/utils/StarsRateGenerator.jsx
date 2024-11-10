@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 import StarHalfRoundedIcon from '@mui/icons-material/StarHalfRounded';
 
-const StarsRateGenerator = ({ number }) => {
+export const StarsRateGenerator = ({ number }) => {
     let items = []
 
     const isFloat = number % 1 !== 0
@@ -13,7 +13,7 @@ const StarsRateGenerator = ({ number }) => {
 
     const loopTheStars = (iterate, isFloat = false) => {
         let count = 0
-        let newConstraint = ( isFloat? 4 : 5) - iterate
+        let newConstraint = (isFloat ? 4 : 5) - iterate
 
         while (count < iterate) {
             items.push(<StarRateRoundedIcon sx={{ color: "#FFB605" }} key={`activeStar-${count}`} />)
@@ -49,4 +49,34 @@ const StarsRateGenerator = ({ number }) => {
     )
 }
 
-export default StarsRateGenerator
+export const StarInput = () => {
+    const [rating, setRating] = useState(null)
+    const [startStars, setStartStars] = useState(["#5B5B5B","#5B5B5B","#5B5B5B","#5B5B5B","#5B5B5B"])
+
+    const handleRate = (index) => {
+        const newColor = [...startStars]
+        for (let n = 0; n < 5; n++) {
+            if (n < index) {
+                newColor[n] = "#FFB605";
+            }else{
+                newColor[n] = "#5B5B5B";
+            }
+        }
+        setStartStars(newColor)
+        setRating(index)
+    }
+
+    return (
+        <>
+            <div className="star-input-wrapper mb-3 flex">
+                {
+                    startStars.map((value, index) => (
+                        <div className="stars-button" onClick={() => handleRate(index + 1)}>
+                            <StarRateRoundedIcon sx={{ color: value }} key={index}/>
+                        </div>
+                    ))
+                }
+            </div>
+        </>
+    )
+}

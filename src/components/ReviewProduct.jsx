@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@mui/material'
 import React from 'react'
 
-import StarsRateGenerator from '@utils/StarsRateGenerator'
+import { StarsRateGenerator } from '@utils/StarsRateGenerator'
 
 const ReviewProduct = () => {
     return (
