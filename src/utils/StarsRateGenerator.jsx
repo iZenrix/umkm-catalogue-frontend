@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 import StarHalfRoundedIcon from '@mui/icons-material/StarHalfRounded';
 
@@ -49,7 +49,7 @@ export const StarsRateGenerator = ({ number }) => {
     )
 }
 
-export const StarInput = () => {
+export const StarInput = ({getRating, resetValue, setResetValue}) => {
     const [rating, setRating] = useState(null)
     const [startStars, setStartStars] = useState(["#5B5B5B","#5B5B5B","#5B5B5B","#5B5B5B","#5B5B5B"])
 
@@ -64,14 +64,22 @@ export const StarInput = () => {
         }
         setStartStars(newColor)
         setRating(index)
+        getRating(index)
     }
+
+    useEffect(() => {
+        if (resetValue) {
+            handleRate(0)
+            setResetValue(false)
+        }
+    },[resetValue])
 
     return (
         <>
             <div className="star-input-wrapper mb-3 flex">
                 {
                     startStars.map((value, index) => (
-                        <div className="stars-button" onClick={() => handleRate(index + 1)}>
+                        <div className="stars-button" onClick={() => handleRate(index + 1)} key={index}>
                             <StarRateRoundedIcon sx={{ color: value }} key={index}/>
                         </div>
                     ))
