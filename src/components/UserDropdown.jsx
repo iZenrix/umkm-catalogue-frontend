@@ -3,17 +3,18 @@ import React, { useState } from 'react'
 import { Avatar, Typography, Card, CardActionArea, CardContent, Menu, MenuItem, Divider } from '@mui/material'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+
+import { Link } from 'react-router-dom';
 
 import { useAuth } from '@contexts/AuthContext';
 
 const UserDropdown = () => {
     const {
         user,
-        setUser, 
+        setUser,
         setIsLogged
     } = useAuth()
     const [anchorEl, setAnchorEl] = useState(null); // State untuk mengatur anchor
@@ -42,8 +43,10 @@ const UserDropdown = () => {
                         <div className="user-account-wrapper flex items-center gap-3">
                             <Avatar />
                             <div className="user-name-email text-start">
-                                <p className='text-sm font-semibold'>{user?.name}</p>
-                                <p className='text-sm font-normal'>{user?.email}</p>
+                                {/* <p className='text-sm font-semibold'>{user?.name}</p>
+                                <p className='text-sm font-normal'>{user?.email}</p> */}
+                                <p className='text-sm font-semibold'>{user.name}</p>
+                                <p className='text-sm font-normal'>{user.email}</p>
                             </div>
                         </div>
                         <KeyboardArrowDownIcon sx={{
@@ -71,9 +74,17 @@ const UserDropdown = () => {
                 }}
             >
                 {/* Item di dalam Menu */}
-                <MenuItem onClick={handleClose}> <PersonOutlinedIcon sx={{ marginRight: "1rem" }} /> View Profile</MenuItem>
-                <MenuItem onClick={handleClose}> <SettingsOutlinedIcon sx={{ marginRight: "1rem" }} /> Settings</MenuItem>
-                <MenuItem onClick={handleClose}> <InfoOutlinedIcon sx={{ marginRight: "1rem" }} /> Supports</MenuItem>
+                <Link to={"/register-umkm"}>
+                    <MenuItem onClick={handleClose}>
+                        <AddBusinessIcon sx={{ marginRight: "1rem" }} />
+                        Register UMKM
+                    </MenuItem>
+                </Link>
+                <Link to={"details/1"}><MenuItem onClick={handleClose}>
+                    <StorefrontIcon sx={{ marginRight: "1rem" }} />
+                    My UMKM
+                </MenuItem>
+                </Link>
                 <Divider sx={{ my: 0.5 }} />
                 <MenuItem onClick={loggingOut}> <LogoutOutlinedIcon sx={{ marginRight: "1rem" }} /> Logout</MenuItem>
             </Menu>

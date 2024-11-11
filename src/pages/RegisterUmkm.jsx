@@ -5,9 +5,9 @@ import PhotoOutlinedIcon from '@mui/icons-material/PhotoOutlined';
 import ImageNotSupportedOutlinedIcon from '@mui/icons-material/ImageNotSupportedOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import { Link } from 'react-router-dom';
 
 import AddProductForm from '@components/AddProductForm';
-
 import { category } from '@data/category'
 
 const RegisterUmkm = () => {
@@ -72,7 +72,7 @@ const RegisterUmkm = () => {
         setPicture360(null)
         setChecked(e.target.checked)
     };
-    
+
     useEffect(() => {
         if (umkmData) {
             console.log(umkmData)
@@ -99,6 +99,9 @@ const RegisterUmkm = () => {
 
     return (
         <div className="register-umkm p-5 pt-10">
+            <div className="back-button-wrapper mb-10">
+                <Link to={"/"} className='bg-secondary-500 px-4 py-2 rounded-lg text-white'>{"< back to catalog"}</Link>
+            </div>
             <div className="submition-form-bg bg-white p-10 rounded-2xl mb-28">
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <div className="form-submition flex justify-between items-center mb-8">
@@ -180,7 +183,7 @@ const RegisterUmkm = () => {
                                 />
                             </Grid2>
                             <Grid2 size={3}>
-                                <input type="file" id="img-gallery" className='hidden' onChange={(e) => handleGalleryPict(e)} disabled={galleryPicture.length === 3}/>
+                                <input type="file" id="img-gallery" className='hidden' onChange={(e) => handleGalleryPict(e)} disabled={galleryPicture.length === 3} />
                                 <div className="gallery-upload-wrapper flex gap-3 flex-wrap">
                                     {
                                         galleryPicture && (
@@ -201,7 +204,7 @@ const RegisterUmkm = () => {
                                             ))
                                         )
                                     }
-                                    <div className={`add-image-button size-20 rounded-lg border-2 border-dashed border-neutral-600 flex items-center justify-center ${ galleryPicture.length === 3 ? '' : 'hover:cursor-pointer'}`} onClick={() => document.querySelector("#img-gallery").click()}>
+                                    <div className={`add-image-button size-20 rounded-lg border-2 border-dashed border-neutral-600 flex items-center justify-center ${galleryPicture.length === 3 ? '' : 'hover:cursor-pointer'}`} onClick={() => document.querySelector("#img-gallery").click()}>
                                         {
                                             galleryPicture.length === 3 ? (
                                                 <p className='text-sm text-center text-neutral-600'>Max Upload Photo : 3</p>
