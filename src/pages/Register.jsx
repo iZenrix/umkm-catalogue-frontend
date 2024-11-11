@@ -16,10 +16,12 @@ const Register = () => {
         // Validasi form (misalnya: email dan password tidak boleh kosong)
         if (!email || !password) {
             setError('Email and password are required');
+        } else if (password !== passwordConfirm) {
+            setError('Your password doesn\'t match');
         } else {
             setError('');
             // Kirim data ke server atau lakukan validasi lebih lanjut
-            console.log('Form Submitted', { email, password, role });
+            console.log('Form Submitted', { username, email, password, role });
         }
     };
 

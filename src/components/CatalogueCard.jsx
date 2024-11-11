@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 
 import { Link, useLocation } from 'react-router-dom'
 
+import BadgesUmkm from '@components/BadgesUmkm'
+
 import { Grid2, Typography, Card, CardMedia, CardContent, CardActionArea, Chip, IconButton } from '@mui/material'
 import { TagFaces } from '@mui/icons-material'
 import { Favorite } from '@mui/icons-material'
@@ -33,8 +35,11 @@ const CatalogueCard = ({ data }) => {
                             />
                             <CardContent>
                                 <div className="badges mb-5 flex flex-row gap-2">
-                                    <Chip variant="outlined" size="small" icon={<TagFaces />} label="badges1" />
-                                    <Chip variant="outlined" size="small" icon={<TagFaces />} label="badges2" />
+                                    {/* <Chip variant="outlined" size="small" icon={<TagFaces />} label="badges1" />
+                                    <Chip variant="outlined" size="small" icon={<TagFaces />} label="badges2" /> */}
+                                    
+                                    <BadgesUmkm badgesName={"recommended"}/>
+                                    
                                 </div>
                                 <Typography variant='h5' fontWeight="bold">
                                     {data.name}

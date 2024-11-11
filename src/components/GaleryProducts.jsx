@@ -19,33 +19,33 @@ const GaleryProducts = () => {
                     autoplay={true}
                 >
                     <div>
-                        <div className="mx-2">
-                            <img src="/img/bg-umkm.png" alt="" className='object-contain rounded-xl' />
+                        <div className="mx-2 h-36">
+                            <img src="/img/bg-umkm.png" alt="" className='object-cover rounded-xl size-full' />
                         </div>
                     </div>
                     <div>
-                        <div className="mx-2">
-                            <img src="/img/bg-umkm.png" alt="" className='object-contain rounded-xl' />
+                        <div className="mx-2 h-36">
+                            <img src="/img/bg-umkm.png" alt="" className='object-cover rounded-xl size-full' />
                         </div>
                     </div>
                     <div>
-                        <div className="mx-2">
-                            <img src="/img/bg-umkm.png" alt="" className='object-contain rounded-xl' />
+                        <div className="mx-2 h-36">
+                            <img src="/img/bg-umkm.png" alt="" className='object-cover rounded-xl size-full' />
                         </div>
                     </div>
                     <div>
-                        <div className="mx-2">
-                            <img src="/img/bg-umkm.png" alt="" className='object-contain rounded-xl' />
+                        <div className="mx-2 h-36">
+                            <img src="/img/bg-umkm.png" alt="" className='object-cover rounded-xl size-full' />
                         </div>
                     </div>
                     <div>
-                        <div className="mx-2">
-                            <img src="/img/bg-umkm.png" alt="" className='object-contain rounded-xl' />
+                        <div className="mx-2 h-36">
+                            <img src="/img/bg-umkm.png" alt="" className='object-cover rounded-xl size-full' />
                         </div>
                     </div>
                     <div>
-                        <div className="mx-2">
-                            <img src="/img/bg-umkm.png" alt="" className='object-contain rounded-xl' />
+                        <div className="mx-2 h-36">
+                            <img src="/img/bg-umkm.png" alt="" className='object-cover rounded-xl size-full' />
                         </div>
                     </div>
                 </Slider>
