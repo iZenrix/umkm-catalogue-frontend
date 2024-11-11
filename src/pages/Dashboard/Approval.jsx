@@ -30,39 +30,38 @@ const Approval = () => {
                 <table className='w-full border-spacing-10'>
                     <thead>
                         <tr >
-                            {
-                                Object.keys(data_umkm[0]).map((value, index) => (
-                                    <th className={`font-semibold text-left ${value !== "id" && 'text-center'}`} key={index}>{value.toUpperCase()}</th>
-                                ))
-                            }
-                            <th className='font-semibold text-center'>ACTIONS</th>
+                            <th className={`font-semibold text-center`} >ID</th>
+                            <th className={`font-semibold text-center`} >UMKM</th>
+                            <th className={`font-semibold text-center`} >Category</th>
+                            <th className={`font-semibold text-center`} >Rate</th>
+                            <th className={`font-semibold text-center`} >Status</th>
+                            <th className={`font-semibold text-center`} >Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             data_umkm.map((value, index) => (
                                 <tr key={index}>
-                                    <td className='py-5'>{value.id}</td>
-                                    <td className='py-5'>
-                                        <div className="status-wrapper flex justify-center">
-                                            <Chip color={status_chip[value.status]} label={value.status} />
-                                        </div>
-                                    </td>
-                                    <td className='py-5'>
+                                    <td className='py-5 px-6'>{value.id}</td>
+                                    <td className='py-5 px-6'>
                                         <div className="data-wrapper flex justify-center items-center gap-5">
                                             <img src="/img/bg-umkm.png" alt="" className='w-20 h-20 object-cover rounded-md' />
                                             <p>{value.umkm}</p>
                                         </div>
                                     </td>
-                                    <td className='py-5 text-center'>{value.category}</td>
-                                    <td className='py-5 text-center'>{value.location}</td>
-                                    <td className='py-5 text-center'>
+                                    <td className='py-5 px-6 text-center'>{value.category}</td>
+                                    <td className='py-5 px-6 text-center'>
                                         <div className="data-rate-wrapper flex justify-center items-center gap-2">
                                             <p>{value.rate}</p>
                                             <StarRateRoundedIcon sx={{ color: "#FFB605" }} />
                                         </div>
                                     </td>
-                                    <td className='py-5'>
+                                    <td className='py-5 px-6'>
+                                        <div className={`status-wrapper flex justify-center ${status_chip[value.status]} py-2 rounded-lg text-white`}>
+                                            <p>{value.status}</p>
+                                        </div>
+                                    </td>
+                                    <td className='py-5 px-6'>
                                         <div className="flex justify-center items-center h-full">
                                             <Link to={`/dashboard/approval/details/${index + 1}`} className='bg-secondary-300 hover:bg-secondary-200 py-2 px-5 rounded-full text-secondary-800'>
                                                 Lihat Detail

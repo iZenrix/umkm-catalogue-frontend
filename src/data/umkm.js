@@ -1,64 +1,64 @@
 export const data_umkm = [
     {
         id : "QES457",
+        umkm : "Djojo Makanan Roemahan",
+        category : "culinary",
+        location : "central java",
+        rate : "4.5",
         status : "pending",
+    },
+    {
+        id : "QES457",
         umkm : "Djojo Makanan Roemahan",
         category : "culinary",
         location : "central java",
         rate : "4.5",
-    },
-    {
-        id : "QES457",
         status : "approved",
+    },
+    {
+        id : "QES457",
         umkm : "Djojo Makanan Roemahan",
         category : "culinary",
         location : "central java",
         rate : "4.5",
-    },
-    {
-        id : "QES457",
         status : "rejected",
+    },
+    {
+        id : "QES457",
         umkm : "Djojo Makanan Roemahan",
         category : "culinary",
         location : "central java",
         rate : "4.5",
-    },
-    {
-        id : "QES457",
         status : "pending",
+    },
+    {
+        id : "QES457",
         umkm : "Djojo Makanan Roemahan",
         category : "culinary",
         location : "central java",
         rate : "4.5",
-    },
-    {
-        id : "QES457",
         status : "approved",
+    },
+    {
+        id : "QES457",
         umkm : "Djojo Makanan Roemahan",
         category : "culinary",
         location : "central java",
         rate : "4.5",
-    },
-    {
-        id : "QES457",
         status : "approved",
+    },
+    {
+        id : "QES457",
         umkm : "Djojo Makanan Roemahan",
         category : "culinary",
         location : "central java",
         rate : "4.5",
-    },
-    {
-        id : "QES457",
         status : "rejected",
-        umkm : "Djojo Makanan Roemahan",
-        category : "culinary",
-        location : "central java",
-        rate : "4.5",
     },
 ]
 
 export const status_chip = {
-    "approved" : "success",
-    "pending" : "warning",
-    "rejected" : "error",
+    "approved" : "bg-green-500",
+    "pending" : "bg-yellow-500",
+    "rejected" : "bg-red-500",
 }
