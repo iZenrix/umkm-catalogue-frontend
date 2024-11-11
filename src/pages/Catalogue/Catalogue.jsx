@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 import CatalogueCard from '@components/CatalogueCard'
 import FilterUmkm from '@components/FilterUmkm'
+import AdsCarousel from '@components/AdsCarousel'
 import { umkm_catalogue } from '@data/catalogue'
 
 import { Grid2 } from '@mui/material'
@@ -10,8 +11,8 @@ import { Grid2 } from '@mui/material'
 const Catalogue = () => {
     return (
         <div className='p-3 pt-10'>
-            <div className="banner bg-primary-800 p-24 rounded-xl mb-8">
-
+            <div className="banner rounded-2xl mb-8 overflow-hidden">
+                <AdsCarousel />
             </div>
             <div className="catalogue">
                 <Grid2 container spacing={4}>
