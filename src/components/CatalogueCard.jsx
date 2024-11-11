@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { Grid2, Typography, Card, CardMedia, CardContent, CardActionArea, Chip, IconButton } from '@mui/material'
 import { TagFaces } from '@mui/icons-material'
@@ -8,10 +8,23 @@ import { Favorite } from '@mui/icons-material'
 import { Share } from '@mui/icons-material'
 
 const CatalogueCard = ({ data }) => {
+    const [copied, setCopied] = useState(false);
+
+    const link = useLocation()
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(link)
+            .then(() => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            })
+            .catch((err) => console.error("Gagal menyalin link", err));
+    };
+
     return (
         <Grid2 size={3}>
             <div className="card">
-                <Card variant='outlined' sx={{borderRadius : "0.7rem"}}>
+                <Card variant='outlined' sx={{ borderRadius: "0.7rem" }}>
                     <Link to={`details/${data.id}`}>
                         <CardActionArea>
                             <CardMedia
@@ -42,7 +55,7 @@ const CatalogueCard = ({ data }) => {
                         <IconButton aria-label="add to favorites">
                             <Favorite sx={{ color: "#F04438" }} />
                         </IconButton>
-                        <IconButton aria-label="share">
+                        <IconButton aria-label="share" color='primary'>
                             <Share />
                         </IconButton>
                     </div>
