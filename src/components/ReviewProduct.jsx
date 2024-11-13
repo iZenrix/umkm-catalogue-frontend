@@ -40,9 +40,9 @@ const ReviewProduct = ({ idUmkm }) => {
                 ) : (
                     <div className="review-product mt-3">
                         {
-                            review.length !== 0 ?
+                            review?.length !== 0 ?
                                 (
-                                    review.map((value, index) => (
+                                    review?.map((value, index) => (
                                         <Card sx={{ boxShadow: '2px 5px 13px 0px rgba(0,0,0,0.15)', borderRadius: "1rem" }}>
                                             <CardContent>
                                                 <h3 className='text-lg font-semibold'>{value.user_id}</h3>
