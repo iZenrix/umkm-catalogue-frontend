@@ -15,7 +15,8 @@ const UserDropdown = () => {
     const {
         user,
         setUser,
-        setIsLogged
+        setIsLogged,
+        setToken
     } = useAuth()
     const [anchorEl, setAnchorEl] = useState(null); // State untuk mengatur anchor
 
@@ -32,6 +33,7 @@ const UserDropdown = () => {
     const loggingOut = () => {
         setUser(null);
         setIsLogged(false);
+        setToken(null)
         localStorage.removeItem('authContext');
         handleClose();
     };
