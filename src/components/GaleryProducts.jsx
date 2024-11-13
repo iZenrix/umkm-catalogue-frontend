@@ -4,10 +4,11 @@ import { Card, CardContent } from '@mui/material'
 
 import Slider from 'react-slick'
 
-const GaleryProducts = () => {
+const GaleryProducts = ({ dataUmkm }) => {
+    const { images } = dataUmkm
 
     return (
-        <Card sx={{borderRadius : "1rem", boxShadow : '2px 5px 13px -4px rgba(0,0,0,0.15)'}}>
+        <Card sx={{ borderRadius: "1rem", boxShadow: '2px 5px 13px -4px rgba(0,0,0,0.15)' }}>
             <CardContent>
                 <p className='font-semibold text-primary-600 mb-4'>Galery Product</p>
                 <Slider
@@ -18,36 +19,15 @@ const GaleryProducts = () => {
                     slidesToScroll={1}
                     autoplay={true}
                 >
-                    <div>
-                        <div className="mx-2 h-36">
-                            <img src="/img/bg-umkm.png" alt="" className='object-cover rounded-xl size-full' />
-                        </div>
-                    </div>
-                    <div>
-                        <div className="mx-2 h-36">
-                            <img src="/img/bg-umkm.png" alt="" className='object-cover rounded-xl size-full' />
-                        </div>
-                    </div>
-                    <div>
-                        <div className="mx-2 h-36">
-                            <img src="/img/bg-umkm.png" alt="" className='object-cover rounded-xl size-full' />
-                        </div>
-                    </div>
-                    <div>
-                        <div className="mx-2 h-36">
-                            <img src="/img/bg-umkm.png" alt="" className='object-cover rounded-xl size-full' />
-                        </div>
-                    </div>
-                    <div>
-                        <div className="mx-2 h-36">
-                            <img src="/img/bg-umkm.png" alt="" className='object-cover rounded-xl size-full' />
-                        </div>
-                    </div>
-                    <div>
-                        <div className="mx-2 h-36">
-                            <img src="/img/bg-umkm.png" alt="" className='object-cover rounded-xl size-full' />
-                        </div>
-                    </div>
+                    {
+                        images.map((value) => (
+                            <div>
+                                <div className="mx-2 h-36">
+                                    <img src={value ? value.url : "/img/bg-umkm.png"} alt="" className='object-cover rounded-xl size-full' />
+                                </div>
+                            </div>
+                        ))
+                    }
                 </Slider>
             </CardContent>
         </Card>

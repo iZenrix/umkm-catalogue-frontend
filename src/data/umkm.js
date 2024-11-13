@@ -58,7 +58,7 @@ export const data_umkm = [
 ]
 
 export const status_chip = {
-    "approved" : "bg-green-500",
-    "pending" : "bg-yellow-500",
-    "rejected" : "bg-red-500",
+    "APPROVED" : "bg-green-500",
+    "PENDING" : "bg-yellow-500",
+    "REJECTED" : "bg-red-500",
 }
