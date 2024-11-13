@@ -12,6 +12,8 @@ import { Grid2, Typography } from '@mui/material'
 
 const Catalogue = () => {
     const [dataCatalogue, setDataCatalogue] = useState(null)
+    const [dataCatalogueBackup, setDataCatalogueBackup] = useState(null)
+    const [isNull, setIsNull] = useState(false)
 
     const {
         response: responseCatalogue,
@@ -30,9 +32,22 @@ const Catalogue = () => {
     useEffect(() => {
         if (responseCatalogue?.data) {
             setDataCatalogue(responseCatalogue?.data)
+            setDataCatalogueBackup(responseCatalogue?.data)
         }
         console.log(responseCatalogue?.data)
     }, [responseCatalogue])
+
+    const handleFilter = (value) => {
+        if (value === "empty") {
+            setDataCatalogue(dataCatalogueBackup);
+            setIsNull(false)
+        } else {
+            const filteredData = dataCatalogueBackup.filter(item => item.category_id === value);
+            setDataCatalogue(filteredData.length > 0 ? filteredData : dataCatalogueBackup);
+            filteredData.length === 0 ? setIsNull(true) : setIsNull(false)
+            
+        }
+    }
 
     return (
         <div className='p-3 pt-10'>
@@ -46,7 +61,12 @@ const Catalogue = () => {
                     ) : (
                         <Grid2 container spacing={4}>
                             <Grid2 size={3}>
-                                <FilterUmkm />
+                                <FilterUmkm handleChange={(value) => handleFilter(value)} />
+                                {isNull ? (
+                                    <Typography color="error" variant="body2" align="center">
+                                        No UMKM found
+                                    </Typography>
+                                ) : ""}
                             </Grid2>
                             <Grid2 size={9}>
                                 <div className="catalogue-content">

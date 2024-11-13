@@ -1,43 +1,55 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Grid2, Button, Chip } from '@mui/material';
-
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
-import { category } from '@data/category';
+import { useAxios } from '@hooks/useAxios'
 
-const formatedOption = category.map((items) => (
-    items.type.map((value) => ({
-        name: items.name,
-        type: value
-    }))
-)).flat()
+const FilterUmkm = ({handleChange}) => {
+    const [selectedOption, setSelectedOption] = useState(null)
+    const [category, setCategory] = useState(null)
 
-const FilterUmkm = () => {
-    const [selectedOption, setSelectedOption] = useState([])
+    const {
+        response: responseCategory,
+        loading: loadingCategory,
+        error: errorCategory,
+        fetchData: fetchCategory
+    } = useAxios({
+        method: 'GET',
+        url: '/category/all',
+    });
+
+    useEffect(() => {
+        fetchCategory()
+    }, [])
+
+    useEffect(() => {
+        if (responseCategory?.data) {
+            setCategory(responseCategory?.data)
+        }
+    }, [responseCategory])
+
+    const sendDataFilter = () => {
+        handleChange(selectedOption ? selectedOption.id : "empty")
+    }
+    
 
     return (
         <div className="category-filter p-3 bg-white rounded-lg">
             <Grid2 container spacing={2}>
                 <Grid2 size={9}>
                     <Autocomplete
-                        freeSolo
-                        multiple
+                        options={category}
+                        getOptionLabel={(option) => option.name}
 
-                        options={formatedOption}
-                        getOptionLabel={(option) => option.type}
-                        groupBy={(option) => option.name}
-
-                        value={selectedOption}
                         onChange={(event, newValue) => setSelectedOption(newValue)}
-
                         renderInput={(params) => <TextField {...params} label="Category Filter" />}
                     />
                 </Grid2>
                 <Grid2 size={3}>
-                    <Button sx={{ height: '100%', maxHeight: '4rem' }} variant='outlined'>
+                    <Button sx={{ height: '100%', maxHeight: '4rem' }} variant='outlined' onClick={() => sendDataFilter()}>
                         <FilterAltIcon />
                     </Button>
                 </Grid2>
