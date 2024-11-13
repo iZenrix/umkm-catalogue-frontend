@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState, createContext, useContext } from 'react'
 
 const AuthContext = createContext()
@@ -20,6 +20,25 @@ export const AuthProvider = ({children}) => {
         isLogged,
         setIsLogged
     }
+
+    useEffect(() => {
+        if (token) {
+            localStorage.setItem('authContext', JSON.stringify({
+                user,
+                token
+            }))
+        }
+    }, [user])
+
+    useEffect(() => {
+        if (localStorage.getItem('authContext')) {
+            const dataAuth = JSON.parse(localStorage.getItem('authContext'))
+
+            setUser(dataAuth.user)
+            setToken(dataAuth.token)
+            setIsLogged(true)
+        }
+    }, [])
 
     return (
         

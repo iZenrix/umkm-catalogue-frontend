@@ -14,7 +14,6 @@ const Login = () => {
     const [localError, setLocalError] = useState("")
     const [selectVisitor, setSelectVisitor] = useState(true)
 
-
     const { setUser, setIsLogged, token, setToken } = useAuth()
 
     const {
@@ -34,7 +33,7 @@ const Login = () => {
         fetchData: fetchProfile
     } = useAxios({
         method: 'GET',
-        url: '/users/profile',
+        url: '/user/profile',
     });
 
     const handleSubmit = (e) => {
@@ -53,7 +52,6 @@ const Login = () => {
 
     useEffect(() => {
         if (responseLogin?.data) {
-            setUser(responseLogin.data)
             setIsLogged(true)
             setToken(responseLogin.token)
         }
@@ -67,6 +65,8 @@ const Login = () => {
 
     useEffect(() => {
         if (responseProfile?.data) {
+            setUser(responseProfile?.data?.user)
+            
             if (responseProfile?.data?.user?.role?.name == "admin") {
                 navigate("/dashboard/approval")
             } else {
@@ -130,7 +130,7 @@ const Login = () => {
                                 <div className="button-wrapper w-full flex justify-center mt-5 px-10">
                                     {
                                         loadingLogin || loadingProfile ?
-                                            <div className='bg-secondary-500 py-4 flex-1 rounded-lg text-white font-medium text-lg'>Logging in...</div>
+                                            <div className='bg-secondary-500 py-4 flex-1 rounded-lg text-white font-medium text-lg text-center'>Logging in...</div>
                                             :
                                             <button className='bg-secondary-500 py-4 flex-1 rounded-lg text-white font-medium text-lg' type='submit'>Login</button>
                                     }

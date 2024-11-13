@@ -32,6 +32,7 @@ const UserDropdown = () => {
     const loggingOut = () => {
         setUser(null);
         setIsLogged(false);
+        localStorage.removeItem('authContext');
         handleClose();
     };
 

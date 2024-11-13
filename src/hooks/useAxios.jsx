@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useAuth } from '@contexts/AuthContext';
 
 // axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
-axios.defaults.baseURL = 'https://umkm-catalogue-backend.vercel.app';
+// axios.defaults.baseURL = 'https://umkm-catalogue-backend.vercel.app';
+axios.defaults.baseURL = 'https://alter-umkm-backend.vercel.app/api/v1';
 
 export const useAxios = (axiosParams) => {
     const [response, setResponse] = useState(undefined);
