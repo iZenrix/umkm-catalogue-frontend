@@ -1,6 +1,5 @@
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import StorageIcon from '@mui/icons-material/Storage';
-import LogoutIcon from '@mui/icons-material/Logout';
 
 export const menuDasboard = [
     {
@@ -17,10 +16,5 @@ export const menuDasboard = [
         name : "Types",
         icon : <StorageIcon />,
         link : "/dashboard/types"
-    },
-    {
-        name : "Logout",
-        icon : <LogoutIcon />,
-        link : ""
     },
 ]
