@@ -8,6 +8,7 @@ import ErrorPage from "@pages/ErrorPage";
 import Catalogue from "@pages/Catalogue/Catalogue";
 import DetailCatalogue from "@pages/Catalogue/_details";
 import RegisterUmkm from "@pages/RegisterUmkm";
+import MyUmkm from "@pages/Catalogue/MyUmkm";
 
 import Approval from "@pages/Dashboard/Approval";
 import Categories from "@pages/Dashboard/Categories";
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path: "/register-umkm",
                 element : <RegisterUmkm />
+            },
+            {
+                path: "/my-umkm",
+                element : <MyUmkm />
             },
         ]
     },

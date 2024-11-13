@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import { useParams, useLocation } from 'react-router-dom';
 import { ReactPhotoSphereViewer } from 'react-photo-sphere-viewer';
 
 import { Grid2, Card, CardContent } from '@mui/material'
@@ -9,17 +8,13 @@ import UmkmDetailsCard from '@components/UmkmDetailsCard';
 import GaleryProducts from '@components/GaleryProducts';
 import ProductDetail from '@components/ProductDetail';
 import ReviewProduct from '@components/ReviewProduct';
-import RejectModals from '@components/RejectModals';
-import ReviewUmkmForm from '@components/ReviewUmkmForm';
 import { useAxios } from '@hooks/useAxios';
+import {useAuth} from '@contexts/AuthContext'
 
-const DetailCatalogue = () => {
+const MyUmkm = () => {
     const [dataDetailUmkm, setDataDetailUmkm] = useState(null)
 
-    const { id } = useParams()
-    const { pathname } = useLocation()
-    const isDashboard = pathname.includes("dashboard")
-    const [openReject, setOpenReject] = useState(false)
+    const {user} = useAuth()
 
     const {
         response: responseDetailsUmkm,
@@ -28,11 +23,12 @@ const DetailCatalogue = () => {
         fetchData: fetchDetailsUmkm
     } = useAxios({
         method: 'GET',
-        url: `/umkm/${id}`,
+        url: `/umkm/${user.id}`,
     });
 
     useEffect(() => {
         fetchDetailsUmkm()
+        console.log(user)
     }, [])
 
     useEffect(() => {
@@ -43,23 +39,7 @@ const DetailCatalogue = () => {
     }, [responseDetailsUmkm])
 
     return (
-        <div className={`detail-catalogue ${isDashboard ? 'p-20 pt-10 bg-blue-50' : 'p-3 pt-10 pb-96'}`}>
-
-            {
-                isDashboard && (
-                    <>
-                        <div className="approval-box p-3 mb-5 flex items-center justify-end gap-3">
-                            <button className='bg-tersier-red hover:bg-red-900 py-2 px-5 rounded-md text-white' onClick={() => setOpenReject(true)}>
-                                Reject
-                            </button>
-                            <button className='bg-tersier-green hover:bg-green-800 py-2 px-5 rounded-md text-white'>
-                                Approve
-                            </button>
-                        </div>
-                        <RejectModals open={openReject} handleClose={(status) => setOpenReject(status)} />
-                    </>
-                )
-            }
+        <div className={`detail-catalogue p-3 pt-10 pb-96`}>
 
             <div className="details-content-wrapper">
                 <Grid2 container spacing={3}>
@@ -112,11 +92,8 @@ const DetailCatalogue = () => {
                                         </Card>
                                     </div>
                                 </Grid2>
-                                <Grid2 size={4}>
-                                    {
-                                        !isDashboard && <ReviewUmkmForm />
-                                    }
-                                    <ReviewProduct idUmkm={id} />
+                                <Grid2 size={4}>                                    
+                                    <ReviewProduct idUmkm={user.id} />
                                 </Grid2>
                             </Grid2>
                         </div>
@@ -129,4 +106,4 @@ const DetailCatalogue = () => {
     )
 }
 
-export default DetailCatalogue
+export default MyUmkm

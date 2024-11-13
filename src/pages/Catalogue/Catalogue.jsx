@@ -7,7 +7,7 @@ import { umkm_catalogue } from '@data/catalogue'
 import { useAuth } from '@contexts/AuthContext'
 import { useAxios } from '@hooks/useAxios'
 
-import { Grid2, responsiveFontSizes } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 
 
 const Catalogue = () => {

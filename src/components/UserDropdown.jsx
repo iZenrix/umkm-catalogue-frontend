@@ -83,7 +83,7 @@ const UserDropdown = () => {
                         Register UMKM
                     </MenuItem>
                 </Link>
-                <Link to={"details/1"}><MenuItem onClick={handleClose}>
+                <Link to={`/my-umkm`}><MenuItem onClick={handleClose}>
                     <StorefrontIcon sx={{ marginRight: "1rem" }} />
                     My UMKM
                 </MenuItem>
