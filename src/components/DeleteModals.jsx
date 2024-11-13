@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { useAxios } from '@hooks/useAxios';
 
-const DeleteModals = ({ handleClose, updateTable, data }) => {
+const DeleteModals = ({ handleClose, updateTable, data, isType = false }) => {
     const {
         response: responseDelete,
         loading: loadingDelete,
@@ -17,9 +17,23 @@ const DeleteModals = ({ handleClose, updateTable, data }) => {
         url: `/category/${data.id}`,
     });
 
+    const {
+        response: responseDeleteType,
+        loading: loadingDeleteType,
+        error: errorDeleteType,
+        fetchData: fetchDeleteType
+    } = useAxios({
+        method: 'DELETE',
+        url: `/type/${data.id}`,
+    });
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetchDelete()
+        if (isType) {
+            fetchDeleteType()
+        } else {
+            fetchDelete()
+        }
     };
 
     useEffect(() => {
@@ -28,6 +42,13 @@ const DeleteModals = ({ handleClose, updateTable, data }) => {
             handleClose(null)
         }
     }, [responseDelete])
+
+    useEffect(() => {
+        if (responseDeleteType?.data) {
+            updateTable()
+            handleClose(null)
+        }
+    }, [responseDeleteType])
 
     return (
         <Modal
@@ -43,16 +64,16 @@ const DeleteModals = ({ handleClose, updateTable, data }) => {
                 </div>
                 <div className="text-confirmation">
                     <h1 className='text-xl font-semibold text-slate-800 text-center'>Are You Sure ?</h1>
-                    <p className='text-base font-normal text-slate-800 text-center'>You want to delete "{data.name}" category</p>
+                    <p className='text-base font-normal text-slate-800 text-center'>You want to delete "{data.name}" {isType ? "type" : "category"}</p>
                 </div>
                 {errorDelete ? (
-                        <Typography color="error" variant="body2" align="center">
-                            {errorDelete.error}
-                        </Typography>
-                    ) : ""}
+                    <Typography color="error" variant="body2" align="center">
+                        {errorDelete.error}
+                    </Typography>
+                ) : ""}
                 <div className="delete-confirmation-buttons flex justify-center items-center gap-8">
                     {
-                        loadingDelete ?
+                        loadingDelete || loadingDeleteType ?
                             <div className="loading-delete bg-tersier-red py-2 px-4 rounded-md text-white w-full">
                                 <p>Deleting Data...</p>
                             </div>

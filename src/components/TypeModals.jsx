@@ -1,30 +1,62 @@
 import React, { useEffect, useState } from 'react'
 
-import { Modal, Autocomplete, TextField } from '@mui/material'
+import { Modal, Autocomplete, TextField, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 
-import { category } from '@data/category';
+import { useAxios } from "@hooks/useAxios"
 
-const formatedOption = category.map((items) => (items.name)).flat()
+const TypeModals = ({ handleClose, updateTable, data, categoryItem }) => {
+    const {
+        response: responseCreate,
+        loading: loadingCreate,
+        error: errorCreate,
+        fetchData: fetchCreate
+    } = useAxios({
+        method: 'POST',
+        url: `/type`,
+    });
 
-const TypeModals = ({ open, handleClose, savedData }) => {
-    if (!open) return null;
+    const {
+        response: responseEdit,
+        loading: loadingEdit,
+        error: errorEdit,
+        fetchData: fetchEdit
+    } = useAxios({
+        method: 'PUT',
+        url: `/type/${data?.id}`,
+    });
 
+    const [type, setType] = useState("")
     const [selectedCategory, setSelectedCategory] = useState("")
-    const [types, setTypes] = useState("")
-    const [dataTypes, setDataTypes] = useState({})
+
+    const saveData = (e) => {
+        e.preventDefault();
+        if (data) {
+            fetchEdit({
+                name: type,
+                category_id: selectedCategory.id
+            })
+        } else {
+            fetchCreate({
+                name: type,
+                category_id: selectedCategory.id
+            })
+        }
+    };
 
     useEffect(() => {
-        setDataTypes({
-            types,
-            category: selectedCategory
-        })
-    }, [types, selectedCategory])
+        if (responseCreate?.data) {
+            updateTable()
+            handleClose()
+        }
+    }, [responseCreate])
 
-    const saveData = () => {
-        console.log(dataTypes)
-        handleClose(false);
-    };
+    useEffect(() => {
+        if (responseEdit?.data) {
+            updateTable()
+            handleClose()
+        }
+    }, [responseEdit])
 
     return (
         <Modal
@@ -40,18 +72,29 @@ const TypeModals = ({ open, handleClose, savedData }) => {
                         <h1 className='text-xl font-semibold text-slate-800 text-center'>Types</h1>
                         <p className='text-base font-normal text-slate-800 text-center'>Masukkan types baru dan kategorinya</p>
                     </div>
-                    <TextField id="category-input" label="Input Type" variant="outlined" fullWidth onChange={(e) => setTypes(e.target.value)} />
+                    <TextField id="category-input" label="Input Type" variant="outlined" fullWidth onChange={(e) => setType(e.target.value)} defaultValue={data && data.name} />
                     <Autocomplete
                         fullWidth
-                        options={formatedOption}
-                        getOptionLabel={(option) => option}
+                        options={categoryItem}
+                        getOptionLabel={(option) => option.name}
+                        defaultValue={data && categoryItem.find(item => item.id === data.category_id)}
 
                         onChange={(event, newValue) => setSelectedCategory(newValue)}
 
                         renderInput={(params) => <TextField {...params} label="Select Category" />}
                     />
+                    {errorCreate || errorEdit ? (
+                        <Typography color="error" variant="body2" align="center">
+                            {data ? errorCreate.error : errorEdit.error}
+                        </Typography>
+                    ) : ""}
                     <div className="delete-confirmation-buttons flex justify-center items-center gap-8">
-                        <button className='bg-tersier-green py-2 px-4 rounded-md text-white' type='submit'>Submit</button>
+                        {
+                            loadingCreate || loadingEdit ?
+                                <div className='bg-tersier-green py-2 px-4 rounded-md text-white' >{data ? "Updating data..." : "Adding data..."}</div>
+                                :
+                                <button className='bg-tersier-green py-2 px-4 rounded-md text-white' type='submit'>Submit</button>
+                        }
                     </div>
                 </div>
             </form>
