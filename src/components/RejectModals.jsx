@@ -1,22 +1,41 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { Modal, TextField } from '@mui/material'
+import { Modal, TextField, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
-const RejectModals = ({ open, handleClose }) => {
-    if (!open) return null;
+import { useAxios } from '@hooks/useAxios';
 
+const RejectModals = ({ id, handleClose }) => {
     const [message, setMessage] = useState("")
 
-    const saveData = () => {
-        console.log(message)
-        handleClose(false)
+    const {
+        response: responseRejection,
+        loading: loadingRejection,
+        error: errorRejection,
+        fetchData: fetchRejection
+    } = useAxios({
+        method: 'POST',
+        url: `/umkm/${id}/validate`,
+    });
+
+    const saveData = (e) => {
+        e.preventDefault()
+        fetchRejection({
+            status: "REJECTED",
+            rejectionNote: message
+        })
     };
+
+    useEffect(() => {
+        if (responseRejection?.data) {
+            handleClose(false)
+        }
+    }, [responseRejection])
 
     return (
         <Modal
-            open={open}
+            open={true}
             onClose={() => handleClose(false)}
         >
             <form onSubmit={saveData}>
@@ -32,8 +51,13 @@ const RejectModals = ({ open, handleClose }) => {
                         <p className='text-base font-normal text-slate-800 text-center'>Tulis alasan penolakan</p>
                     </div>
                     <TextField id="category-input" label="Alasan Penolakan" variant="outlined" fullWidth onChange={(e) => setMessage(e.target.value)} />
+                    {errorRejection ? (
+                        <Typography color="error" variant="body2" align="center">
+                            {errorRejection.error}
+                        </Typography>
+                    ) : ""}
                     <div className="category-confirmation-buttons flex justify-center items-center gap-8">
-                        <button className='bg-tersier-green py-2 px-4 rounded-md text-white' type='submit'>Send</button>
+                        <button className='bg-tersier-green py-2 px-4 rounded-md text-white' type='submit'>{loadingRejection ? "Rejecting" : "Send"}</button>
                     </div>
                 </div>
             </form>

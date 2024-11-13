@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { ReactPhotoSphereViewer } from 'react-photo-sphere-viewer';
 
 import { Grid2, Card, CardContent } from '@mui/material'
@@ -19,6 +19,7 @@ const DetailCatalogue = () => {
     const { id } = useParams()
     const { pathname } = useLocation()
     const isDashboard = pathname.includes("dashboard")
+    const navigate = useNavigate()
     const [openReject, setOpenReject] = useState(false)
 
     const {
@@ -42,6 +43,30 @@ const DetailCatalogue = () => {
         }
     }, [responseDetailsUmkm])
 
+    const {
+        response: responseApproval,
+        loading: loadingApproval,
+        error: errorApproval,
+        fetchData: fetchApproval
+    } = useAxios({
+        method: 'POST',
+        url: `/umkm/${id}/validate`,
+    });
+
+    const handleApprove = () => {
+        fetchApproval({
+            status: "APPROVED",
+        })
+    };
+
+    useEffect(() => {
+        if (responseApproval?.data) {
+            console.log(responseApproval?.data)
+            navigate("/dashboard/approval")
+        }
+        console.log(errorApproval?.error)
+    },[responseApproval])
+
     return (
         <div className={`detail-catalogue ${isDashboard ? 'p-20 pt-10 bg-blue-50' : 'p-3 pt-10 pb-96'}`}>
 
@@ -52,11 +77,11 @@ const DetailCatalogue = () => {
                             <button className='bg-tersier-red hover:bg-red-900 py-2 px-5 rounded-md text-white' onClick={() => setOpenReject(true)}>
                                 Reject
                             </button>
-                            <button className='bg-tersier-green hover:bg-green-800 py-2 px-5 rounded-md text-white'>
-                                Approve
+                            <button className='bg-tersier-green hover:bg-green-800 py-2 px-5 rounded-md text-white' onClick={handleApprove}>
+                                {loadingApproval ? "Approving" : "Approve"}
                             </button>
                         </div>
-                        <RejectModals open={openReject} handleClose={(status) => setOpenReject(status)} />
+                        {openReject && <RejectModals handleClose={(status) => setOpenReject(status)} id={id}/>}
                     </>
                 )
             }
