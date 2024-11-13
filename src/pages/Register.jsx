@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { TextField, Button, Typography, Container, Box, FormControl, InputLabel, Select, MenuItem, Grid2 } from '@mui/material';
 
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+import { useAxios } from '@hooks/useAxios';
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -10,6 +14,25 @@ const Register = () => {
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [role, setRole] = useState('User');
     const [error, setError] = useState('');
+
+    const navigate = useNavigate()
+
+    const {
+        response : responseRegister,
+        loading : loadingRegister,
+        error : errorRegister,
+        fetchData : fetchDataRegister,
+    } = useAxios({
+        method : "POST",
+        url : '/register'
+    })
+
+    useEffect(() => {
+        if (responseRegister?.data) {
+            console.log(responseRegister?.data)
+            navigate("/login")
+        }
+    },[responseRegister])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,7 +44,12 @@ const Register = () => {
         } else {
             setError('');
             // Kirim data ke server atau lakukan validasi lebih lanjut
-            console.log('Form Submitted', { username, email, password, role });
+            // console.log('Form Submitted', { username, email, password, role });
+            fetchDataRegister({
+                username,
+                email,
+                password
+            })
         }
     };
 
@@ -99,13 +127,13 @@ const Register = () => {
                                         </Select>
                                     </FormControl>
                                 </div>
-                                {error && (
+                                {error || errorRegister ? (
                                     <Typography color="error" variant="body2" align="center">
-                                        {error}
+                                        {error || errorRegister?.error}
                                     </Typography>
-                                )}
+                                ) : ""}
                                 <div className="button-wrapper w-full flex justify-center mt-5 px-10">
-                                    <button className='bg-secondary-500 py-4 flex-1 rounded-lg text-white font-medium text-lg' type='submit'>Register</button>
+                                    <button className='bg-secondary-500 py-4 flex-1 rounded-lg text-white font-medium text-lg' type='submit'>{loadingRegister ? "Processing" : "Register"}</button>
                                 </div>
                             </form>
                             <p className='text-center mt-5 text-primary-600'>Have an account? <Link to={"/login"} className='text-secondary-500'> Login here </Link></p>
