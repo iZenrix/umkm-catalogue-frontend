@@ -12,6 +12,7 @@ import ReviewProduct from '@components/ReviewProduct';
 import RejectModals from '@components/RejectModals';
 import ReviewUmkmForm from '@components/ReviewUmkmForm';
 import { useAxios } from '@hooks/useAxios';
+import { useAuth } from '@contexts/AuthContext'
 
 const DetailCatalogue = () => {
     const [dataDetailUmkm, setDataDetailUmkm] = useState(null)
@@ -20,7 +21,11 @@ const DetailCatalogue = () => {
     const { pathname } = useLocation()
     const isDashboard = pathname.includes("dashboard")
     const navigate = useNavigate()
+
+    const { isLogged } = useAuth()
+
     const [openReject, setOpenReject] = useState(false)
+
 
     const {
         response: responseDetailsUmkm,
@@ -65,7 +70,7 @@ const DetailCatalogue = () => {
             navigate("/dashboard/approval")
         }
         console.log(errorApproval?.error)
-    },[responseApproval])
+    }, [responseApproval])
 
     return (
         <div className={`detail-catalogue ${isDashboard ? 'p-20 pt-10 bg-blue-50' : 'p-3 pt-10 pb-96'}`}>
@@ -81,7 +86,7 @@ const DetailCatalogue = () => {
                                 {loadingApproval ? "Approving" : "Approve"}
                             </button>
                         </div>
-                        {openReject && <RejectModals handleClose={(status) => setOpenReject(status)} id={id}/>}
+                        {openReject && <RejectModals handleClose={(status) => setOpenReject(status)} id={id} />}
                     </>
                 )
             }
@@ -139,7 +144,7 @@ const DetailCatalogue = () => {
                                 </Grid2>
                                 <Grid2 size={4}>
                                     {
-                                        !isDashboard && <ReviewUmkmForm />
+                                        !isDashboard && isLogged ? <ReviewUmkmForm id={id} /> : ""
                                     }
                                     <ReviewProduct idUmkm={id} />
                                 </Grid2>

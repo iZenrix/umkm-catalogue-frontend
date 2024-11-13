@@ -4,10 +4,11 @@ import { Card, CardContent, TextField } from '@mui/material'
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
 import { useAuth } from '@contexts/AuthContext';
+import { useAxios } from '@hooks/useAxios';
 
 import { StarInput } from '@utils/StarsRateGenerator';
 
-const ReviewUmkmForm = () => {
+const ReviewUmkmForm = ({id}) => {
     const [review, setReview] = useState(null)
     const [comments, setComments] = useState('')
     const [rating, setRating] = useState(null)
@@ -15,27 +16,39 @@ const ReviewUmkmForm = () => {
 
     const { user } = useAuth()
 
+    const {
+        response: responseReview,
+        loading: loadingReview,
+        error: errorReview,
+        fetchData: fetchReview
+    } = useAxios({
+        method: 'POST',
+        url: '/review',
+    });
+
     const handleReview = (e) => {
         e.preventDefault()
-        setReview({
-            comments,
-            rating
+        fetchReview({
+            umkm_id : id,
+            user_id : user.id,
+            rating : rating,
+            comments : comments,
         })
-        resetReview()
     };
 
     const resetReview = () => {
         setComments('')
         setResetRating(true)
+        setReview(null)
     }
 
     useEffect(() => {
-        console.log(review)
-    }, [review])
-
-    useEffect(() => {
-        console.log(user)
-    }, [])
+        if (responseReview?.data) {
+            console.log(responseReview?.data)
+            resetReview()
+        }
+        console.log(errorReview?.error)
+    },[responseReview])
 
     return (
         <>
@@ -59,8 +72,7 @@ const ReviewUmkmForm = () => {
                                     :
                                     <div></div>
                             }
-                            <button type='submit' className='hover:bg-slate-200 rounded-full p-2'><SendOutlinedIcon /></button>
-
+                            <button type='submit' className='hover:bg-slate-200 rounded-full p-2'>{loadingReview && "mengirim..."}<SendOutlinedIcon /></button>
                         </div>
                     </CardContent>
                 </Card>
