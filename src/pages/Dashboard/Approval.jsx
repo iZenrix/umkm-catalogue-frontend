@@ -36,10 +36,6 @@ const Approval = () => {
 
     return (
         <div className='dashboard-pages p-20 bg-blue-50'>
-            <div className="button-container w-full flex justify-end">
-                <button className='bg-secondary-800 hover:bg-secondary-700 py-3 px-5 rounded-lg text-white font-light mb-3'>+ Add Category</button>
-            </div>
-
             <div className="table-container bg-white p-10 rounded-lg">
                 <div className="filter-button mb-5 flex gap-5">
                     <button className='flex justify-start items-center gap-2 p-2 ps-0'>
