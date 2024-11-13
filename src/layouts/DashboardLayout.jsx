@@ -11,7 +11,7 @@ import { useAuth } from '@contexts/AuthContext';
 const DashboardLayout = () => {
     const navigate = useNavigate()
     const { pathname } = useLocation()
-    const { user } = useAuth()
+    const { user, isLogged } = useAuth()
 
     useEffect(() => {
         if (user) {
@@ -24,6 +24,12 @@ const DashboardLayout = () => {
             }
         }
     }, [user])
+
+    useEffect(() => {
+        if (!isLogged) {
+            navigate("/login")
+        }
+    }, [isLogged])
 
     return (
         <div className='flex'>
