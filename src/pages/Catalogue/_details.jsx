@@ -76,19 +76,20 @@ const DetailCatalogue = () => {
         <div className={`detail-catalogue ${isDashboard ? 'p-20 pt-10 bg-blue-50' : 'p-3 pt-10 pb-96'}`}>
 
             {
-                isDashboard && (
-                    <>
-                        <div className="approval-box p-3 mb-5 flex items-center justify-end gap-3">
-                            <button className='bg-tersier-red hover:bg-red-900 py-2 px-5 rounded-md text-white' onClick={() => setOpenReject(true)}>
-                                Reject
-                            </button>
-                            <button className='bg-tersier-green hover:bg-green-800 py-2 px-5 rounded-md text-white' onClick={handleApprove}>
-                                {loadingApproval ? "Approving" : "Approve"}
-                            </button>
-                        </div>
-                        {openReject && <RejectModals handleClose={(status) => setOpenReject(status)} id={id} />}
-                    </>
-                )
+                loadingDetailsUmkm ? "" : (
+                    isDashboard && dataDetailUmkm?.approval_status !== "APPROVED" ? (
+                        <>
+                            <div className="approval-box p-3 mb-5 flex items-center justify-end gap-3">
+                                <button className='bg-tersier-red hover:bg-red-900 py-2 px-5 rounded-md text-white' onClick={() => setOpenReject(true)}>
+                                    Reject
+                                </button>
+                                <button className='bg-tersier-green hover:bg-green-800 py-2 px-5 rounded-md text-white' onClick={handleApprove}>
+                                    {loadingApproval ? "Approving" : "Approve"}
+                                </button>
+                            </div>
+                            {openReject && <RejectModals handleClose={(status) => setOpenReject(status)} id={id} />}
+                        </>
+                    ) : "")
             }
 
             <div className="details-content-wrapper">

@@ -35,7 +35,7 @@ const Approval = () => {
     }, [responseUmkm])
 
     return (
-        <div className='dashboard-pages p-20 bg-blue-50'>
+        <div className='dashboard-pages p-20 bg-blue-50 h-full'>
             <div className="table-container bg-white p-10 rounded-lg">
                 <div className="filter-button mb-5 flex gap-5">
                     <button className='flex justify-start items-center gap-2 p-2 ps-0'>
@@ -92,7 +92,7 @@ const Approval = () => {
                                     }
                                 </tbody>
                             </table>
-                            <div className="pagination-container w-full flex justify-center mt-5 gap-5">
+                            {/* <div className="pagination-container w-full flex justify-center mt-5 gap-5">
                                 <button className='hover:bg-primary-400 py-3 px-5 rounded-lg text-primary-800'>{'<'}</button>
                                 <button className='bg-secondary-100 hover:bg-secondary-200 py-3 px-5 rounded-lg text-secondary-600'>1</button>
                                 <button className='bg-primary-400 hover:bg-primary-600 py-3 px-5 rounded-lg text-primary-800'>2</button>
@@ -100,7 +100,7 @@ const Approval = () => {
                                 <button className='bg-primary-400 hover:bg-primary-600 py-3 px-5 rounded-lg text-primary-800'>4</button>
                                 <button className='bg-primary-400 hover:bg-primary-600 py-3 px-5 rounded-lg text-primary-800'>5</button>
                                 <button className='hover:bg-primary-400 py-3 px-5 rounded-lg text-primary-800'>{'>'}</button>
-                            </div>
+                            </div> */}
                         </>
                     )
 
