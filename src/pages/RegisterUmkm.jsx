@@ -121,7 +121,7 @@ const RegisterUmkm = () => {
                         <Grid2 size={12} container>
                             <Grid2 size={3}>
                                 <h3 className='text-lg font-semibold mb-3'>Profile Picture</h3>
-                                <input type="file" className='image-profile hidden' id="img-profile" onChange={(e) => handleProfilePict(e)} />
+                                <input type="file" accept="image/png, image/jpeg, image/webp" className='image-profile hidden' id="img-profile" onChange={(e) => handleProfilePict(e)} />
                                 {
                                     profilePicture ? (
                                         <div className="img-profile-input mb-3 border-2 border-dashed border-primary-600 flex flex-col justify-center items-center rounded-lg w-full hover:cursor-pointer" onClick={() => document.querySelector("#img-profile").click()}>
@@ -188,7 +188,7 @@ const RegisterUmkm = () => {
                                 />
                             </Grid2>
                             <Grid2 size={3}>
-                                <input type="file" id="img-gallery" className='hidden' onChange={(e) => handleGalleryPict(e)} disabled={galleryPicture.length === 3} />
+                                <input type="file" accept="image/png, image/jpeg, image/webp" id="img-gallery" className='hidden' onChange={(e) => handleGalleryPict(e)} disabled={galleryPicture.length === 3} />
                                 <div className="gallery-upload-wrapper flex gap-3 flex-wrap">
                                     {
                                         galleryPicture && (
@@ -231,7 +231,7 @@ const RegisterUmkm = () => {
                         <Grid2 size={12} container>
                             <Grid2 size={9}>
                                 <div className="content-wrapper h-full flex flex-col">
-                                    <input type="file" id="image-360" className='hidden' onChange={(e) => handle360Pict(e)} disabled={checked} />
+                                    <input type="file" accept="image/png, image/jpeg, image/webp" id="image-360" className='hidden' onChange={(e) => handle360Pict(e)} disabled={checked} />
                                     <h3 className='text-lg font-semibold mb-3'>360 Picture</h3>
                                     {
                                         picture360 ? (
