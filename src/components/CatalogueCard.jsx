@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from 'react'
 
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import BadgesUmkm from '@components/BadgesUmkm'
+import AlertComponent from '@components/AlertComponent'
 
-import { Grid2, Typography, Card, CardMedia, CardContent, CardActionArea, Chip, IconButton } from '@mui/material'
+import { Grid2, Typography, Card, CardMedia, CardContent, CardActionArea, Chip, IconButton, Popper, Popover } from '@mui/material'
 import { TagFaces } from '@mui/icons-material'
 import { Favorite } from '@mui/icons-material'
 import { Share } from '@mui/icons-material'
 
 const CatalogueCard = ({ data }) => {
+    const [anchorEl, setAnchorEl] = useState(null);
     const [copied, setCopied] = useState(false);
 
-    const link = useLocation()
+    const nowLocation = window.location.href;
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(link)
-            .then(() => {
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-            })
-            .catch((err) => console.error("Gagal menyalin link", err));
+    const handleCopyLink = async (e, linkToCopy) => {
+        try {
+            await navigator.clipboard.writeText(linkToCopy);
+            setCopied(true);
+            setAnchorEl(e.target);
+
+            setTimeout(() => {
+                setCopied(false)
+                setAnchorEl(null);
+            }, 2000);
+        } catch (err) {
+            console.error("Failed to copy: ", err);
+        }
     };
 
     return (
@@ -37,9 +45,9 @@ const CatalogueCard = ({ data }) => {
                                 <div className="badges mb-5 flex flex-row gap-2">
                                     {/* <Chip variant="outlined" size="small" icon={<TagFaces />} label="badges1" />
                                     <Chip variant="outlined" size="small" icon={<TagFaces />} label="badges2" /> */}
-                                    
-                                    <BadgesUmkm badgesName={"recommended"}/>
-                                    
+
+                                    <BadgesUmkm badgesName={"recommended"} />
+
                                 </div>
                                 <Typography variant='h5' fontWeight="bold">
                                     {data.name}
@@ -60,9 +68,24 @@ const CatalogueCard = ({ data }) => {
                         <IconButton aria-label="add to favorites">
                             <Favorite sx={{ color: "#F04438" }} />
                         </IconButton>
-                        <IconButton aria-label="share" color='primary'>
+                        <IconButton aria-describedby={`share-${data.id}`} aria-label={`share-${data.id}`} color='primary' onClick={(e) => handleCopyLink(e, `${nowLocation}details/${data.id}`)} disabled={copied ? true : false}>
                             <Share />
                         </IconButton>
+                        <Popover
+                            id={`share-${data.id}`}
+                            open={copied}
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                              }}
+                              transformOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                              }}
+                        >
+                            <AlertComponent status={"info"} message={"link berhasil di copy"} />
+                        </Popover>
                     </div>
                 </Card>
             </div>

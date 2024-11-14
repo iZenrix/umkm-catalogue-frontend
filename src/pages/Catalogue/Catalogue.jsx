@@ -50,7 +50,7 @@ const Catalogue = () => {
     }
 
     return (
-        <div className='p-3 pt-10'>
+        <div className='p-3 pt-10 pb-48'>
             <div className="banner rounded-2xl mb-8 overflow-hidden">
                 <AdsCarousel />
             </div>
