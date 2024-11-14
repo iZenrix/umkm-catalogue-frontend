@@ -46,7 +46,7 @@ const Register = () => {
             // Kirim data ke server atau lakukan validasi lebih lanjut
             // console.log('Form Submitted', { username, email, password, role });
             fetchDataRegister({
-                username,
+                name : username,
                 email,
                 password
             })

@@ -8,6 +8,7 @@ import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { Link } from 'react-router-dom';
 
 import AddProductForm from '@components/AddProductForm';
+import MapInput from '@components/MapInput';
 import { category } from '@data/category'
 
 const RegisterUmkm = () => {
@@ -19,6 +20,7 @@ const RegisterUmkm = () => {
     const [title, setTitle] = useState('')
     const [bio, setBio] = useState('')
     const [address, setAddress] = useState('')
+    const [location, setLocation] = useState(null);
     const [contact, setContact] = useState('')
     const [email, setEmail] = useState('')
     const [socialMedia, setSocialMedia] = useState('')
@@ -73,12 +75,15 @@ const RegisterUmkm = () => {
         setChecked(e.target.checked)
     };
 
+    const handleLocationSelect = (coords) => {
+        setLocation(coords);
+    };
+
     useEffect(() => {
         if (umkmData) {
             console.log(umkmData)
         }
     }, [umkmData])
-
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -87,6 +92,7 @@ const RegisterUmkm = () => {
             title,
             bio,
             address,
+            location,
             contact,
             email,
             socialMedia,
@@ -135,7 +141,6 @@ const RegisterUmkm = () => {
                                     fullWidth
                                     options={category}
                                     getOptionLabel={(option) => option.name}
-
                                     onChange={(e) => setCategories(e.target.value)}
                                     renderInput={(params) => <TextField {...params} label="Categories" />}
                                 />
@@ -216,9 +221,13 @@ const RegisterUmkm = () => {
                                 </div>
                             </Grid2>
                         </Grid2>
-
+                        <Grid2 size={9}>
+                            <h3 className='text-lg font-semibold my-3'>Maps Location</h3>
+                            <div className="map-wrapper">
+                                <MapInput onLocationSelect={handleLocationSelect} />
+                            </div>
+                        </Grid2>
                         <hr className='w-full border-b my-5' />
-
                         <Grid2 size={12} container>
                             <Grid2 size={9}>
                                 <div className="content-wrapper h-full flex flex-col">
@@ -252,9 +261,7 @@ const RegisterUmkm = () => {
                                 </div>
                             </Grid2>
                         </Grid2>
-
                         <hr className='w-full border-b my-5' />
-
                         <Grid2 size={12} container>
                             <AddProductForm productData={(data) => getProductData(data)} />
                         </Grid2>
