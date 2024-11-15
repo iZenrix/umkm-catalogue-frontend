@@ -5,7 +5,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { Grid2, Button, Chip } from '@mui/material';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
-import useAxios from '@hooks/useAxios'
+import { useAxios } from '@hooks/useAxios'
 
 const FilterUmkm = ({handleChange}) => {
     const [selectedOption, setSelectedOption] = useState(null)

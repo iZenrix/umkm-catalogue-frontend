@@ -4,7 +4,7 @@ import { Modal, Typography } from '@mui/material'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import CloseIcon from '@mui/icons-material/Close';
 
-import useAxios from '@hooks/useAxios';
+import { useAxios } from '@hooks/useAxios';
 
 const DeleteModals = ({ handleClose, updateTable, data, isType = false }) => {
     const {

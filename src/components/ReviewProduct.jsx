@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Card, CardContent, useScrollTrigger } from '@mui/material'
 
-import useAxios from '@hooks/useAxios'
+import { useAxios } from '@hooks/useAxios'
 
 import { StarsRateGenerator } from '@utils/StarsRateGenerator'
 

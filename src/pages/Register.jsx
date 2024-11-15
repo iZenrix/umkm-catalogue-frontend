@@ -5,7 +5,7 @@ import { TextField, Button, Typography, Container, Box, FormControl, InputLabel,
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-import useAxios from '@hooks/useAxios';
+import { useAxios } from '@hooks/useAxios';
 
 const Register = () => {
     const [username, setUsername] = useState('');

@@ -6,7 +6,7 @@ import { useAuth } from '@contexts/AuthContext';
 axios.defaults.baseURL = 'https://umkm-catalogue-backend.vercel.app/api/v1';
 // axios.defaults.baseURL = 'https://alter-umkm-backend.vercel.app/api/v1';
 
-const useAxios = (axiosParams) => {
+export const useAxios = (axiosParams) => {
     const [response, setResponse] = useState(undefined);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -43,5 +43,3 @@ const useAxios = (axiosParams) => {
 
     return { response, error, loading, fetchData };
 };
-
-export default useAxios

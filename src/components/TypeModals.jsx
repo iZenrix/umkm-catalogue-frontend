@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Modal, Autocomplete, TextField, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 
-import useAxios from "@hooks/useAxios"
+import { useAxios } from "@hooks/useAxios"
 
 const TypeModals = ({ handleClose, updateTable, data, categoryItem }) => {
     const {

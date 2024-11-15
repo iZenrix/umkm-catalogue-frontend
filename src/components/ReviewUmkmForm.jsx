@@ -4,7 +4,7 @@ import { Card, CardContent, TextField } from '@mui/material'
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
 import { useAuth } from '@contexts/AuthContext';
-import useAxios from '@hooks/useAxios';
+import { useAxios } from '@hooks/useAxios';
 
 import { StarInput } from '@utils/StarsRateGenerator';
 
