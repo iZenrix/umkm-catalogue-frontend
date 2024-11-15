@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { Grid2, Autocomplete, TextField, FormControlLabel, Checkbox } from '@mui/material'
+import { Grid2, Autocomplete, TextField, FormControlLabel, Checkbox, Typography } from '@mui/material'
 import PhotoOutlinedIcon from '@mui/icons-material/PhotoOutlined';
 
 import ImageNotSupportedOutlinedIcon from '@mui/icons-material/ImageNotSupportedOutlined';
@@ -13,15 +13,78 @@ import { Link } from 'react-router-dom';
 
 import AddProductForm from '@components/AddProductForm';
 import MapInput from '@components/MapInput';
-import { category } from '@data/category'
+import { useAxios } from '@hooks/useAxios';
+import { useAuth } from '@contexts/AuthContext';
 
 const RegisterUmkm = () => {
-    const [umkmData, setUmkmData] = useState(null)
+    const { user } = useAuth()
+
+    const [categories, setCategories] = useState(null)
+    const [types, setTypes] = useState(null)
+    const [urlTypes, setUrlTypes] = useState(`/type/category/1`)
+
+    const {
+        response: responseCategories,
+        loading: loadingCategories,
+        error: errorCategories,
+        fetchData: fetchCategories
+    } = useAxios({
+        method: 'GET',
+        url: '/category/all',
+    });
+
+    const {
+        response: responseTypes,
+        loading: loadingTypes,
+        error: errorTypes,
+        fetchData: fetchTypes
+    } = useAxios({
+        method: 'GET',
+        url: urlTypes,
+    });
+
+    const {
+        response: responseCreateUmkm,
+        loading: loadingCreateUmkm,
+        error: errorCreateUmkm,
+        fetchData: fetchCreateUmkm
+    } = useAxios({
+        method: 'POST',
+        url: '/umkm',
+    }, true);
+
+    useEffect(() => {
+        fetchCategories()
+        fetchTypes()
+    }, [])
+
+    useEffect(() => {
+        if (responseCategories?.data) {
+            // console.log(responseCategories?.data)
+            setCategories(responseCategories?.data)
+        }
+        if (responseTypes?.data) {
+            // console.log(responseTypes?.data)
+            setTypes(responseTypes?.data)
+        }
+    }, [responseCategories, responseTypes])
+
+    const formData = new FormData()
+
+    useEffect(() => {
+        if (responseCreateUmkm?.data) {
+            console.log(responseCreateUmkm?.data)
+            setCategories(responseCreateUmkm?.data)
+        }
+        if (errorCreateUmkm?.error) {
+            console.log(errorCreateUmkm?.error)
+        }
+    }, [responseCreateUmkm, errorCreateUmkm])
 
     const [checked, setChecked] = useState(false)
 
-    const [categories, setCategories] = useState(null)
-    const [type, setType] = useState('')
+    const [selectedCategory, setSelectedCategory] = useState(null)
+    const [selectedType, setSelectedType] = useState(null)
 
     const [title, setTitle] = useState('')
     const [bio, setBio] = useState('')
@@ -39,6 +102,20 @@ const RegisterUmkm = () => {
     const [profilePicture, setProfilePicture] = useState(null)
     const [galleryPicture, setGalleryPicture] = useState([])
     const [picture360, setPicture360] = useState(null)
+
+    // kode kocak =====================
+
+    useEffect(() => {
+        if (selectedCategory?.id) {
+            setUrlTypes(`/type/category/${selectedCategory?.id}`);
+        }
+    }, [selectedCategory]);
+
+    useEffect(() => {
+        if (urlTypes) {
+            fetchTypes()
+        }
+    }, [urlTypes]);
 
     const getProductData = (data) => {
         setProductItem(prevData => [...prevData, data])
@@ -85,14 +162,12 @@ const RegisterUmkm = () => {
     };
 
     const handleLocationSelect = (coords) => {
-        setLocation(coords);
+        setLocation({
+            name: address,
+            latitude: coords.lat,
+            longitude: coords.lng
+        });
     };
-
-    useEffect(() => {
-        if (umkmData) {
-            console.log(umkmData)
-        }
-    }, [umkmData])
 
     useEffect(() => {
         setSocialMedia([
@@ -108,28 +183,82 @@ const RegisterUmkm = () => {
         ])
     }, [facebook, instagram])
 
+    // const handleSubmit = (e) => {
+    //     e.preventDefault()
+    //     formData.append("categoryId", selectedCategory.id)
+    //     formData.append("name", title)
+    //     formData.append("description", bio)
+    //     formData.append("contact", contact)
+    //     // formData.append("location", location)
+    //     // formData.append("socialMedias", socialMedia)
+    //     // formData.append("images", galleryPicture)
+    //     // formData.append("panoramicImage", picture360)
+    //     // formData.append("profileImage", profilePicture)
+    //     // formData.append("typeIds", [selectedType.id])
+
+    //     formData.append("location", JSON.stringify(location));
+    //     formData.append("socialMedias", JSON.stringify(socialMedia));
+    //     formData.append("images", JSON.stringify(galleryPicture.map(item => item.files[0]?.name)));
+    //     formData.append("panoramicImage", JSON.stringify(picture360?.files?.[0].name));
+    //     formData.append("profileImage", JSON.stringify(profilePicture?.files?.[0].name));
+    //     formData.append("typeIds", JSON.stringify([selectedType.id]));
+
+    //     formData.append("userId", user.id)
+    //     formData.forEach((value, key) => {
+    //         console.log(`${key}: ${value}`);
+    //     });
+
+    //     fetchCreateUmkm(formData)
+    // }
+
     const handleSubmit = (e) => {
-        e.preventDefault()
-        setUmkmData({
-            categories,
-            type,
-            title,
-            bio,
-            address,
-            location,
-            contact,
-            email,
-            socialMedia,
-            profilePicture,
-            galleryPicture,
-            picture360,
-            productItem
-        })
-    }
+        e.preventDefault();
+    
+        // Tambahkan kategori dan tipe
+        formData.append("categoryId", selectedCategory?.id || "");
+        formData.append("typeIds", JSON.stringify([selectedType?.id || ""]));
+    
+        // Tambahkan data dasar
+        formData.append("name", title);
+        formData.append("description", bio);
+        formData.append("contact", contact);
+        formData.append("userId", user?.id || "");
+    
+        // Tambahkan lokasi sebagai JSON string
+        formData.append("location", JSON.stringify(location || {}));
+    
+        // Tambahkan media sosial sebagai JSON string
+        formData.append("socialMedias", JSON.stringify(socialMedia || []));
+    
+        // Tambahkan gambar profil
+        if (profilePicture?.files?.[0]) {
+            formData.append("profileImage", profilePicture.files[0]);
+        }
+    
+        // Tambahkan gambar galeri
+        galleryPicture.forEach((item, index) => {
+            if (item.files?.[0]) {
+                formData.append(`images[${index}]`, item.files[0]);
+            }
+        });
+    
+        // Tambahkan gambar 360 jika tersedia
+        if (picture360?.files?.[0]) {
+            formData.append("panoramicImage", picture360.files[0]);
+        }
+    
+        // Debug data yang dikirim
+        for (const [key, value] of formData.entries()) {
+            console.log(`${key}:`, value);
+        }
+    
+        fetchCreateUmkm(formData);
+    };
+    
 
     const handleCancel = () => {
-        setCategories(null)
-        setType('')
+        setSelectedCategory(null)
+        setSelectedType('')
         setTitle('')
         setBio('')
         setAddress('')
@@ -156,7 +285,7 @@ const RegisterUmkm = () => {
                         <h1 className='text-2xl font-semibold'>Fill Information</h1>
                         <div className="button-submition-wrapper flex gap-3">
                             <button type='button' className="cancel border border-secondary-500 text-secondary-500 py-2 px-4 rounded-md font-semibold" onClick={() => handleCancel()}>Cancel</button>
-                            <input type="submit" value="Submit" label="Save" className='submit-button bg-secondary-500 py-2 px-4 rounded-md text-white font-semibold hover:cursor-pointer' />
+                            <input type="submit" value={loadingCreateUmkm ? "Processing" : "Submit"} label="Save" className='submit-button bg-secondary-500 py-2 px-4 rounded-md text-white font-semibold hover:cursor-pointer' />
                         </div>
                     </div>
                     <Grid2 container spacing={5}>
@@ -179,24 +308,41 @@ const RegisterUmkm = () => {
                                         </div>
                                     )
                                 }
-                                <Autocomplete
-                                    fullWidth
-                                    options={category}
-                                    getOptionLabel={(option) => option.name}
-                                    value={categories}
-                                    onChange={(e, value) => setCategories(value)}
-                                    renderInput={(params) => <TextField {...params} label="Categories" />}
-                                />
+                                {errorCategories ? (
+                                    <Typography color="error" variant="body2" align="center">
+                                        {errorCategories.error}
+                                    </Typography>
+                                ) : ""}
+                                {errorTypes ? (
+                                    <Typography color="error" variant="body2" align="center">
+                                        {errorTypes.error}
+                                    </Typography>
+                                ) : ""}
                                 {
-                                    categories && (
-                                        <Autocomplete
-                                            fullWidth
-                                            options={categories.type}
-                                            onChange={(e, value) => setType(value)}
-                                            value={type}
-                                            renderInput={(params) => <TextField {...params} label="Type" />}
-                                            sx={{ marginTop: "1rem" }}
-                                        />
+                                    loadingCategories ? "" : (
+                                        <>
+                                            <Autocomplete
+                                                fullWidth
+                                                options={categories}
+                                                getOptionLabel={(option) => option.name}
+                                                value={selectedCategory}
+                                                onChange={(e, value) => setSelectedCategory(value)}
+                                                renderInput={(params) => <TextField {...params} label="Categories" />}
+                                            />
+                                            {
+                                                selectedCategory && (
+                                                    <Autocomplete
+                                                        fullWidth
+                                                        options={types}
+                                                        getOptionLabel={(option) => option.name}
+                                                        onChange={(e, value) => setSelectedType(value)}
+                                                        value={selectedType}
+                                                        renderInput={(params) => <TextField {...params} label="Type" />}
+                                                        sx={{ marginTop: "1rem" }}
+                                                    />
+                                                )
+                                            }
+                                        </>
                                     )
                                 }
                             </Grid2>

@@ -68,7 +68,7 @@ const MapInput = ({ onLocationSelect }) => {
         )}
       </MapContainer>
       <div className="button-wrapper flex justify-end w-full">
-        <button className='button-find-location bg-secondary-600 text-white px-4 py-2 rounded-lg mt-4' onClick={handleLocate}>Find My Location</button>
+        <button type='button' className='button-find-location bg-secondary-600 text-white px-4 py-2 rounded-lg mt-4' onClick={handleLocate}>Find My Location</button>
       </div>
     </>
   );

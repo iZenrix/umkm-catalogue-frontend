@@ -3,26 +3,21 @@ import axios from 'axios';
 import { useAuth } from '@contexts/AuthContext';
 
 // axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
-axios.defaults.baseURL = 'https://umkm-catalogue-backend.vercel.app/api/v1';
 // axios.defaults.baseURL = 'https://alter-umkm-backend.vercel.app/api/v1';
+axios.defaults.baseURL = 'https://umkm-catalogue-backend.vercel.app/api/v1';
 
-export const useAxios = (axiosParams) => {
+export const useAxios = (axiosParams, isImage = false) => {
     const [response, setResponse] = useState(undefined);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
     const { token, isLogged } = useAuth()
 
-    // const fixHeader = token && isLogged ? {
-    //     accept: '*/*',
-    //     Authorization: 'Bearer ' + token,
-    // } : {
-    //         accept: '*/*'
-    // }
-
-    const fixHeader = isLogged && {
+    const fixHeader = token && isLogged ? {
         accept: '*/*',
-        Authorization: token && ('Bearer ' + token),
+        Authorization: 'Bearer ' + token,
+    } : {
+            accept: '*/*'
     }
 
     const fetchData = async (params) => {
@@ -30,7 +25,7 @@ export const useAxios = (axiosParams) => {
         try {
             const result = await axios.request({
                 ...axiosParams,
-                headers: fixHeader,
+                headers:  isImage ? { ...fixHeader, "Content-Type": "multipart/form-data" } : fixHeader,
                 data: params
             });
             setResponse(result.data);
