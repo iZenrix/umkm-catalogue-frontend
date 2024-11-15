@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react'
 
 import { Grid2, Autocomplete, TextField, FormControlLabel, Checkbox } from '@mui/material'
 import PhotoOutlinedIcon from '@mui/icons-material/PhotoOutlined';
+
 import ImageNotSupportedOutlinedIcon from '@mui/icons-material/ImageNotSupportedOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+
 import { Link } from 'react-router-dom';
 
 import AddProductForm from '@components/AddProductForm';
@@ -17,13 +21,18 @@ const RegisterUmkm = () => {
     const [checked, setChecked] = useState(false)
 
     const [categories, setCategories] = useState('')
+    const [type, setType] = useState('')
+
     const [title, setTitle] = useState('')
     const [bio, setBio] = useState('')
     const [address, setAddress] = useState('')
     const [location, setLocation] = useState(null);
     const [contact, setContact] = useState('')
     const [email, setEmail] = useState('')
+
     const [socialMedia, setSocialMedia] = useState('')
+    const [facebook, setFacebook] = useState('')
+    const [instagram, setInstagram] = useState('')
 
     const [productItem, setProductItem] = useState([])
 
@@ -85,10 +94,25 @@ const RegisterUmkm = () => {
         }
     }, [umkmData])
 
+    useEffect(() => {
+        setSocialMedia([
+            {
+                platform : "instagram",
+                url : instagram
+            },
+            {
+                platform : "facebook",
+                url : facebook
+            },
+            
+        ])
+    }, [facebook, instagram])
+
     const handleSubmit = (e) => {
         e.preventDefault()
         setUmkmData({
             categories,
+            type,
             title,
             bio,
             address,
@@ -141,9 +165,20 @@ const RegisterUmkm = () => {
                                     fullWidth
                                     options={category}
                                     getOptionLabel={(option) => option.name}
-                                    onChange={(e) => setCategories(e.target.value)}
+                                    onChange={(e, value) => setCategories(value)}
                                     renderInput={(params) => <TextField {...params} label="Categories" />}
                                 />
+                                {
+                                    categories && (
+                                        <Autocomplete
+                                            fullWidth
+                                            options={categories.type}
+                                            onChange={(e, value) => setType(value)}
+                                            renderInput={(params) => <TextField {...params} label="Type" />}
+                                            sx={{ marginTop: "1rem" }}
+                                        />
+                                    )
+                                }
                             </Grid2>
                             <Grid2 size={3}>
                                 <h3 className='text-lg font-semibold mb-3'>Title</h3>
@@ -181,11 +216,24 @@ const RegisterUmkm = () => {
                                     id='email-umkm'
                                 />
                                 <h3 className='text-lg font-semibold my-3'>Social Media</h3>
-                                <TextField
-                                    fullWidth
-                                    onChange={(e) => setSocialMedia(e.target.value)}
-                                    id='social-media-umkm'
-                                />
+                                <div className="input-wrapper flex items-center gap-4">
+                                    <InstagramIcon sx={{fontSize : "2rem", color : "#5b5b5b"}}/>
+                                    <TextField
+                                        fullWidth
+                                        onChange={(e) => setInstagram(e.target.value)}
+                                        placeholder='Masukan link instagram'
+                                        id='social-media-umkm-instagram'
+                                    />
+                                </div>
+                                <div className="input-wrapper flex items-center gap-4 mt-5">
+                                    <FacebookIcon sx={{fontSize : "2rem", color : "#5b5b5b"}}/>
+                                    <TextField
+                                        fullWidth
+                                        onChange={(e) => setFacebook(e.target.value)}
+                                        id='social-media-umkm-facebook'
+                                        placeholder='Masukan link facebook'
+                                    />
+                                </div>
                             </Grid2>
                             <Grid2 size={3}>
                                 <input type="file" accept="image/png, image/jpeg, image/webp" id="img-gallery" className='hidden' onChange={(e) => handleGalleryPict(e)} disabled={galleryPicture.length === 3} />
