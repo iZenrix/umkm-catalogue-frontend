@@ -20,7 +20,7 @@ const RegisterUmkm = () => {
 
     const [checked, setChecked] = useState(false)
 
-    const [categories, setCategories] = useState('')
+    const [categories, setCategories] = useState(null)
     const [type, setType] = useState('')
 
     const [title, setTitle] = useState('')
@@ -97,14 +97,14 @@ const RegisterUmkm = () => {
     useEffect(() => {
         setSocialMedia([
             {
-                platform : "instagram",
-                url : instagram
+                platform: "instagram",
+                url: instagram
             },
             {
-                platform : "facebook",
-                url : facebook
+                platform: "facebook",
+                url: facebook
             },
-            
+
         ])
     }, [facebook, instagram])
 
@@ -127,6 +127,24 @@ const RegisterUmkm = () => {
         })
     }
 
+    const handleCancel = () => {
+        setCategories(null)
+        setType('')
+        setTitle('')
+        setBio('')
+        setAddress('')
+        setLocation(null);
+        setContact('')
+        setEmail('')
+        setSocialMedia('')
+        setFacebook('')
+        setInstagram('')
+        setProductItem([])
+        setProfilePicture(null)
+        setGalleryPicture([])
+        setPicture360(null)
+    }
+
     return (
         <div className="register-umkm p-5 pt-10">
             <div className="back-button-wrapper mb-10">
@@ -137,8 +155,8 @@ const RegisterUmkm = () => {
                     <div className="form-submition flex justify-between items-center mb-8">
                         <h1 className='text-2xl font-semibold'>Fill Information</h1>
                         <div className="button-submition-wrapper flex gap-3">
-                            <button type='button' className="cancel border border-secondary-500 text-secondary-500 py-2 px-4 rounded-md font-semibold">Cancel</button>
-                            <input type="submit" value="Submit" label="Save" className='submit-button bg-secondary-500 py-2 px-4 rounded-md text-white font-semibold' />
+                            <button type='button' className="cancel border border-secondary-500 text-secondary-500 py-2 px-4 rounded-md font-semibold" onClick={() => handleCancel()}>Cancel</button>
+                            <input type="submit" value="Submit" label="Save" className='submit-button bg-secondary-500 py-2 px-4 rounded-md text-white font-semibold hover:cursor-pointer' />
                         </div>
                     </div>
                     <Grid2 container spacing={5}>
@@ -165,6 +183,7 @@ const RegisterUmkm = () => {
                                     fullWidth
                                     options={category}
                                     getOptionLabel={(option) => option.name}
+                                    value={categories}
                                     onChange={(e, value) => setCategories(value)}
                                     renderInput={(params) => <TextField {...params} label="Categories" />}
                                 />
@@ -174,6 +193,7 @@ const RegisterUmkm = () => {
                                             fullWidth
                                             options={categories.type}
                                             onChange={(e, value) => setType(value)}
+                                            value={type}
                                             renderInput={(params) => <TextField {...params} label="Type" />}
                                             sx={{ marginTop: "1rem" }}
                                         />
@@ -184,6 +204,7 @@ const RegisterUmkm = () => {
                                 <h3 className='text-lg font-semibold mb-3'>Title</h3>
                                 <TextField
                                     fullWidth
+                                    value={title}
                                     onChange={(e) => setTitle(e.target.value)}
                                     id='title-umkm'
                                 />
@@ -192,12 +213,14 @@ const RegisterUmkm = () => {
                                     fullWidth
                                     multiline
                                     minRows={3}
+                                    value={bio}
                                     onChange={(e) => setBio(e.target.value)}
                                     id='bio-umkm'
                                 />
                                 <h3 className='text-lg font-semibold my-3'>Address</h3>
                                 <TextField
                                     fullWidth
+                                    value={address}
                                     onChange={(e) => setAddress(e.target.value)}
                                     id='address-umkm'
                                 />
@@ -206,29 +229,33 @@ const RegisterUmkm = () => {
                                 <h3 className='text-lg font-semibold mb-3'>Contact</h3>
                                 <TextField
                                     fullWidth
+                                    value={contact}
                                     onChange={(e) => setContact(e.target.value)}
                                     id='contact-umkm'
                                 />
                                 <h3 className='text-lg font-semibold my-3'>Email</h3>
                                 <TextField
                                     fullWidth
+                                    value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     id='email-umkm'
                                 />
                                 <h3 className='text-lg font-semibold my-3'>Social Media</h3>
                                 <div className="input-wrapper flex items-center gap-4">
-                                    <InstagramIcon sx={{fontSize : "2rem", color : "#5b5b5b"}}/>
+                                    <InstagramIcon sx={{ fontSize: "2rem", color: "#5b5b5b" }} />
                                     <TextField
                                         fullWidth
+                                        value={instagram}
                                         onChange={(e) => setInstagram(e.target.value)}
                                         placeholder='Masukan link instagram'
                                         id='social-media-umkm-instagram'
                                     />
                                 </div>
                                 <div className="input-wrapper flex items-center gap-4 mt-5">
-                                    <FacebookIcon sx={{fontSize : "2rem", color : "#5b5b5b"}}/>
+                                    <FacebookIcon sx={{ fontSize: "2rem", color: "#5b5b5b" }} />
                                     <TextField
                                         fullWidth
+                                        value={facebook}
                                         onChange={(e) => setFacebook(e.target.value)}
                                         id='social-media-umkm-facebook'
                                         placeholder='Masukan link facebook'
