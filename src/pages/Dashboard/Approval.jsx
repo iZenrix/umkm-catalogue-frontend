@@ -8,7 +8,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import SortOutlinedIcon from '@mui/icons-material/SortOutlined';
 import { Typography } from '@mui/material';
 
-import { useAxios } from '@hooks/useAxios';
+import useAxios from '@hooks/useAxios';
 
 const Approval = () => {
     const [dataTable, setDataTable] = useState(null)

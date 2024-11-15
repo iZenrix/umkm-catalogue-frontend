@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TextField, Typography, Container, Box, Grid2 } from '@mui/material';
 
 import { useAuth } from '@contexts/AuthContext';
-import { useAxios } from '@hooks/useAxios';
+import useAxios from '@hooks/useAxios';
 
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';

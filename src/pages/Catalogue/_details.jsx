@@ -11,7 +11,7 @@ import ProductDetail from '@components/ProductDetail';
 import ReviewProduct from '@components/ReviewProduct';
 import RejectModals from '@components/RejectModals';
 import ReviewUmkmForm from '@components/ReviewUmkmForm';
-import { useAxios } from '@hooks/useAxios';
+import useAxios from '@hooks/useAxios';
 import { useAuth } from '@contexts/AuthContext'
 
 const DetailCatalogue = () => {

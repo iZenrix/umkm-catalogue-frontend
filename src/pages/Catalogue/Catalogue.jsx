@@ -7,7 +7,7 @@ import { umkm_catalogue } from '@data/catalogue'
 import { useAuth } from '@contexts/AuthContext'
 import { useAxios } from '@hooks/useAxios'
 
-import { Grid2, Typography } from '@mui/material'
+import { Grid2, Typography, Skeleton } from '@mui/material'
 
 
 const Catalogue = () => {
@@ -45,7 +45,7 @@ const Catalogue = () => {
             const filteredData = dataCatalogueBackup.filter(item => item.category_id === value);
             setDataCatalogue(filteredData.length > 0 ? filteredData : dataCatalogueBackup);
             filteredData.length === 0 ? setIsNull(true) : setIsNull(false)
-            
+
         }
     }
 
@@ -57,7 +57,14 @@ const Catalogue = () => {
             <div className="catalogue">
                 {
                     loadingCatalogue ? (
-                        <p>loading content...</p>
+                        <Grid2 container spacing={4}>
+                            <Grid2 size={3}>
+                                <Skeleton height={80}/>
+                            </Grid2>
+                            <Grid2 size={9}>
+                                <Skeleton height={80}/>
+                            </Grid2>
+                        </Grid2>
                     ) : (
                         <Grid2 container spacing={4}>
                             <Grid2 size={3}>

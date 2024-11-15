@@ -6,27 +6,32 @@ import { useAuth } from '@contexts/AuthContext';
 axios.defaults.baseURL = 'https://umkm-catalogue-backend.vercel.app/api/v1';
 // axios.defaults.baseURL = 'https://alter-umkm-backend.vercel.app/api/v1';
 
-export const useAxios = (axiosParams) => {
+const useAxios = (axiosParams) => {
     const [response, setResponse] = useState(undefined);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
     const { token, isLogged } = useAuth()
 
-    const fixHeader = token && isLogged ? {
+    // const fixHeader = token && isLogged ? {
+    //     accept: '*/*',
+    //     Authorization: 'Bearer ' + token,
+    // } : {
+    //         accept: '*/*'
+    // }
+
+    const fixHeader = isLogged && {
         accept: '*/*',
-        Authorization: 'Bearer ' + token,
-    } : {
-            accept: '*/*'
+        Authorization: token && ('Bearer ' + token),
     }
-    
+
     const fetchData = async (params) => {
         setLoading(true);
         try {
             const result = await axios.request({
                 ...axiosParams,
                 headers: fixHeader,
-                data : params
+                data: params
             });
             setResponse(result.data);
         } catch (error) {
@@ -38,3 +43,5 @@ export const useAxios = (axiosParams) => {
 
     return { response, error, loading, fetchData };
 };
+
+export default useAxios

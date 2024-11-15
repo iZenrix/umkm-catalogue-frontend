@@ -8,7 +8,7 @@ import UmkmDetailsCard from '@components/UmkmDetailsCard';
 import GaleryProducts from '@components/GaleryProducts';
 import ProductDetail from '@components/ProductDetail';
 import ReviewProduct from '@components/ReviewProduct';
-import { useAxios } from '@hooks/useAxios';
+import useAxios from '@hooks/useAxios';
 import {useAuth} from '@contexts/AuthContext'
 
 const MyUmkm = () => {

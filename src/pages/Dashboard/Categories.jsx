@@ -8,7 +8,7 @@ import DeleteModals from '@components/DeleteModals';
 import CategoryModals from '@components/CategoryModals';
 import AlertComponent from '@components/AlertComponent';
 
-import { useAxios } from '@hooks/useAxios';
+import useAxios from '@hooks/useAxios';
 
 const Categories = () => {
     const [dataTable, setDataTable] = useState(null)

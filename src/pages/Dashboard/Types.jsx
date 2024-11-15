@@ -7,7 +7,7 @@ import { Typography } from '@mui/material';
 import DeleteModals from '@components/DeleteModals';
 import TypeModals from '@components/TypeModals';
 
-import { useAxios } from '@hooks/useAxios';
+import useAxios from '@hooks/useAxios';
 
 const Types = () => {
     const [dataTypes, setDataTypes] = useState(null)

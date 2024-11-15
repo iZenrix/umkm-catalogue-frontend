@@ -4,7 +4,7 @@ import { Modal, TextField, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
-import { useAxios } from '@hooks/useAxios';
+import useAxios from '@hooks/useAxios';
 
 const RejectModals = ({ id, handleClose }) => {
     const [message, setMessage] = useState("")
