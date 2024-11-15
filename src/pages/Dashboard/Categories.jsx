@@ -6,6 +6,7 @@ import { Typography } from '@mui/material';
 
 import DeleteModals from '@components/DeleteModals';
 import CategoryModals from '@components/CategoryModals';
+import AlertComponent from '@components/AlertComponent';
 
 import { useAxios } from '@hooks/useAxios';
 
@@ -14,6 +15,7 @@ const Categories = () => {
     const [selectedDeleteId, setSelectedDeleteId] = useState(false)
     const [selectedEditId, setSelectedEditId] = useState(false)
     const [openCategory, setOpenCategory] = useState(false)
+    const [alert, setAlert] = useState(null);
 
     const {
         response: responseCategory,
@@ -42,11 +44,15 @@ const Categories = () => {
 
     return (
         <div className='dashboard-pages p-20 bg-blue-50'>
+            {alert && <AlertComponent status={alert.status} message={alert.message} handleClearAlert={(data) => setAlert(data)}/>}
             {
                 selectedDeleteId && (
                     <DeleteModals
                         handleClose={() => setSelectedDeleteId(null)}
-                        updateTable={() => updateTable()}
+                        updateTable={() => {
+                            setAlert({ status: 'success', message: 'Data was successfully deleted' });
+                            updateTable()
+                        }}
                         data={dataTable.find(item => item.id === selectedDeleteId)}
                     />
                 )
@@ -58,7 +64,10 @@ const Categories = () => {
                             setOpenCategory(false)
                             setSelectedEditId(null)
                         }}
-                        updateTable={() => updateTable()}
+                        updateTable={() => {
+                            setAlert({ status: 'success', message: 'Data was successfully added and updated' });
+                            updateTable()
+                        }}
                         data={dataTable.find(item => item.id === selectedEditId)}
                     />
                 ) : ""

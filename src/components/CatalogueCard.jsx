@@ -84,7 +84,7 @@ const CatalogueCard = ({ data }) => {
                                 horizontal: 'center',
                               }}
                         >
-                            <AlertComponent status={"info"} message={"link berhasil di copy"} />
+                            <AlertComponent status={"info"} message={"link berhasil di copy"} isPopup={true}/>
                         </Popover>
                     </div>
                 </Card>

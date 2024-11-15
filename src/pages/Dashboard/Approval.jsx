@@ -35,7 +35,7 @@ const Approval = () => {
     }, [responseUmkm])
 
     return (
-        <div className='dashboard-pages p-20 bg-blue-50 h-full'>
+        <div className='dashboard-pages p-20 bg-blue-50'>
             <div className="table-container bg-white p-10 rounded-lg">
                 <div className="filter-button mb-5 flex gap-5">
                     <button className='flex justify-start items-center gap-2 p-2 ps-0'>

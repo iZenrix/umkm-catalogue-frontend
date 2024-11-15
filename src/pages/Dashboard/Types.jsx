@@ -16,6 +16,7 @@ const Types = () => {
     const [selectedDeleteId, setSelectedDeleteId] = useState(false)
     const [selectedEditId, setSelectedEditId] = useState(false)
     const [openType, setOpenType] = useState(false)
+    const [alert, setAlert] = useState(null);
 
     const {
         response: responseTypes,
@@ -60,11 +61,15 @@ const Types = () => {
 
     return (
         <div className='dashboard-pages p-20 bg-blue-50'>
+            {alert && <AlertComponent status={alert.status} message={alert.message} handleClearAlert={(data) => setAlert(data)}/>}
             {
                 selectedDeleteId && (
                     <DeleteModals
                         handleClose={() => setSelectedDeleteId(null)}
-                        updateTable={() => updateTable()}
+                        updateTable={() => {
+                            setAlert({ status: 'success', message: 'Data was successfully deleted' });
+                            updateTable()
+                        }}
                         data={dataTypes.find(item => item.id === selectedDeleteId)}
                         isType={true}
                     />
@@ -77,7 +82,10 @@ const Types = () => {
                             setOpenType(false)
                             setSelectedEditId(null)
                         }}
-                        updateTable={() => updateTable()}
+                        updateTable={() => {
+                            setAlert({ status: 'success', message: 'Data was successfully added and updated' });
+                            updateTable()
+                        }}
                         data={dataTypes?.find(item => item.id === selectedEditId)}
                         categoryItem={dataCategory ? dataCategory : ""}
                     />
