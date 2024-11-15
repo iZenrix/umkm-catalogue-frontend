@@ -219,9 +219,9 @@ const RegisterUmkm = () => {
         formData.append("typeIds", JSON.stringify([selectedType?.id || ""]));
     
         // Tambahkan data dasar
-        formData.append("name", title);
-        formData.append("description", bio);
-        formData.append("contact", contact);
+        formData.append("name", JSON.stringify(title));
+        formData.append("description", JSON.stringify(bio));
+        formData.append("contact", JSON.stringify(contact));
         formData.append("userId", user?.id || "");
     
         // Tambahkan lokasi sebagai JSON string
