@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import CatalogueCard from '@components/CatalogueCard'
 import FilterUmkm from '@components/FilterUmkm'
 import AdsCarousel from '@components/AdsCarousel'
-import { umkm_catalogue } from '@data/catalogue'
 import { useAuth } from '@contexts/AuthContext'
 import { useAxios } from '@hooks/useAxios'
 
@@ -58,10 +57,10 @@ const Catalogue = () => {
                     loadingCatalogue ? (
                         <Grid2 container spacing={4}>
                             <Grid2 size={3}>
-                                <Skeleton height={80}/>
+                                <Skeleton height={80} />
                             </Grid2>
                             <Grid2 size={9}>
-                                <Skeleton height={80}/>
+                                <Skeleton height={80} />
                             </Grid2>
                         </Grid2>
                     ) : (

@@ -14,13 +14,13 @@ const AdsCarousel = () => {
     return (
         <Slider {...settings}>
             <div className='h-80'>
-                <img src="img/banner-umkm.webp" alt="" className='w-full'/>
+                <img src="img/banner-umkm.png" alt="" className='w-full'/>
             </div>
             <div className='h-80'>
                 <img src="img/banner-umkm.webp" alt="" className='w-full'/>
             </div>
             <div className='h-80'>
-                <img src="img/banner-umkm.webp" alt="" className='w-full'/>
+                <img src="img/banner-umkm.png" alt="" className='w-full'/>
             </div>
         </Slider>
     )

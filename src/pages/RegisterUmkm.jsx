@@ -18,7 +18,7 @@ import { useAuth } from '@contexts/AuthContext';
 
 const RegisterUmkm = () => {
     const { user } = useAuth()
-
+    
     const [categories, setCategories] = useState(null)
     const [types, setTypes] = useState(null)
     const [urlTypes, setUrlTypes] = useState(`/type/category/1`)
@@ -163,23 +163,22 @@ const RegisterUmkm = () => {
 
     const handleLocationSelect = (coords) => {
         setLocation({
-            name: address,
-            latitude: coords.lat,
-            longitude: coords.lng
+            "name": address,
+            "latitude": coords.lat,
+            "longitude": coords.lng
         });
     };
 
     useEffect(() => {
         setSocialMedia([
             {
-                platform: "instagram",
-                url: instagram
+                "platform": "instagram",
+                "url": instagram
             },
             {
-                platform: "facebook",
-                url: facebook
+                "platform": "facebook",
+                "url": facebook
             },
-
         ])
     }, [facebook, instagram])
 
