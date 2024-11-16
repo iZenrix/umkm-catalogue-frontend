@@ -39,16 +39,16 @@ const UmkmDetailsCard = ({ dataUmkm }) => {
                     </div>
                     <div className="badges-umkm mt-5 flex gap-3">
                         {
-                            umkm_types.map((value) => (
-                                <Chip label={value?.name} variant='outlined' icon={<BookmarkIcon sx={{ color: "#51FFC2" }} />} />
+                            umkm_types.map((value, index) => (
+                                <Chip label={value?.name} variant='outlined' icon={<BookmarkIcon sx={{ color: "#51FFC2" }} />} key={index}/>
                             ))
                         }
                     </div>
 
                     <div className="contact-umkm mt-5">
                         <p className='font-semibold text-primary-600'>CONTACT</p>
-                        {social_medias.map((value) => (
-                            <p className='text-sm'>{value.url}</p>
+                        {social_medias.map((value, index) => (
+                            <p className='text-sm' key={index}>{value.url}</p>
                         ))}
                     </div>
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { Card, CardContent, TextField } from '@mui/material'
+import { Card, CardContent, TextField, Typography } from '@mui/material'
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
 import { useAuth } from '@contexts/AuthContext';
@@ -8,10 +8,12 @@ import { useAxios } from '@hooks/useAxios';
 
 import { StarInput } from '@utils/StarsRateGenerator';
 
-const ReviewUmkmForm = ({id}) => {
+const ReviewUmkmForm = ({ id }) => {
     const [comments, setComments] = useState('')
     const [rating, setRating] = useState(null)
     const [resetRating, setResetRating] = useState(false)
+
+    const [errorData, setErrorData] = useState(false)
 
     const { user } = useAuth()
 
@@ -28,10 +30,10 @@ const ReviewUmkmForm = ({id}) => {
     const handleReview = (e) => {
         e.preventDefault()
         fetchReview({
-            umkm_id : parseInt(id),
-            user_id : user.id,
-            rating : rating,
-            comments : comments,
+            umkm_id: parseInt(id),
+            user_id: user.id,
+            rating: rating,
+            comment: comments,
         })
     };
 
@@ -42,13 +44,15 @@ const ReviewUmkmForm = ({id}) => {
 
     useEffect(() => {
         if (responseReview?.data) {
-            console.log(responseReview?.data)
             resetReview()
         }
+    }, [responseReview])
+
+    useEffect(() => {
         if (errorReview?.error) {
-            console.log(errorReview?.error)
+            setErrorData(true)
         }
-    },[responseReview])
+    }, [errorReview])
 
     return (
         <>
@@ -56,7 +60,13 @@ const ReviewUmkmForm = ({id}) => {
             <form onSubmit={handleReview}>
                 <Card sx={{ boxShadow: '2px 5px 13px 0px rgba(0,0,0,0.15)', borderRadius: "1rem" }}>
                     <CardContent>
-                        <StarInput getRating={(i) => setRating(i)} resetValue={resetRating} setResetValue={setResetRating} />
+                        <StarInput
+                            getRating={(i) => setRating(i)}
+                            resetValue={resetRating}
+                            setResetValue={() => {
+                                setResetRating()
+                                setErrorData(false)
+                            }} />
                         <TextField
                             fullWidth
                             multiline
@@ -65,6 +75,11 @@ const ReviewUmkmForm = ({id}) => {
                             onChange={(e) => setComments(e.target.value)}
                             label={"Type your comment here..."}
                         />
+                        {errorData ? (
+                            <Typography color="error" variant="body2" align="center">
+                                {errorReview?.error}
+                            </Typography>
+                        ) : ""}
                         <div className="review-insert-buttons mt-3 flex justify-between items-center w-full">
                             {
                                 comments || rating ?

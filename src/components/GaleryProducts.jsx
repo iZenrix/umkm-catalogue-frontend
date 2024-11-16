@@ -20,8 +20,8 @@ const GaleryProducts = ({ dataUmkm }) => {
                     autoplay={true}
                 >
                     {
-                        images.map((value) => (
-                            <div>
+                        images.map((value, index) => (
+                            <div key={index}>
                                 <div className="mx-2 h-36">
                                     <img src={value ? value.url : "/img/bg-umkm.png"} alt="" className='object-cover rounded-xl size-full' />
                                 </div>
