@@ -34,7 +34,6 @@ const Catalogue = () => {
             setDataCatalogue(responseCatalogue?.data)
             setDataCatalogueBackup(responseCatalogue?.data)
         }
-        console.log(responseCatalogue?.data)
     }, [responseCatalogue])
 
     const handleFilter = (value) => {
