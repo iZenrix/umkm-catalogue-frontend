@@ -9,7 +9,6 @@ import { useAxios } from '@hooks/useAxios';
 import { StarInput } from '@utils/StarsRateGenerator';
 
 const ReviewUmkmForm = ({id}) => {
-    const [review, setReview] = useState(null)
     const [comments, setComments] = useState('')
     const [rating, setRating] = useState(null)
     const [resetRating, setResetRating] = useState(false)
@@ -29,7 +28,7 @@ const ReviewUmkmForm = ({id}) => {
     const handleReview = (e) => {
         e.preventDefault()
         fetchReview({
-            umkm_id : id,
+            umkm_id : parseInt(id),
             user_id : user.id,
             rating : rating,
             comments : comments,
@@ -39,7 +38,6 @@ const ReviewUmkmForm = ({id}) => {
     const resetReview = () => {
         setComments('')
         setResetRating(true)
-        setReview(null)
     }
 
     useEffect(() => {
@@ -47,7 +45,9 @@ const ReviewUmkmForm = ({id}) => {
             console.log(responseReview?.data)
             resetReview()
         }
-        console.log(errorReview?.error)
+        if (errorReview?.error) {
+            console.log(errorReview?.error)
+        }
     },[responseReview])
 
     return (
