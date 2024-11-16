@@ -26,7 +26,6 @@ const DetailCatalogue = () => {
 
     const [openReject, setOpenReject] = useState(false)
 
-
     const {
         response: responseDetailsUmkm,
         loading: loadingDetailsUmkm,
@@ -37,16 +36,36 @@ const DetailCatalogue = () => {
         url: `/umkm/${id}`,
     });
 
+    const {
+        response: responseViewCount,
+        loading: loadingViewCount,
+        error: errorViewCount,
+        fetchData: fetchViewCount
+    } = useAxios({
+        method: 'POST',
+        url: `/umkm/${id}/view`,
+    });
+
     useEffect(() => {
         fetchDetailsUmkm()
+        const timer = setTimeout(() => {
+            fetchViewCount()
+        }, 120000);
+
+        return () => clearTimeout(timer)
     }, [])
 
     useEffect(() => {
         if (responseDetailsUmkm?.data) {
-            console.log(responseDetailsUmkm?.data)
             setDataDetailUmkm(responseDetailsUmkm?.data)
         }
     }, [responseDetailsUmkm])
+
+    useEffect(() => {
+        if (responseViewCount?.data) {
+            console.log(responseViewCount?.data)
+        }
+    }, [responseViewCount])
 
     const {
         response: responseApproval,
@@ -66,15 +85,12 @@ const DetailCatalogue = () => {
 
     useEffect(() => {
         if (responseApproval?.data) {
-            console.log(responseApproval?.data)
             navigate("/dashboard/approval")
         }
-        console.log(errorApproval?.error)
     }, [responseApproval])
 
     return (
         <div className={`detail-catalogue ${isDashboard ? 'p-20 pt-10 bg-blue-50' : 'p-3 pt-10 pb-96'}`}>
-
             {
                 loadingDetailsUmkm ? "" : (
                     isDashboard && dataDetailUmkm?.approval_status !== "APPROVED" ? (

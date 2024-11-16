@@ -97,8 +97,6 @@ const RegisterUmkm = () => {
     const [facebook, setFacebook] = useState('')
     const [instagram, setInstagram] = useState('')
 
-    const [productItem, setProductItem] = useState([])
-
     const [profilePicture, setProfilePicture] = useState(null)
     const [galleryPicture, setGalleryPicture] = useState([])
     const [picture360, setPicture360] = useState(null)
@@ -116,10 +114,6 @@ const RegisterUmkm = () => {
             fetchTypes()
         }
     }, [urlTypes]);
-
-    const getProductData = (data) => {
-        setProductItem(prevData => [...prevData, data])
-    }
 
     const handleProfilePict = (e) => {
         const copyArray = e.target.files[0]
@@ -429,7 +423,7 @@ const RegisterUmkm = () => {
                         </Grid2>
                         <hr className='w-full border-b my-5' />
                         <Grid2 size={12} container>
-                            <AddProductForm productData={(data) => getProductData(data)} />
+                            <AddProductForm />
                         </Grid2>
                     </Grid2>
                 </form>

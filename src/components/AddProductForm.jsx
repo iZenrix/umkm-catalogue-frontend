@@ -51,8 +51,8 @@ const AddProductForm = ({ productData }) => {
     };
 
     const handleProductPict = (e, index) => {
-        const copyArray = Array.from(e.target.files)
-        const makeLink = URL.createObjectURL(copyArray[0])
+        const copyArray = e.target.files[0]
+        const makeLink = URL.createObjectURL(copyArray)
         handleInputChange(index, "picture", {
             files: copyArray,
             url: makeLink
