@@ -7,12 +7,18 @@ import { useAxios } from '@hooks/useAxios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+import RegisterConfirmationModals from '@components/RegisterConfirmationModals';
+
 const Login = () => {
     const navigate = useNavigate();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
     const [localError, setLocalError] = useState("")
+
     const [selectVisitor, setSelectVisitor] = useState(true)
+    const [openModal, setOpenModal] = useState(false)
 
     const { setUser, setIsLogged, token, setToken } = useAuth()
 
@@ -26,23 +32,11 @@ const Login = () => {
         url: '/login',
     });
 
-    const {
-        response: responseProfile,
-        loading: loadingProfile,
-        error: errorProfile,
-        fetchData: fetchProfile
-    } = useAxios({
-        method: 'GET',
-        url: '/user/profile',
-    });
-
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!email || !password) {
             setLocalError('Email and password are required');
         } else {
-            console.log(email)
-            console.log(password)
             fetchLogin({
                 email: email,
                 password: password,
@@ -54,31 +48,25 @@ const Login = () => {
         if (responseLogin?.data) {
             setIsLogged(true)
             setToken(responseLogin.token)
+            setUser(responseLogin?.data)
         }
     }, [responseLogin])
 
     useEffect(() => {
         if (token) {
-            fetchProfile()
+            if (responseLogin?.data?.role === "admin") {
+                navigate("/dashboard/approval")
+            } else {
+                setOpenModal(true)
+            }
         }
     }, [token])
 
-    useEffect(() => {
-        if (responseProfile?.data) {
-            setUser(responseProfile?.data?.user)
-            
-            if (responseProfile?.data?.user?.role?.name == "admin") {
-                navigate("/dashboard/approval")
-            } else {
-                navigate("/")
-            }
-        }
-        console.log(responseProfile?.data?.user?.role?.name)
-        console.log(errorProfile)
-    }, [responseProfile, errorProfile])
-
     return (
         <div className="form-login w-screen h-screen">
+            {
+                openModal && <RegisterConfirmationModals />
+            }
             <Grid2 container sx={{ height: "100%" }}>
                 <Grid2 size={6}>
                     <div className="bg-image-login flex justify-center items-center size-full bg-secondary-100">
@@ -129,7 +117,7 @@ const Login = () => {
                                 ) : ""}
                                 <div className="button-wrapper w-full flex justify-center mt-5 px-10">
                                     {
-                                        loadingLogin || loadingProfile ?
+                                        loadingLogin ?
                                             <div className='bg-secondary-500 py-4 flex-1 rounded-lg text-white font-medium text-lg text-center'>Logging in...</div>
                                             :
                                             <button className='bg-secondary-500 py-4 flex-1 rounded-lg text-white font-medium text-lg' type='submit'>Login</button>
