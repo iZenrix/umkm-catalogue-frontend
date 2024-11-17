@@ -13,7 +13,7 @@ export const useAxios = (axiosParams, isImage = false) => {
 
     const { token, isLogged } = useAuth()
 
-    const fixHeader = token && isLogged ? {
+    const fixHeader = token ? {
         accept: '*/*',
         Authorization: 'Bearer ' + token,
     } : {

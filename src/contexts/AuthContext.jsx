@@ -7,16 +7,16 @@ export const useAuth = () => {
     return useContext(AuthContext)
 }
 
-export const AuthProvider = ({children}) => {
-    const [user, setUser] = useState(null)
-    const [token, setToken] = useState(null)
+export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(localStorage.getItem('authContext') ? JSON.parse(localStorage.getItem('authContext')).user : null)
+    const [token, setToken] = useState(localStorage.getItem('authContext') ? JSON.parse(localStorage.getItem('authContext')).token : null)
     const [isLogged, setIsLogged] = useState(false)
 
     const value = {
         user,
         setUser,
         token,
-        setToken, 
+        setToken,
         isLogged,
         setIsLogged
     }
@@ -41,10 +41,9 @@ export const AuthProvider = ({children}) => {
     }, [])
 
     return (
-        
         <AuthContext.Provider value={value}>
             {children}
         </AuthContext.Provider>
-        
+
     )
 }

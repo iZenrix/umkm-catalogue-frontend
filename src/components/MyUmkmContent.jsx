@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react';
 
 import { ReactPhotoSphereViewer } from 'react-photo-sphere-viewer';
 
-import { Grid2, Card, CardContent } from '@mui/material'
+import { Grid2, Card, CardContent, Skeleton } from '@mui/material'
 
 import UmkmDetailsCard from '@components/UmkmDetailsCard';
 import GaleryProducts from '@components/GaleryProducts';
 import ProductDetail from '@components/ProductDetail';
 import ReviewProduct from '@components/ReviewProduct';
 import { useAxios } from '@hooks/useAxios';
-import {useAuth} from '@contexts/AuthContext'
+import { useAuth } from '@contexts/AuthContext'
 
-const MyUmkmContent = ({umkmId}) => {
+const MyUmkmContent = ({ umkmId }) => {
     const [dataDetailUmkm, setDataDetailUmkm] = useState(null)
 
-    const {user} = useAuth()
+    const { user, token } = useAuth()
 
     const {
         response: responseDetailsUmkm,
@@ -28,7 +28,6 @@ const MyUmkmContent = ({umkmId}) => {
 
     useEffect(() => {
         fetchDetailsUmkm()
-        console.log(user)
     }, [])
 
     useEffect(() => {
@@ -49,7 +48,7 @@ const MyUmkmContent = ({umkmId}) => {
                                 <UmkmDetailsCard dataUmkm={dataDetailUmkm} />
                             ) : (
                                 <div className="profile-card w-full bg-white rounded-lg p-3">
-                                    <p>Loading Content...</p>
+                                    <Skeleton height={100} />
                                 </div>
                             )
                         }
@@ -71,7 +70,7 @@ const MyUmkmContent = ({umkmId}) => {
                                             <GaleryProducts dataUmkm={dataDetailUmkm} />
                                         ) : (
                                             <div className="profile-card w-full bg-white rounded-lg p-3">
-                                                <p>Loading Content...</p>
+                                                <Skeleton height={100} />
                                             </div>
                                         )
                                     }
@@ -85,14 +84,14 @@ const MyUmkmContent = ({umkmId}) => {
                                                     </CardContent>
                                                 ) : (
                                                     <div className="profile-card w-full bg-white rounded-lg p-3">
-                                                        <p>Loading Content...</p>
+                                                        <Skeleton height={100} />
                                                     </div>
                                                 )
                                             }
                                         </Card>
                                     </div>
                                 </Grid2>
-                                <Grid2 size={4}>                                    
+                                <Grid2 size={4}>
                                     <ReviewProduct idUmkm={umkmId} />
                                 </Grid2>
                             </Grid2>
