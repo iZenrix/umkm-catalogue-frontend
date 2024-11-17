@@ -18,7 +18,7 @@ import { useAuth } from '@contexts/AuthContext';
 
 const RegisterUmkm = () => {
     const { user } = useAuth()
-    
+
     const [categories, setCategories] = useState(null)
     const [types, setTypes] = useState(null)
     const [urlTypes, setUrlTypes] = useState(`/type/category/1`)
@@ -181,7 +181,7 @@ const RegisterUmkm = () => {
         formData.append("categoryId", selectedCategory.id)
         formData.append("name", title)
         formData.append("description", bio)
-        formData.append("contact", contact)
+        formData.append("contact", "62" + contact)
         formData.append("location", JSON.stringify(location))
         formData.append("socialMedias", JSON.stringify(socialMedia))
         galleryPicture.forEach((item) => {
@@ -312,12 +312,15 @@ const RegisterUmkm = () => {
                             </Grid2>
                             <Grid2 size={3}>
                                 <h3 className='text-lg font-semibold mb-3'>Contact</h3>
-                                <TextField
-                                    fullWidth
-                                    value={contact}
-                                    onChange={(e) => setContact(e.target.value)}
-                                    id='contact-umkm'
-                                />
+                                <div className="input-contact-wrapper flex gap-3 items-center">
+                                    <p className='font-semibold p-3 border border-secondary-500 text-secondary-500 rounded-lg'>+62</p>
+                                    <TextField
+                                        fullWidth
+                                        value={contact}
+                                        onChange={(e) => setContact(e.target.value)}
+                                        id='contact-umkm'
+                                    />
+                                </div>
                                 <h3 className='text-lg font-semibold my-3'>Email</h3>
                                 <TextField
                                     fullWidth

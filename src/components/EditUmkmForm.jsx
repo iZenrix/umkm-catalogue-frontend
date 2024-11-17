@@ -16,10 +16,10 @@ import MapInput from '@components/MapInput';
 import { useAxios } from '@hooks/useAxios';
 import { useAuth } from '@contexts/AuthContext';
 
-const EditUmkmForm = ({dataUmkm}) => {
+const EditUmkmForm = ({ dataUmkm }) => {
     const { user } = useAuth()
     const [alert, setAlert] = useState(null);
-    
+
     const [categories, setCategories] = useState(null)
     const [types, setTypes] = useState(null)
     const [urlTypes, setUrlTypes] = useState(`/type/category/1`)
@@ -185,7 +185,7 @@ const EditUmkmForm = ({dataUmkm}) => {
         formData.append("categoryId", selectedCategory.id)
         formData.append("name", title)
         formData.append("description", bio)
-        formData.append("contact", contact)
+        formData.append("contact", "62" + contact)
         formData.append("location", JSON.stringify(location))
         formData.append("socialMedias", JSON.stringify(socialMedia))
         galleryPicture.forEach((item) => {
@@ -219,7 +219,7 @@ const EditUmkmForm = ({dataUmkm}) => {
 
     return (
         <div className="register-umkm p-5 pt-10">
-            {alert && <AlertComponent status={alert.status} message={alert.message} handleClearAlert={(data) => setAlert(data)}/>}
+            {alert && <AlertComponent status={alert.status} message={alert.message} handleClearAlert={(data) => setAlert(data)} />}
             <div className="back-button-wrapper mb-10">
                 <Link to={"/my-umkm"} className='bg-secondary-500 px-4 py-2 rounded-lg text-white'>{"< back to My Umkm"}</Link>
             </div>
@@ -317,12 +317,15 @@ const EditUmkmForm = ({dataUmkm}) => {
                             </Grid2>
                             <Grid2 size={3}>
                                 <h3 className='text-lg font-semibold mb-3'>Contact</h3>
-                                <TextField
-                                    fullWidth
-                                    value={contact}
-                                    onChange={(e) => setContact(e.target.value)}
-                                    id='contact-umkm'
-                                />
+                                <div className="input-contact-wrapper flex gap-3 items-center">
+                                    <p className='font-semibold p-3 border border-secondary-500 text-secondary-500 rounded-lg'>+62</p>
+                                    <TextField
+                                        fullWidth
+                                        value={contact}
+                                        onChange={(e) => setContact(e.target.value)}
+                                        id='contact-umkm'
+                                    />
+                                </div>
                                 <h3 className='text-lg font-semibold my-3'>Email</h3>
                                 <TextField
                                     fullWidth
