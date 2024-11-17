@@ -421,10 +421,6 @@ const RegisterUmkm = () => {
                                 </div>
                             </Grid2>
                         </Grid2>
-                        <hr className='w-full border-b my-5' />
-                        <Grid2 size={12} container>
-                            <AddProductForm />
-                        </Grid2>
                     </Grid2>
                 </form>
             </div>

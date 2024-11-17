@@ -46,12 +46,18 @@ const CatalogueCard = ({ data }) => {
                                 <div className="badges mb-5 flex flex-row gap-2">
                                     <BadgesUmkm label={data.category_id} />
                                 </div>
-                                <Typography variant='h5' fontWeight="bold">
+                                <Typography variant='h5' fontWeight="bold" sx={{
+                                    display: '-webkit-box',
+                                    WebkitLineClamp: 1,
+                                    WebkitBoxOrient: 'vertical',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                }}>
                                     {data.name}
                                 </Typography>
                                 <Typography variant='body2' sx={{
                                     display: '-webkit-box',
-                                    WebkitLineClamp: 2,
+                                    WebkitLineClamp: 1,
                                     WebkitBoxOrient: 'vertical',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',

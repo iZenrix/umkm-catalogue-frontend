@@ -78,7 +78,7 @@ const Catalogue = () => {
                                 <div className="catalogue-content">
                                     <Grid2 container spacing={2}>
                                         {
-                                            dataCatalogue?.map((value, index) => (
+                                            dataCatalogue?.filter(item => item.approval_status === "APPROVED").map((value, index) => (
                                                 <CatalogueCard data={value} key={index} />
                                             ))
                                         }

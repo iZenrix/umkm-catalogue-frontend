@@ -15,7 +15,7 @@ const DashboardLayout = () => {
 
     useEffect(() => {
         if (user) {
-            if (user.role.name === "admin") {
+            if (user.role === "admin") {
                 if (pathname === "/dashboard/" || pathname === "/dashboard") {
                     navigate("/dashboard/approval")
                 }
