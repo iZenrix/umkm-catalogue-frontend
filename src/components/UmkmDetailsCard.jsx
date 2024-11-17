@@ -1,7 +1,11 @@
 import React from 'react'
 
-import { Card, CardMedia, CardContent, Chip, } from '@mui/material'
+import { MapContainer, TileLayer, Marker, useMapEvents, Popup } from 'react-leaflet';
+import { Icon } from 'leaflet';
+import markerIconPng from "leaflet/dist/images/marker-icon.png";
+import "leaflet/dist/leaflet.css";
 
+import { Card, CardMedia, CardContent, Chip, } from '@mui/material'
 import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -11,7 +15,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import BadgesUmkm from '@components/BadgesUmkm';
 
 const UmkmDetailsCard = ({ dataUmkm }) => {
-    const { name, description, profile_image, social_medias, umkm_types, category_id, location } = dataUmkm
+    const { name, description, profile_image, social_medias, umkm_types, category_id, location, view_count } = dataUmkm
 
 
     return (
@@ -28,7 +32,7 @@ const UmkmDetailsCard = ({ dataUmkm }) => {
                             <StarRateRoundedIcon sx={{ color: "#FFB605", fontSize: "1.5rem" }} />
                         </div>
                         <div className="stats-item flex items-center gap-2">
-                            <p className='text-sm'>100k</p>
+                            <p className='text-sm'>{view_count}</p>
                             <VisibilityIcon sx={{ color: "#0081C9", fontSize: "1.5rem" }} />
                         </div>
                     </div>
@@ -56,7 +60,25 @@ const UmkmDetailsCard = ({ dataUmkm }) => {
 
                     <div className="contact-umkm mt-5">
                         <p className='font-semibold text-primary-600'>LOCATION</p>
-                        <p>{location}</p>
+                        {
+                            location[0].latitude && (
+                                <MapContainer center={[location[0].latitude, location[0].longitude]} zoom={13} style={{ height: '13rem', width: '100%', zIndex: 2 }}>
+                                    <TileLayer
+                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    />
+                                    <Marker
+                                        position={[location[0].latitude, location[0].longitude]}
+                                        icon={new Icon({ iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41] })}
+                                    >
+                                        <Popup>
+                                            {`your location is in latitude : ${location[0].latitude} and longitude : ${location[0].longitude}`}
+                                        </Popup>
+                                    </Marker>
+                                </MapContainer>
+                            )
+                        }
+                        <p className='mt-5'>{location[0].name}</p>
                     </div>
                 </CardContent>
             </Card>
