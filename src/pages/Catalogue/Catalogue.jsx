@@ -31,6 +31,7 @@ const Catalogue = () => {
     useEffect(() => {
         if (responseCatalogue?.data) {
             setDataCatalogue(responseCatalogue?.data)
+            console.log(responseCatalogue?.data)
             setDataCatalogueBackup(responseCatalogue?.data)
         }
     }, [responseCatalogue])

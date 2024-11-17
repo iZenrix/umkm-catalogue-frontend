@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { ReactPhotoSphereViewer } from 'react-photo-sphere-viewer';
 
-import { Grid2, Card, CardContent } from '@mui/material'
+import { Grid2, Card, CardContent, Skeleton } from '@mui/material'
 
 import UmkmDetailsCard from '@components/UmkmDetailsCard';
 import GaleryProducts from '@components/GaleryProducts';
@@ -57,6 +57,7 @@ const DetailCatalogue = () => {
 
     useEffect(() => {
         if (responseDetailsUmkm?.data) {
+            console.log(responseDetailsUmkm?.data)
             setDataDetailUmkm(responseDetailsUmkm?.data)
         }
     }, [responseDetailsUmkm])
@@ -116,7 +117,7 @@ const DetailCatalogue = () => {
                                 <UmkmDetailsCard dataUmkm={dataDetailUmkm} />
                             ) : (
                                 <div className="profile-card w-full bg-white rounded-lg p-3">
-                                    <p>Loading Content...</p>
+                                    <Skeleton height={80} />
                                 </div>
                             )
                         }
@@ -138,7 +139,7 @@ const DetailCatalogue = () => {
                                             <GaleryProducts dataUmkm={dataDetailUmkm} />
                                         ) : (
                                             <div className="profile-card w-full bg-white rounded-lg p-3">
-                                                <p>Loading Content...</p>
+                                                <Skeleton height={80} />
                                             </div>
                                         )
                                     }
@@ -152,7 +153,7 @@ const DetailCatalogue = () => {
                                                     </CardContent>
                                                 ) : (
                                                     <div className="profile-card w-full bg-white rounded-lg p-3">
-                                                        <p>Loading Content...</p>
+                                                        <Skeleton height={80} />
                                                     </div>
                                                 )
                                             }

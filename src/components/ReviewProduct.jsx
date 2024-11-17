@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { Card, CardContent, useScrollTrigger } from '@mui/material'
+import { Card, CardContent, useScrollTrigger, Skeleton } from '@mui/material'
 
 import dayjs from 'dayjs'
 
@@ -39,7 +39,7 @@ const ReviewProduct = ({ idUmkm }) => {
             {
                 loadingReview ? (
                     <div className="review-product mt-3">
-                        Loading content...
+                        <Skeleton height={80} />
                     </div>
                 ) : (
                     <div className="review-product mt-3 flex flex-col gap-5">
