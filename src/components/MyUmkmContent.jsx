@@ -4,6 +4,8 @@ import { ReactPhotoSphereViewer } from 'react-photo-sphere-viewer';
 
 import { Grid2, Card, CardContent, Skeleton } from '@mui/material'
 
+import { Link } from 'react-router-dom';
+
 import UmkmDetailsCard from '@components/UmkmDetailsCard';
 import GaleryProducts from '@components/GaleryProducts';
 import ProductDetail from '@components/ProductDetail';
@@ -39,7 +41,11 @@ const MyUmkmContent = ({ umkmId }) => {
 
     return (
         <div className={`detail-catalogue p-3 pt-10 pb-96`}>
-
+            <div className="approval-box p-3 mb-5 flex items-center justify-end gap-3">
+                <Link to={`/edit-umkm/${umkmId}`} className='bg-tersier-green hover:bg-green-800 py-2 px-5 rounded-md text-white'>
+                    Edit My UMKM
+                </Link>
+            </div>
             <div className="details-content-wrapper">
                 <Grid2 container spacing={3}>
                     <Grid2 size={3}>
