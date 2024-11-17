@@ -8,7 +8,12 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
+import { useAxios } from '@hooks/useAxios';
+import AlertComponent from '@components/AlertComponent';
+
 const SendDataModal = ({ handleClose, dataIndex, sendData }) => {
+
+
     return (
         <Modal
             open={true}
@@ -30,9 +35,20 @@ const SendDataModal = ({ handleClose, dataIndex, sendData }) => {
     )
 }
 
-const AddProductForm = ({ productData }) => {
+const AddProductForm = ({ umkmId }) => {
     const [items, setItems] = useState([{ name: '', price: '', description: '', picture: null, is_saved: false }]); // Mulai dengan array kosong
     const [selectedIndex, setSelectedIndex] = useState(null)
+    const [alert, setAlert] = useState(null)
+
+    const {
+        response: responseCreateProduct,
+        loading: loadingCreateProduct,
+        error: errorCreateProduct,
+        fetchData: fetchCreateProduct
+    } = useAxios({
+        method: 'POST',
+        url: '/product',
+    }, true);
 
     // Fungsi untuk menambah objek kosong
     const addItem = () => {
@@ -51,29 +67,44 @@ const AddProductForm = ({ productData }) => {
     };
 
     const handleProductPict = (e, index) => {
-        const copyArray = Array.from(e.target.files)
-        const makeLink = URL.createObjectURL(copyArray[0])
+        const copyArray = e.target.files[0]
+        const makeLink = URL.createObjectURL(copyArray)
         handleInputChange(index, "picture", {
             files: copyArray,
             url: makeLink
         })
     }
 
-    const sendDataToParent = (index) => {
+    const sendDataToServer = (index) => {
+        const formData = new FormData()
+        formData.append("name", items[index].name)
+        formData.append("price", items[index].price)
+        formData.append("description", items[index].description)
+        formData.append("umkmId", umkmId)
+        // formData.append("images",items[index].picture.files)
+
+        fetchCreateProduct(formData)
+
         handleInputChange(index, "is_saved", true)
-        productData(items[index])
         setSelectedIndex(null)
     }
 
-    // useEffect(() => {
-    //     console.log(items)
-    // }, [items, handleProductPict])
+    useEffect(() => {
+        if (responseCreateProduct?.data) {
+            console.log(responseCreateProduct?.data)
+            setAlert({ status: 'success', message: 'Produk berhasil ditambahkan' });
+        }
+        if (errorCreateProduct?.error) {
+            console.log(errorCreateProduct?.error)
+        }
+    }, [responseCreateProduct, errorCreateProduct])
 
     return (
         <>
             {
                 items.map((item, index) => (
                     <Grid2 size={12} container spacing={5} key={index}>
+                        {alert && <AlertComponent status={alert.status} message={alert.message} handleClearAlert={(data) => setAlert(data)} />}
                         <Grid2 size={3}>
                             <div className="content-wrapper h-full flex flex-col">
                                 <input type="file" id={`img-product-${index}`} className='hidden' onChange={(e) => handleProductPict(e, index)} disabled={item.is_saved} />
@@ -128,7 +159,7 @@ const AddProductForm = ({ productData }) => {
                             <button type='button' className='bg-red-200 text-tersier-red p-2 hover:bg-red-300 rounded-md' onClick={() => removeItem(index)} disabled={item.is_saved}><DeleteOutlineIcon /></button>
                         </Grid2>
                         {
-                            selectedIndex !== null ? <SendDataModal handleClose={() => setSelectedIndex(null)} dataIndex={index} sendData={(i) => sendDataToParent(i)} /> : ""
+                            selectedIndex === index ? <SendDataModal handleClose={() => setSelectedIndex(null)} dataIndex={index} sendData={(i) => sendDataToServer(i)} /> : ""
                         }
                     </Grid2>
                 ))

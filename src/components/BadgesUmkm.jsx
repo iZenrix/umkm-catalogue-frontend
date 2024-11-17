@@ -1,18 +1,51 @@
-import React from 'react'
-import { Chip } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 
-import VerifiedIcon from '@mui/icons-material/Verified';
-import StarsIcon from '@mui/icons-material/Stars';
-import RecommendIcon from '@mui/icons-material/Recommend';
+import { useAxios } from "@hooks/useAxios"
 
-const BadgesUmkm = ({ badgesName }) => {
-    const badges = {
-        recommended: <Chip color='primary' size='small' icon={<VerifiedIcon />} label="Highly Recommended"/>,
-        best: <Chip color='warning' size='small' icon={<StarsIcon  />} label="Rising Star"/>,
-        favorite: <Chip color='success' size='small' icon={<RecommendIcon />} label="Customer Favorite" />,
-    }
+import ClassIcon from '@mui/icons-material/Class';
+import CategoryIcon from '@mui/icons-material/Category';
 
-    return (badges[badgesName])
+const BadgesUmkm = ({ label, typeLabel, isType = false }) => {
+
+    const [category, setCategory] = useState(null)
+
+    const {
+        response: responseCategory,
+        loading: loadingCategory,
+        error: errorCategory,
+        fetchData: fetchCategory
+    } = useAxios({
+        method: 'GET',
+        url: '/category/all',
+    });
+
+    useEffect(() => {
+        fetchCategory()
+    }, [])
+
+    useEffect(() => {
+        if (responseCategory?.data) {
+            setCategory(responseCategory?.data)
+        }
+    }, [responseCategory?.data])
+
+    return (
+        <div className="chip flex gap-2 items-center py-1 px-3  border border-secondary-600 rounded-full">
+            {
+                isType ? (
+                    <>
+                        <ClassIcon sx={{ fontSize: "1.2rem", color: "#30916F" }} />
+                        <p className='text-xs'>{typeLabel.name}</p>
+                    </>
+                ) : (
+                    <>
+                        <CategoryIcon sx={{ fontSize: "1.2rem", color: "#30916F" }} />
+                        {category && <p className='text-xs'>{category.find((item) => item.id === label).name}</p>}
+                    </>
+                )
+            }
+        </div>
+    )
 }
 
 export default BadgesUmkm

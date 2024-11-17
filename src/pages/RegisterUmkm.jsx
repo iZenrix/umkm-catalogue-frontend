@@ -18,7 +18,7 @@ import { useAuth } from '@contexts/AuthContext';
 
 const RegisterUmkm = () => {
     const { user } = useAuth()
-
+    
     const [categories, setCategories] = useState(null)
     const [types, setTypes] = useState(null)
     const [urlTypes, setUrlTypes] = useState(`/type/category/1`)
@@ -97,8 +97,6 @@ const RegisterUmkm = () => {
     const [facebook, setFacebook] = useState('')
     const [instagram, setInstagram] = useState('')
 
-    const [productItem, setProductItem] = useState([])
-
     const [profilePicture, setProfilePicture] = useState(null)
     const [galleryPicture, setGalleryPicture] = useState([])
     const [picture360, setPicture360] = useState(null)
@@ -117,13 +115,9 @@ const RegisterUmkm = () => {
         }
     }, [urlTypes]);
 
-    const getProductData = (data) => {
-        setProductItem(prevData => [...prevData, data])
-    }
-
     const handleProfilePict = (e) => {
-        const copyArray = Array.from(e.target.files)
-        const makeLink = URL.createObjectURL(copyArray[0])
+        const copyArray = e.target.files[0]
+        const makeLink = URL.createObjectURL(copyArray)
         setProfilePicture({
             files: copyArray,
             url: makeLink
@@ -131,8 +125,8 @@ const RegisterUmkm = () => {
     };
 
     const handle360Pict = (e) => {
-        const copyArray = Array.from(e.target.files)
-        const makeLink = URL.createObjectURL(copyArray[0])
+        const copyArray = e.target.files[0]
+        const makeLink = URL.createObjectURL(copyArray)
         setPicture360({
             files: copyArray,
             url: makeLink
@@ -140,8 +134,8 @@ const RegisterUmkm = () => {
     };
 
     const handleGalleryPict = (e) => {
-        const copyArray = Array.from(e.target.files)
-        const makeLink = URL.createObjectURL(copyArray[0])
+        const copyArray = e.target.files[0]
+        const makeLink = URL.createObjectURL(copyArray)
         const newItem = {
             files: copyArray,
             url: makeLink
@@ -163,98 +157,43 @@ const RegisterUmkm = () => {
 
     const handleLocationSelect = (coords) => {
         setLocation({
-            name: address,
-            latitude: coords.lat,
-            longitude: coords.lng
+            "name": address,
+            "latitude": coords.lat,
+            "longitude": coords.lng
         });
     };
 
     useEffect(() => {
         setSocialMedia([
             {
-                platform: "instagram",
-                url: instagram
+                "platform": "instagram",
+                "url": instagram
             },
             {
-                platform: "facebook",
-                url: facebook
+                "platform": "facebook",
+                "url": facebook
             },
-
         ])
     }, [facebook, instagram])
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     formData.append("categoryId", selectedCategory.id)
-    //     formData.append("name", title)
-    //     formData.append("description", bio)
-    //     formData.append("contact", contact)
-    //     // formData.append("location", location)
-    //     // formData.append("socialMedias", socialMedia)
-    //     // formData.append("images", galleryPicture)
-    //     // formData.append("panoramicImage", picture360)
-    //     // formData.append("profileImage", profilePicture)
-    //     // formData.append("typeIds", [selectedType.id])
-
-    //     formData.append("location", JSON.stringify(location));
-    //     formData.append("socialMedias", JSON.stringify(socialMedia));
-    //     formData.append("images", JSON.stringify(galleryPicture.map(item => item.files[0]?.name)));
-    //     formData.append("panoramicImage", JSON.stringify(picture360?.files?.[0].name));
-    //     formData.append("profileImage", JSON.stringify(profilePicture?.files?.[0].name));
-    //     formData.append("typeIds", JSON.stringify([selectedType.id]));
-
-    //     formData.append("userId", user.id)
-    //     formData.forEach((value, key) => {
-    //         console.log(`${key}: ${value}`);
-    //     });
-
-    //     fetchCreateUmkm(formData)
-    // }
-
     const handleSubmit = (e) => {
-        e.preventDefault();
-    
-        // Tambahkan kategori dan tipe
-        formData.append("categoryId", selectedCategory?.id || "");
-        formData.append("typeIds", JSON.stringify([selectedType?.id || ""]));
-    
-        // Tambahkan data dasar
-        formData.append("name", JSON.stringify(title));
-        formData.append("description", JSON.stringify(bio));
-        formData.append("contact", JSON.stringify(contact));
-        formData.append("userId", user?.id || "");
-    
-        // Tambahkan lokasi sebagai JSON string
-        formData.append("location", JSON.stringify(location || {}));
-    
-        // Tambahkan media sosial sebagai JSON string
-        formData.append("socialMedias", JSON.stringify(socialMedia || []));
-    
-        // Tambahkan gambar profil
-        if (profilePicture?.files?.[0]) {
-            formData.append("profileImage", profilePicture.files[0]);
-        }
-    
-        // Tambahkan gambar galeri
-        galleryPicture.forEach((item, index) => {
-            if (item.files?.[0]) {
-                formData.append(`images[${index}]`, item.files[0]);
-            }
-        });
-    
-        // Tambahkan gambar 360 jika tersedia
-        if (picture360?.files?.[0]) {
-            formData.append("panoramicImage", picture360.files[0]);
-        }
-    
-        // Debug data yang dikirim
-        for (const [key, value] of formData.entries()) {
-            console.log(`${key}:`, value);
-        }
-    
-        fetchCreateUmkm(formData);
-    };
-    
+        e.preventDefault()
+        formData.append("categoryId", selectedCategory.id)
+        formData.append("name", title)
+        formData.append("description", bio)
+        formData.append("contact", contact)
+        formData.append("location", JSON.stringify(location))
+        formData.append("socialMedias", JSON.stringify(socialMedia))
+        galleryPicture.forEach((item) => {
+            formData.append("images", item.files)
+        })
+        formData.append("panoramicImage", picture360.files)
+        formData.append("profileImage", profilePicture.files)
+        formData.append("typeIds", JSON.stringify([selectedType.id]))
+        formData.append("userId", user.id)
+
+        fetchCreateUmkm(formData)
+    }
 
     const handleCancel = () => {
         setSelectedCategory(null)
@@ -481,10 +420,6 @@ const RegisterUmkm = () => {
                                     <FormControlLabel control={<Checkbox checked={checked} onClick={(e) => handleHaveNo360(e)} />} label="I don't have a 360-degrees photo" />
                                 </div>
                             </Grid2>
-                        </Grid2>
-                        <hr className='w-full border-b my-5' />
-                        <Grid2 size={12} container>
-                            <AddProductForm productData={(data) => getProductData(data)} />
                         </Grid2>
                     </Grid2>
                 </form>

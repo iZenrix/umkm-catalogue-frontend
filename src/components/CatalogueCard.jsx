@@ -39,22 +39,25 @@ const CatalogueCard = ({ data }) => {
                         <CardActionArea>
                             <CardMedia
                                 component="img"
-                                image='/img/bg-umkm.png'
+                                image={data.profile_image? data.profile_image : "https://placehold.co/600x400"}
+                                sx={{maxHeight : "150px"}}
                             />
                             <CardContent>
                                 <div className="badges mb-5 flex flex-row gap-2">
-                                    {/* <Chip variant="outlined" size="small" icon={<TagFaces />} label="badges1" />
-                                    <Chip variant="outlined" size="small" icon={<TagFaces />} label="badges2" /> */}
-
-                                    <BadgesUmkm badgesName={"recommended"} />
-
+                                    <BadgesUmkm label={data.category_id} />
                                 </div>
-                                <Typography variant='h5' fontWeight="bold">
+                                <Typography variant='h5' fontWeight="bold" sx={{
+                                    display: '-webkit-box',
+                                    WebkitLineClamp: 1,
+                                    WebkitBoxOrient: 'vertical',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                }}>
                                     {data.name}
                                 </Typography>
                                 <Typography variant='body2' sx={{
                                     display: '-webkit-box',
-                                    WebkitLineClamp: 2,
+                                    WebkitLineClamp: 1,
                                     WebkitBoxOrient: 'vertical',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
@@ -65,9 +68,9 @@ const CatalogueCard = ({ data }) => {
                         </CardActionArea>
                     </Link>
                     <div className="card-interaction flex flex-row justify-end mx-3 mt-1 mb-3">
-                        <IconButton aria-label="add to favorites">
+                        {/* <IconButton aria-label="add to favorites">
                             <Favorite sx={{ color: "#F04438" }} />
-                        </IconButton>
+                        </IconButton> */}
                         <IconButton aria-describedby={`share-${data.id}`} aria-label={`share-${data.id}`} color='primary' onClick={(e) => handleCopyLink(e, `${nowLocation}details/${data.id}`)} disabled={copied ? true : false}>
                             <Share />
                         </IconButton>

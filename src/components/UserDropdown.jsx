@@ -6,6 +6,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import Inventory2Icon from '@mui/icons-material/Inventory2';
 
 import { Link } from 'react-router-dom';
 
@@ -83,10 +84,17 @@ const UserDropdown = () => {
                         Register UMKM
                     </MenuItem>
                 </Link>
-                <Link to={`/my-umkm`}><MenuItem onClick={handleClose}>
-                    <StorefrontIcon sx={{ marginRight: "1rem" }} />
-                    My UMKM
-                </MenuItem>
+                <Link to={`/my-umkm`}>
+                    <MenuItem onClick={handleClose}>
+                        <StorefrontIcon sx={{ marginRight: "1rem" }} />
+                        My UMKM
+                    </MenuItem>
+                </Link>
+                <Link to={`/add-product`}>
+                    <MenuItem onClick={handleClose}>
+                        <Inventory2Icon sx={{ marginRight: "1rem" }} />
+                        Add Product
+                    </MenuItem>
                 </Link>
                 <Divider sx={{ my: 0.5 }} />
                 <MenuItem onClick={loggingOut}> <LogoutOutlinedIcon sx={{ marginRight: "1rem" }} /> Logout</MenuItem>

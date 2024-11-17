@@ -1,30 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { ReactPhotoSphereViewer } from 'react-photo-sphere-viewer';
 
-import { Grid2, Card, CardContent, Skeleton } from '@mui/material'
+import { Grid2, Card, CardContent } from '@mui/material'
 
 import UmkmDetailsCard from '@components/UmkmDetailsCard';
 import GaleryProducts from '@components/GaleryProducts';
 import ProductDetail from '@components/ProductDetail';
 import ReviewProduct from '@components/ReviewProduct';
-import RejectModals from '@components/RejectModals';
-import ReviewUmkmForm from '@components/ReviewUmkmForm';
 import { useAxios } from '@hooks/useAxios';
-import { useAuth } from '@contexts/AuthContext'
+import {useAuth} from '@contexts/AuthContext'
 
-const DetailCatalogue = () => {
+const MyUmkmContent = ({umkmId}) => {
     const [dataDetailUmkm, setDataDetailUmkm] = useState(null)
 
-    const { id } = useParams()
-    const { pathname } = useLocation()
-    const isDashboard = pathname.includes("dashboard")
-    const navigate = useNavigate()
-
-    const { isLogged } = useAuth()
-
-    const [openReject, setOpenReject] = useState(false)
+    const {user} = useAuth()
 
     const {
         response: responseDetailsUmkm,
@@ -33,26 +23,12 @@ const DetailCatalogue = () => {
         fetchData: fetchDetailsUmkm
     } = useAxios({
         method: 'GET',
-        url: `/umkm/${id}`,
-    });
-
-    const {
-        response: responseViewCount,
-        loading: loadingViewCount,
-        error: errorViewCount,
-        fetchData: fetchViewCount
-    } = useAxios({
-        method: 'POST',
-        url: `/umkm/${id}/view`,
+        url: `/umkm/${umkmId}`,
     });
 
     useEffect(() => {
         fetchDetailsUmkm()
-        const timer = setTimeout(() => {
-            fetchViewCount()
-        }, 120000);
-
-        return () => clearTimeout(timer)
+        console.log(user)
     }, [])
 
     useEffect(() => {
@@ -62,52 +38,8 @@ const DetailCatalogue = () => {
         }
     }, [responseDetailsUmkm])
 
-    useEffect(() => {
-        if (responseViewCount?.data) {
-            console.log(responseViewCount?.data)
-        }
-    }, [responseViewCount])
-
-    const {
-        response: responseApproval,
-        loading: loadingApproval,
-        error: errorApproval,
-        fetchData: fetchApproval
-    } = useAxios({
-        method: 'POST',
-        url: `/umkm/${id}/validate`,
-    });
-
-    const handleApprove = () => {
-        fetchApproval({
-            status: "APPROVED",
-        })
-    };
-
-    useEffect(() => {
-        if (responseApproval?.data) {
-            navigate("/dashboard/approval")
-        }
-    }, [responseApproval])
-
     return (
-        <div className={`detail-catalogue ${isDashboard ? 'p-20 pt-10 bg-blue-50' : 'p-3 pt-10 pb-96'}`}>
-            {
-                loadingDetailsUmkm ? "" : (
-                    isDashboard && dataDetailUmkm?.approval_status !== "APPROVED" ? (
-                        <>
-                            <div className="approval-box p-3 mb-5 flex items-center justify-end gap-3">
-                                <button className='bg-tersier-red hover:bg-red-900 py-2 px-5 rounded-md text-white' onClick={() => setOpenReject(true)}>
-                                    Reject
-                                </button>
-                                <button className='bg-tersier-green hover:bg-green-800 py-2 px-5 rounded-md text-white' onClick={handleApprove}>
-                                    {loadingApproval ? "Approving" : "Approve"}
-                                </button>
-                            </div>
-                            {openReject && <RejectModals handleClose={(status) => setOpenReject(status)} id={id} />}
-                        </>
-                    ) : "")
-            }
+        <div className={`detail-catalogue p-3 pt-10 pb-96`}>
 
             <div className="details-content-wrapper">
                 <Grid2 container spacing={3}>
@@ -117,7 +49,7 @@ const DetailCatalogue = () => {
                                 <UmkmDetailsCard dataUmkm={dataDetailUmkm} />
                             ) : (
                                 <div className="profile-card w-full bg-white rounded-lg p-3">
-                                    <Skeleton height={80} />
+                                    <p>Loading Content...</p>
                                 </div>
                             )
                         }
@@ -139,7 +71,7 @@ const DetailCatalogue = () => {
                                             <GaleryProducts dataUmkm={dataDetailUmkm} />
                                         ) : (
                                             <div className="profile-card w-full bg-white rounded-lg p-3">
-                                                <Skeleton height={80} />
+                                                <p>Loading Content...</p>
                                             </div>
                                         )
                                     }
@@ -153,18 +85,15 @@ const DetailCatalogue = () => {
                                                     </CardContent>
                                                 ) : (
                                                     <div className="profile-card w-full bg-white rounded-lg p-3">
-                                                        <Skeleton height={80} />
+                                                        <p>Loading Content...</p>
                                                     </div>
                                                 )
                                             }
                                         </Card>
                                     </div>
                                 </Grid2>
-                                <Grid2 size={4}>
-                                    {
-                                        !isDashboard && isLogged ? <ReviewUmkmForm id={id} /> : ""
-                                    }
-                                    <ReviewProduct idUmkm={id} />
+                                <Grid2 size={4}>                                    
+                                    <ReviewProduct idUmkm={umkmId} />
                                 </Grid2>
                             </Grid2>
                         </div>
@@ -177,4 +106,4 @@ const DetailCatalogue = () => {
     )
 }
 
-export default DetailCatalogue
+export default MyUmkmContent
