@@ -33,8 +33,8 @@ const CatalogueCard = ({ data }) => {
 
     return (
         <Grid2 size={3}>
-            <div className="card">
-                <Card variant='outlined' sx={{ borderRadius: "0.7rem" }}>
+            <div className="card h-full">
+                <Card variant='outlined' sx={{ borderRadius: "0.7rem", height : "100%", display : "flex", flexDirection : "column", justifyContent : "space-between" }}>
                     <Link to={`details/${data.id}`}>
                         <CardActionArea>
                             <CardMedia
@@ -48,7 +48,7 @@ const CatalogueCard = ({ data }) => {
                                 </div>
                                 <Typography variant='h5' fontWeight="bold" sx={{
                                     display: '-webkit-box',
-                                    WebkitLineClamp: 1,
+                                    WebkitLineClamp: 2,
                                     WebkitBoxOrient: 'vertical',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
@@ -57,10 +57,11 @@ const CatalogueCard = ({ data }) => {
                                 </Typography>
                                 <Typography variant='body2' sx={{
                                     display: '-webkit-box',
-                                    WebkitLineClamp: 1,
+                                    WebkitLineClamp: 2,
                                     WebkitBoxOrient: 'vertical',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
+                                    marginTop : "1rem"
                                 }}>
                                     {data.description}
                                 </Typography>
