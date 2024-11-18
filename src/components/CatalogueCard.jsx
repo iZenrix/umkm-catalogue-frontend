@@ -48,7 +48,7 @@ const CatalogueCard = ({ data }) => {
                                 </div>
                                 <Typography variant='h5' fontWeight="bold" sx={{
                                     display: '-webkit-box',
-                                    WebkitLineClamp: 1,
+                                    WebkitLineClamp: 2,
                                     WebkitBoxOrient: 'vertical',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
@@ -57,10 +57,11 @@ const CatalogueCard = ({ data }) => {
                                 </Typography>
                                 <Typography variant='body2' sx={{
                                     display: '-webkit-box',
-                                    WebkitLineClamp: 1,
+                                    WebkitLineClamp: 2,
                                     WebkitBoxOrient: 'vertical',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
+                                    marginTop : "1rem"
                                 }}>
                                     {data.description}
                                 </Typography>
