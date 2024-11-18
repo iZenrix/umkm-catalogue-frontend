@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react'
 
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { Skeleton } from '@mui/material';
 
 import EditUmkmForm from '@components/EditUmkmForm'
 import { useAxios } from '@hooks/useAxios';
+import { useAuth } from '@contexts/AuthContext';
 
 const EditUmkm = () => {
 
   const { id } = useParams()
+  const { isLogged } = useAuth()
+  const navigate = useNavigate()
 
   const [umkmData, setUmkmData] = useState(null)
 
@@ -24,7 +28,11 @@ const EditUmkm = () => {
   });
 
   useEffect(() => {
-    fetchUmkm()
+    if (isLogged) {
+      fetchUmkm()
+    }else{
+      navigate("/")
+    }
   }, [])
 
   useEffect(() => {

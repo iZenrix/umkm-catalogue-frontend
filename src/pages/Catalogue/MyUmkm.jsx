@@ -2,13 +2,18 @@ import React, { useState, useEffect } from 'react'
 
 import { Skeleton } from '@mui/material';
 
+import { useNavigate } from 'react-router-dom';
+
 import { useAxios } from '@hooks/useAxios';
+import { useAuth } from '@contexts/AuthContext';
 import MyUmkmContent from '@components/MyUmkmContent';
 
 const MyUmkm = () => {
 
   const [userProfile, setUserProfile] = useState(null)
   const [umkmData, setUmkmData] = useState(null)
+  const { isLogged } = useAuth()
+  const navigate = useNavigate()
 
   const {
     response: responseUserProfile,
@@ -19,9 +24,13 @@ const MyUmkm = () => {
     method: 'GET',
     url: `/user/profile`,
   });
-
+  
   useEffect(() => {
-    fetchUserProfile()
+    if (isLogged) {
+      fetchUserProfile()
+    }else{
+      navigate("/")
+    }
   }, [])
 
   useEffect(() => {

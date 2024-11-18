@@ -1,14 +1,18 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { Skeleton } from '@mui/material';
 
 import RegisterUmkmForm from '@components/RegisterUmkmForm';
+import { useAuth } from '@contexts/AuthContext';
 import { useAxios } from '@hooks/useAxios';
 
 const RegisterUmkm = () => {
     const [userData, setUserData] = useState(null)
+    const { isLogged } = useAuth()
+    const navigate = useNavigate()
 
     const {
         response: responseProfile,
@@ -21,7 +25,11 @@ const RegisterUmkm = () => {
     });
 
     useEffect(() => {
-        fetchProfile()
+        if (isLogged) {
+            fetchProfile()
+        } else {
+            navigate("/")
+        }
     }, [])
 
     useEffect(() => {
