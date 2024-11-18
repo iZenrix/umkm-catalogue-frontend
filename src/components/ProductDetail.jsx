@@ -8,6 +8,14 @@ const ProductDetail = ({ dataUmkm }) => {
     const [product, setProduct] = useState([])
     const { id } = dataUmkm
 
+    const formatRupiah = (number) => {
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0,
+        }).format(number).replace("Rp", "Rp.");
+    };
+
     const {
         response: responseProduct,
         loading: loadingProduct,
@@ -32,19 +40,19 @@ const ProductDetail = ({ dataUmkm }) => {
 
     return (
         <div className="product-detail mt-3">
-            {            
+            {
                 product.length > 0 ? (
                     product.map((value, index) => (
                         <div className="object-contain rounded-lg" key={index}>
                             <CardActionArea>
                                 <div className="product-detail-content flex gap-5 p-3">
-                                <img src={value.images ? value.images : "https://placehold.co/150x150"} alt="" className='object-contain rounded-xl' />
+                                    <img src={value.images ? value.images : "https://placehold.co/150x150"} alt="" className='object-contain rounded-xl' />
                                     <div className="product-detail-info flex flex-col justify-between">
                                         <div className="info-product">
                                             <h1 className='text-xl font-semibold'>{value.name}</h1>
                                             <p>{value.description}</p>
                                         </div>
-                                        <p className='font-semibold'>{value.price}</p>
+                                        <p className='font-semibold'>{formatRupiah(value.price)}</p>
                                     </div>
                                 </div>
                             </CardActionArea>

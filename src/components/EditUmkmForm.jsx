@@ -90,16 +90,16 @@ const EditUmkmForm = ({ dataUmkm }) => {
     const [selectedCategory, setSelectedCategory] = useState(null)
     const [selectedType, setSelectedType] = useState(null)
 
-    const [title, setTitle] = useState(dataUmkm.name ? dataUmkm.name : '')
-    const [bio, setBio] = useState(dataUmkm.description ? dataUmkm.description : '')
-    const [address, setAddress] = useState(dataUmkm.location[0].name ? dataUmkm.location[0].name : '')
-    const [location, setLocation] = useState(null);
-    const [contact, setContact] = useState(dataUmkm.contact ? dataUmkm.contact : '')
+    const [title, setTitle] = useState(dataUmkm?.name ? dataUmkm?.name : '')
+    const [bio, setBio] = useState(dataUmkm?.description ? dataUmkm?.description : '')
+    const [address, setAddress] = useState(dataUmkm?.location[0]?.name ? dataUmkm?.location[0]?.name : '')
+    const [location, setLocation] = useState(dataUmkm?.location[0] ? dataUmkm?.location[0] : null);
+    const [contact, setContact] = useState(dataUmkm?.contact ? dataUmkm?.contact : '')
     const [email, setEmail] = useState('')
 
-    const [socialMedia, setSocialMedia] = useState(dataUmkm.social_medias ? dataUmkm.social_medias : '')
-    const [facebook, setFacebook] = useState(dataUmkm.social_medias ? dataUmkm.social_medias.find(item => item.platform === "facebook").url : '')
-    const [instagram, setInstagram] = useState(dataUmkm.social_medias ? dataUmkm.social_medias.find(item => item.platform === "instagram").url : '')
+    const [socialMedia, setSocialMedia] = useState(dataUmkm?.social_medias ? dataUmkm?.social_medias : '')
+    const [facebook, setFacebook] = useState(dataUmkm?.social_medias ? dataUmkm?.social_medias?.find(item => item.platform === "facebook")?.url : '')
+    const [instagram, setInstagram] = useState(dataUmkm?.social_medias ? dataUmkm?.social_medias?.find(item => item.platform === "instagram")?.url : '')
 
     const [profilePicture, setProfilePicture] = useState(null)
     const [galleryPicture, setGalleryPicture] = useState([])

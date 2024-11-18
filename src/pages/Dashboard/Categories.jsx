@@ -43,7 +43,7 @@ const Categories = () => {
     }
 
     return (
-        <div className='dashboard-pages p-20 bg-blue-50'>
+        <div className='dashboard-pages p-20 pb-32 bg-blue-50 h-full overflow-y-scroll'>
             {alert && <AlertComponent status={alert.status} message={alert.message} handleClearAlert={(data) => setAlert(data)}/>}
             {
                 selectedDeleteId && (

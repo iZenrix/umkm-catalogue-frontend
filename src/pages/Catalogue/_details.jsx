@@ -91,7 +91,7 @@ const DetailCatalogue = () => {
     }, [responseApproval])
 
     return (
-        <div className={`detail-catalogue ${isDashboard ? 'p-20 pt-10 bg-blue-50' : 'p-3 pt-10 pb-96'}`}>
+        <div className={`detail-catalogue ${isDashboard ? 'px-20 pt-10 pb-32 h-full overflow-y-scroll bg-blue-50' : 'p-3 pt-10 pb-96'}`}>
             {
                 loadingDetailsUmkm ? "" : (
                     isDashboard && dataDetailUmkm?.approval_status !== "APPROVED" ? (
