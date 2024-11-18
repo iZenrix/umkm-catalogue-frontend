@@ -11,14 +11,15 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 
 import { Link } from 'react-router-dom';
 
-import AddProductForm from '@components/AddProductForm';
+import AlertComponent from '@components/AlertComponent';
 import MapInput from '@components/MapInput';
 import { useAxios } from '@hooks/useAxios';
 import { useAuth } from '@contexts/AuthContext';
 
-const RegisterUmkm = () => {
+const EditUmkmForm = ({ dataUmkm }) => {
     const { user } = useAuth()
-    
+    const [alert, setAlert] = useState(null);
+
     const [categories, setCategories] = useState(null)
     const [types, setTypes] = useState(null)
     const [urlTypes, setUrlTypes] = useState(`/type/category/1`)
@@ -44,13 +45,13 @@ const RegisterUmkm = () => {
     });
 
     const {
-        response: responseCreateUmkm,
-        loading: loadingCreateUmkm,
-        error: errorCreateUmkm,
-        fetchData: fetchCreateUmkm
+        response: responseEditUmkm,
+        loading: loadingEditUmkm,
+        error: errorEditUmkm,
+        fetchData: fetchEditUmkm
     } = useAxios({
-        method: 'POST',
-        url: '/umkm',
+        method: 'PUT',
+        url: `/umkm/${dataUmkm.id}`,
     }, true);
 
     useEffect(() => {
@@ -72,30 +73,33 @@ const RegisterUmkm = () => {
     const formData = new FormData()
 
     useEffect(() => {
-        if (responseCreateUmkm?.data) {
-            console.log(responseCreateUmkm?.data)
-            setCategories(responseCreateUmkm?.data)
+        if (responseEditUmkm?.data) {
+            console.log(responseEditUmkm?.data)
+            setCategories(responseEditUmkm?.data)
         }
-        if (errorCreateUmkm?.error) {
-            console.log(errorCreateUmkm?.error)
+        if (errorEditUmkm?.error) {
+            console.log(errorEditUmkm?.error)
         }
-    }, [responseCreateUmkm, errorCreateUmkm])
+        if (responseEditUmkm?.message === "UMKM updated successfully") {
+            setAlert({ status: 'success', message: 'UMKM updated successfully' });
+        }
+    }, [responseEditUmkm, errorEditUmkm])
 
     const [checked, setChecked] = useState(false)
 
     const [selectedCategory, setSelectedCategory] = useState(null)
     const [selectedType, setSelectedType] = useState(null)
 
-    const [title, setTitle] = useState('')
-    const [bio, setBio] = useState('')
-    const [address, setAddress] = useState('')
-    const [location, setLocation] = useState(null);
-    const [contact, setContact] = useState('')
+    const [title, setTitle] = useState(dataUmkm?.name ? dataUmkm?.name : '')
+    const [bio, setBio] = useState(dataUmkm?.description ? dataUmkm?.description : '')
+    const [address, setAddress] = useState(dataUmkm?.location[0]?.name ? dataUmkm?.location[0]?.name : '')
+    const [location, setLocation] = useState(dataUmkm?.location[0] ? dataUmkm?.location[0] : null);
+    const [contact, setContact] = useState(dataUmkm?.contact ? dataUmkm?.contact : '')
     const [email, setEmail] = useState('')
 
-    const [socialMedia, setSocialMedia] = useState('')
-    const [facebook, setFacebook] = useState('')
-    const [instagram, setInstagram] = useState('')
+    const [socialMedia, setSocialMedia] = useState(dataUmkm?.social_medias ? dataUmkm?.social_medias : '')
+    const [facebook, setFacebook] = useState(dataUmkm?.social_medias ? dataUmkm?.social_medias?.find(item => item.platform === "facebook")?.url : '')
+    const [instagram, setInstagram] = useState(dataUmkm?.social_medias ? dataUmkm?.social_medias?.find(item => item.platform === "instagram")?.url : '')
 
     const [profilePicture, setProfilePicture] = useState(null)
     const [galleryPicture, setGalleryPicture] = useState([])
@@ -181,7 +185,7 @@ const RegisterUmkm = () => {
         formData.append("categoryId", selectedCategory.id)
         formData.append("name", title)
         formData.append("description", bio)
-        formData.append("contact", contact)
+        formData.append("contact", "62" + contact)
         formData.append("location", JSON.stringify(location))
         formData.append("socialMedias", JSON.stringify(socialMedia))
         galleryPicture.forEach((item) => {
@@ -192,7 +196,7 @@ const RegisterUmkm = () => {
         formData.append("typeIds", JSON.stringify([selectedType.id]))
         formData.append("userId", user.id)
 
-        fetchCreateUmkm(formData)
+        fetchEditUmkm(formData)
     }
 
     const handleCancel = () => {
@@ -215,8 +219,9 @@ const RegisterUmkm = () => {
 
     return (
         <div className="register-umkm p-5 pt-10">
+            {alert && <AlertComponent status={alert.status} message={alert.message} handleClearAlert={(data) => setAlert(data)} />}
             <div className="back-button-wrapper mb-10">
-                <Link to={"/"} className='bg-secondary-500 px-4 py-2 rounded-lg text-white'>{"< back to catalog"}</Link>
+                <Link to={"/my-umkm"} className='bg-secondary-500 px-4 py-2 rounded-lg text-white'>{"< back to My Umkm"}</Link>
             </div>
             <div className="submition-form-bg bg-white p-10 rounded-2xl mb-28">
                 <form onSubmit={(e) => handleSubmit(e)}>
@@ -224,7 +229,7 @@ const RegisterUmkm = () => {
                         <h1 className='text-2xl font-semibold'>Fill Information</h1>
                         <div className="button-submition-wrapper flex gap-3">
                             <button type='button' className="cancel border border-secondary-500 text-secondary-500 py-2 px-4 rounded-md font-semibold" onClick={() => handleCancel()}>Cancel</button>
-                            <input type="submit" value={loadingCreateUmkm ? "Processing" : "Submit"} label="Save" className='submit-button bg-secondary-500 py-2 px-4 rounded-md text-white font-semibold hover:cursor-pointer' />
+                            <input type="submit" value={loadingEditUmkm ? "Processing" : "Submit"} label="Save" className='submit-button bg-secondary-500 py-2 px-4 rounded-md text-white font-semibold hover:cursor-pointer' />
                         </div>
                     </div>
                     <Grid2 container spacing={5}>
@@ -312,12 +317,15 @@ const RegisterUmkm = () => {
                             </Grid2>
                             <Grid2 size={3}>
                                 <h3 className='text-lg font-semibold mb-3'>Contact</h3>
-                                <TextField
-                                    fullWidth
-                                    value={contact}
-                                    onChange={(e) => setContact(e.target.value)}
-                                    id='contact-umkm'
-                                />
+                                <div className="input-contact-wrapper flex gap-3 items-center">
+                                    <p className='font-semibold p-3 border border-secondary-500 text-secondary-500 rounded-lg'>+62</p>
+                                    <TextField
+                                        fullWidth
+                                        value={contact}
+                                        onChange={(e) => setContact(e.target.value)}
+                                        id='contact-umkm'
+                                    />
+                                </div>
                                 <h3 className='text-lg font-semibold my-3'>Email</h3>
                                 <TextField
                                     fullWidth
@@ -428,4 +436,4 @@ const RegisterUmkm = () => {
     )
 }
 
-export default RegisterUmkm
+export default EditUmkmForm

@@ -3,14 +3,18 @@ import React, { useEffect, useState } from 'react'
 import { Grid2, Skeleton } from '@mui/material'
 
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import AddProductForm from '@components/AddProductForm';
+import { useAuth } from '@contexts/AuthContext';
 import { useAxios } from '@hooks/useAxios';
 
 const RegisterProduct = () => {
 
     const [userProfile, setUserProfile] = useState(null)
     const [umkmData, setUmkmData] = useState(null)
+    const { isLogged } = useAuth()
+    const navigate = useNavigate()
 
     const {
         response: responseUserProfile,
@@ -21,9 +25,13 @@ const RegisterProduct = () => {
         method: 'GET',
         url: `/user/profile`,
     });
-
+    
     useEffect(() => {
-        fetchUserProfile()
+        if (isLogged) {
+            fetchUserProfile()
+        } else {
+            navigate("/")
+        }
     }, [])
 
     useEffect(() => {

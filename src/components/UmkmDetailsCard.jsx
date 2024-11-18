@@ -11,11 +11,12 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 import BadgesUmkm from '@components/BadgesUmkm';
 
 const UmkmDetailsCard = ({ dataUmkm }) => {
-    const { name, description, profile_image, social_medias, umkm_types, category_id, location, view_count } = dataUmkm
+    const { name, description, profile_image, social_medias, umkm_types, category_id, location, view_count, contact } = dataUmkm
 
 
     return (
@@ -47,7 +48,7 @@ const UmkmDetailsCard = ({ dataUmkm }) => {
 
                     <div className="contact-umkm mt-5">
                         <p className='font-semibold text-primary-600'>CONTACT</p>
-                        <div className="social-media-content flex gap-2 mt-2">
+                        <div className="social-media-content flex gap-3 mt-2">
                             {social_medias.map((value, index) => (
                                 <a href={value.url} target='_blank' rel="noopener noreferrer">
                                     {
@@ -55,6 +56,9 @@ const UmkmDetailsCard = ({ dataUmkm }) => {
                                     }
                                 </a>
                             ))}
+                            <a href={`https://wa.me/${contact}`} target='_blank' rel="noopener noreferrer">
+                                    <WhatsAppIcon sx={{ fontSize: "2rem" }} />
+                            </a>
                         </div>
                     </div>
 

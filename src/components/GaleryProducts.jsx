@@ -24,35 +24,13 @@ const GaleryProducts = ({ dataUmkm }) => {
                             autoplay={true}
                         >
                             {
-                                images.length < 3 ? (
-                                    images.map((value, index) => (
-                                        <>
-                                            <div key={index}>
-                                                <div className="mx-2 h-36">
-                                                    <img src={value ? value.url : "/img/bg-umkm.png"} alt="" className='object-cover rounded-xl size-full' />
-                                                </div>
-                                            </div>
-                                            <div key={index}>
-                                                <div className="mx-2 h-36">
-                                                    <img src={value ? value.url : "/img/bg-umkm.png"} alt="" className='object-cover rounded-xl size-full' />
-                                                </div>
-                                            </div>
-                                            <div key={index}>
-                                                <div className="mx-2 h-36">
-                                                    <img src={value ? value.url : "/img/bg-umkm.png"} alt="" className='object-cover rounded-xl size-full' />
-                                                </div>
-                                            </div>
-                                        </>
-                                    ))
-                                ) : (
-                                    images.map((value, index) => (
-                                        <div key={index}>
-                                            <div className="mx-2 h-36">
-                                                <img src={value ? value.url : "/img/bg-umkm.png"} alt="" className='object-cover rounded-xl size-full' />
-                                            </div>
+                                images.map((value, index) => (
+                                    <div key={index}>
+                                        <div className="mx-2 h-36">
+                                            <img src={value ? value.url : "/img/bg-umkm.png"} alt="" className='object-cover rounded-xl size-full' />
                                         </div>
-                                    ))
-                                )
+                                    </div>
+                                ))
                             }
                         </Slider>
                     )

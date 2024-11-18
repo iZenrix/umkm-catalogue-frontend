@@ -34,7 +34,7 @@ const DashboardLayout = () => {
     return (
         <div className='flex'>
             <Sidebar />
-            <div className="w-screen h-screen overflow-y-scroll">
+            <div className="w-screen h-screen overflow-hidden">
                 <Navbar isDashboard={true} />
                 <Outlet />
             </div>

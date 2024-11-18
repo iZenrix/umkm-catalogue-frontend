@@ -11,7 +11,7 @@ const RegisterConfirmationModals = () => {
     return (
         <Modal
             open={true}
-            onClose={() => {}}
+            onClose={true}
         >
             <div className="delete-modal bg-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-12 rounded-lg flex flex-col items-center gap-5">
                 <div className="text-confirmation">

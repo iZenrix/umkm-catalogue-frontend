@@ -7,9 +7,10 @@ import ErrorPage from "@pages/ErrorPage";
 
 import Catalogue from "@pages/Catalogue/Catalogue";
 import DetailCatalogue from "@pages/Catalogue/_details";
-import RegisterUmkm from "@pages/RegisterUmkm";
+import RegisterUmkm from "@pages/Catalogue/RegisterUmkm";
 import MyUmkm from "@pages/Catalogue/MyUmkm";
-import RegisterProduct from "@pages/RegisterProduct";
+import RegisterProduct from "@pages/Catalogue/RegisterProduct";
+import EditUmkm from "@pages/Catalogue/EditUmkm";
 
 import Approval from "@pages/Dashboard/Approval";
 import Categories from "@pages/Dashboard/Categories";
@@ -38,7 +39,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/my-umkm",
-                element : <MyUmkm />
+                element : <MyUmkm />,
+            },
+            {
+                path : "/edit-umkm/:id",
+                element : <EditUmkm />
             },
             {
                 path: "/add-product",

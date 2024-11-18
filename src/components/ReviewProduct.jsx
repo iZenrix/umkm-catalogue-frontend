@@ -49,7 +49,7 @@ const ReviewProduct = ({ idUmkm }) => {
                                     review?.map((value, index) => (
                                         <Card sx={{ boxShadow: '2px 5px 13px 0px rgba(0,0,0,0.15)', borderRadius: "1rem" }} key={index}>
                                             <CardContent>
-                                                <h3 className='text-lg font-semibold'>{value.user_id}</h3>
+                                                <h3 className='text-lg font-semibold'>{value.user.name}</h3>
                                                 <p className='font-light'>{dayjs(value.created_at).format('dddd, YYYY-MM-DD')}</p>
                                                 <div className="star-rate my-3">
                                                     <StarsRateGenerator number={value.rating} />
