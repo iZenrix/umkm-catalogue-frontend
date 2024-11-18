@@ -45,6 +45,7 @@ const ReviewUmkmForm = ({ id }) => {
     useEffect(() => {
         if (responseReview?.data) {
             resetReview()
+            window.location.reload()
         }
     }, [responseReview])
 

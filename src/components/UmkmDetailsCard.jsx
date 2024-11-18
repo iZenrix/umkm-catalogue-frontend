@@ -66,7 +66,7 @@ const UmkmDetailsCard = ({ dataUmkm }) => {
                         <p className='font-semibold text-primary-600'>LOCATION</p>
                         {
                             location[0].latitude && (
-                                <MapContainer center={[location[0].latitude, location[0].longitude]} zoom={13} style={{ height: '13rem', width: '100%', zIndex: 2 }}>
+                                <MapContainer center={[location[0].latitude, location[0].longitude]} zoom={17} style={{ height: '13rem', width: '100%', zIndex: 2 }}>
                                     <TileLayer
                                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

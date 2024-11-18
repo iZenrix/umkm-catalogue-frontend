@@ -33,8 +33,8 @@ const CatalogueCard = ({ data }) => {
 
     return (
         <Grid2 size={3}>
-            <div className="card">
-                <Card variant='outlined' sx={{ borderRadius: "0.7rem" }}>
+            <div className="card h-full">
+                <Card variant='outlined' sx={{ borderRadius: "0.7rem", height : "100%", display : "flex", flexDirection : "column", justifyContent : "space-between" }}>
                     <Link to={`details/${data.id}`}>
                         <CardActionArea>
                             <CardMedia
